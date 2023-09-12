@@ -86,6 +86,7 @@ public class Connection_BD {
 				JOptionPane.showMessageDialog(null, r + " Registro agregado");
 				
 			}catch (Exception e) {
+				//AGREGAR AQUI EXCEPCIONES ORA
 				JOptionPane.showMessageDialog(null, "Registro no agregado");
 			}
 			
