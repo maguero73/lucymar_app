@@ -66,10 +66,11 @@ public class Connection_BD {
 			
 		}
 		
-		public void ingresarDatosBD(int codigo, int cod_titular, int id_tipo_gasto, long monto, int fecha) {
+		public void ingresarDatosBD(int id, int cod_gasto, int cod_titular, long monto, int fecha) {
 			
 			int r;
 			String cadSql;
+			
 			try {
 				stm=miConexion.createStatement();
 			} catch (SQLException e) {
@@ -80,17 +81,20 @@ public class Connection_BD {
 			
 			try {
 				
-				cadSql= "INSERT INTO LM_GASTOS values ('" + codigo + "', '" + cod_titular + "', '" + id_tipo_gasto + "', '" + monto + "', '" + fecha + "')";
+				cadSql= "INSERT INTO LM_GASTOS values ('" + id + "','" + cod_gasto + "', '" + cod_titular + "', '" + monto + "', '" + fecha + "')";
 				
 				r= stm.executeUpdate(cadSql);
 				JOptionPane.showMessageDialog(null, r + " Registro agregado");
 				
-			}catch (Exception e) {
+			} 
 				//AGREGAR AQUI EXCEPCIONES ORA
-				JOptionPane.showMessageDialog(null, "Registro no agregado");
+				catch (SQLException sqle) { 
+				JOptionPane.showMessageDialog(null, sqle); //(null, "Registro no agregado");
+			
+				}
 			}
 			
-		}
+		
 		
 //VARIABLES DE CLASE
 		

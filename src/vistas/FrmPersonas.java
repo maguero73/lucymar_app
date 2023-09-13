@@ -78,16 +78,16 @@ public class FrmPersonas extends JFrame {
 					objConex.conectar();    //LLAMA AL METODO CONECTAR
 					
 					if (e.getSource() == btn_grabar) {
-						int codigo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el codigo del gasto"));
+						int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero id"));
+						int cod_gasto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el codigo del gasto"));
 						int cod_titular =Integer.parseInt(JOptionPane.showInputDialog("Ingrese el codigo del titular"));
-						int id_tipo_gasto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el tipo de gasto"));
 						long monto=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto del gasto"));
 						int fecha =Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fecha del gasto"));
 						
 					//Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fecha"));
 					//Date date = java.sql.Date.valueOf(fecha);
 						
-						objConex.ingresarDatosBD(codigo, cod_titular, id_tipo_gasto, monto, fecha);
+						objConex.ingresarDatosBD(id, cod_gasto, cod_titular, monto, fecha);
 						//LLAMA AL METODO INGRESARDATOSBD
 					}
 				}catch (Exception e2) {
