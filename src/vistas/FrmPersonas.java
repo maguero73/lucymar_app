@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import conectaBD.Connection_BD;
@@ -14,27 +15,34 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
+//import java.util.Date;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JDateChooser;
+import java.sql.Date.*;
 
 public class FrmPersonas extends JFrame {
 	
 	Connection_BD objConex;
-	
+	String sql;
 	//METODO CONSTRUCTOR
 	public FrmPersonas() {
 		
 		objConex=new Connection_BD();
+		
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 710, 747);
@@ -73,33 +81,70 @@ public class FrmPersonas extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				
+				//OBTENER EL VALOR DE LOS COMPONENTES
+				
+		//PRIMERO
+		
+		//SEGUNDO
+		String valorTextField1 = txt_monto_gasto.getText();
+		System.out.println(txt_monto_gasto);
+		//TERCERO
+		String valorComboBox2 = cbo_tipo_gasto.getSelectedItem().toString();
+		//CUARTO
+		System.out.println(valorComboBox2);
+		
+		
+		String valorComboBox1 = cbo_titular.getSelectedItem().toString();
+		 
+		java.util.Date dateChooser = new java.util.Date();
+		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getTime());
+		
+		//valorDate=dateChooser.getTime();
+		
+		try {
+			
+			objConex.conectar();    //LLAMA AL METODO CONECTAR
+			objConex.ingresarDatosBD(valorComboBox2, valorComboBox1, valorTextField1, dateChooser);
+			/*
+			sql= "INSERT INTO LM_GASTOS (COD_GASTO, COD_TITULAR, MONTO, FECHA) values (?,?,?,?)";
+					
+					//('" + id + "','" + cod_gasto + "', '" + cod_titular + "', '" + monto + "', '" + fecha + "')";
+			
+			 pstmt =miConexion.prepareStatement(sql);
+			
+			 pstmt.setString(1, valorComboBox2);
+			 pstmt.setString(2, valorComboBox1);
+			 pstmt.setString(3, valorTextField1);
+			 pstmt.setDate(4, (java.sql.Date) valorDate);
+				*/
+				
+				
+				
+				int rowsAffected=pstmt.executeUpdate();
+				if (rowsAffected > 0) {
+					System.out.println("Registro guardado con éxito");
+				
+				}else {
+					System.out.println("Error al guardar el registro");
+						}
+			
+		}catch (SQLException ex) { 
+			ex.printStackTrace();
+			}finally {
 				try {
-				
-					objConex.conectar();    //LLAMA AL METODO CONECTAR
-					
-					if (e.getSource() == btn_grabar) {
-						int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero id"));
-						int cod_gasto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el codigo del gasto"));
-						int cod_titular =Integer.parseInt(JOptionPane.showInputDialog("Ingrese el codigo del titular"));
-						long monto=Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto del gasto"));
-						int fecha =Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fecha del gasto"));
-						
-					//Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fecha"));
-					//Date date = java.sql.Date.valueOf(fecha);
-						
-						objConex.ingresarDatosBD(id, cod_gasto, cod_titular, monto, fecha);
-						//LLAMA AL METODO INGRESARDATOSBD
+					if (pstmt != null) {
+						pstmt.close();
 					}
-				}catch (Exception e2) {
-					
+				}catch (SQLException ex) {
+					ex.printStackTrace();
 				}
-				
-				
-				
-				
-				
 			}
-		});
+		}
+					
+				
+			});
+		
+		
 		btn_grabar.setBounds(534, 160, 117, 25);
 		contentPane.add(btn_grabar);
 		
@@ -139,15 +184,17 @@ public class FrmPersonas extends JFrame {
 		lbl_titular.setBounds(47, 115, 85, 26);
 		contentPane.add(lbl_titular);
 		
-		JComboBox<String>cbo_titular = new JComboBox<String>();
+		cbo_titular = new JComboBox<String>();
+		cbo_titular.addItem("Select Item");
 		cbo_titular.setBounds(209, 116, 273, 24);
 		contentPane.add(cbo_titular);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		dateChooser = new JDateChooser();
 		dateChooser.setBounds(209, 287, 273, 19);
 		contentPane.add(dateChooser);
 		
-		JComboBox<String> cbo_tipo_gasto = new JComboBox<String>();
+		cbo_tipo_gasto = new JComboBox<String>();
+		cbo_tipo_gasto.addItem("Select Item");
 		cbo_tipo_gasto.setBounds(209, 243, 273, 24);
 		contentPane.add(cbo_tipo_gasto);
 		
@@ -155,7 +202,8 @@ public class FrmPersonas extends JFrame {
 		lbl_tipo_ingreso.setBounds(47, 411, 144, 26);
 		contentPane.add(lbl_tipo_ingreso);
 		
-		JComboBox<String> cbo_tipo_ingreso = new JComboBox<String>();
+		cbo_tipo_ingreso = new JComboBox<String>();
+		cbo_tipo_ingreso.addItem("Select Item");
 		cbo_tipo_ingreso.setBounds(209, 413, 273, 24);
 		contentPane.add(cbo_tipo_ingreso);
 		
@@ -163,7 +211,7 @@ public class FrmPersonas extends JFrame {
 		lbl_fecha_ingreso.setBounds(47, 449, 85, 26);
 		contentPane.add(lbl_fecha_ingreso);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
+		dateChooser_1 = new JDateChooser();
 		dateChooser_1.setBounds(209, 456, 273, 19);
 		contentPane.add(dateChooser_1);
 		
@@ -271,22 +319,39 @@ public class FrmPersonas extends JFrame {
 	
 	//VARIABLES DE CLASE
 
-	private String user;
-	private String pass;
-	private String url;
-	private Connection miConexion;
-	private Statement stm;
-	private Statement stm1;
-	private Statement stm2;
+	public String user;
+	public String pass;
+	public String url;
+	public Connection miConexion=null;
+	public Statement stm;
+	public Statement stm1;
+	public Statement stm2;
 	
-	public JComboBox<String> titular;
-	
-	private JPanel contentPane;
-	private JLabel lbl_fecha_gasto;
-	private JLabel lbl_monto_gasto;
-	private JTextField txt_monto_gasto;
-	private JLabel lbl_monto_ingreso;
-	private JTextField txt_monto_ingreso;
-	private JLabel lbl_control_gastos;
-	private JLabel lbl_titular;
-} //CIERRE DE LA CLASE
+	public JComboBox<String> cbo_titular;
+	public JComboBox<String> cbo_tipo_gasto; 
+	public JDateChooser dateChooser;
+	public JDateChooser dateChooser_1;
+	public JComboBox<String> cbo_tipo_ingreso; 
+	public JPanel contentPane;
+	public JLabel lbl_fecha_gasto;
+	public JLabel lbl_monto_gasto;
+	public JTextField txt_monto_gasto;
+	public JLabel lbl_monto_ingreso;
+	public JTextField txt_monto_ingreso;
+	public JLabel lbl_control_gastos;
+	public JLabel lbl_titular;
+
+	 PreparedStatement pstmt =null;
+
+
+
+public static java.sql.Date convertFromJAVADateToSQLDate(
+        java.util.Date javaDate) {
+    java.sql.Date sqlDate = null;
+    if (javaDate != null) {
+        sqlDate = (java.sql.Date) new Date(javaDate.getTime());
+    }
+    return sqlDate;
+	}
+
+}

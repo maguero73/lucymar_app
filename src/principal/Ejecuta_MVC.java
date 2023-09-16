@@ -22,5 +22,6 @@ public class Ejecuta_MVC {
 			}
 		});
 	}
-	
+	private javax.swing.JComboBox<String> cbo_titular;
+	private javax.swing.JComboBox<String> cbo_tipo_gasto;
 }
