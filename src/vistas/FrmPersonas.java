@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import conectaBD.Connection_BD;
+import modelo.Funciones;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,9 +22,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 //import java.util.Date;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
@@ -36,6 +39,7 @@ import java.sql.Date.*;
 
 public class FrmPersonas extends JFrame {
 	
+	protected static final JDateChooser JDateChooser = null;
 	Connection_BD objConex;
 	String sql;
 	//METODO CONSTRUCTOR
@@ -87,62 +91,31 @@ public class FrmPersonas extends JFrame {
 		
 		//SEGUNDO
 		String valorTextField1 = txt_monto_gasto.getText();
-		System.out.println(txt_monto_gasto);
+		//System.out.println(txt_monto_gasto);
 		//TERCERO
 		String valorComboBox2 = cbo_tipo_gasto.getSelectedItem().toString();
 		//CUARTO
-		System.out.println(valorComboBox2);
+		//System.out.println(valorComboBox2);
 		
 		
 		String valorComboBox1 = cbo_titular.getSelectedItem().toString();
 		 
-		java.util.Date dateChooser = new java.util.Date();
-		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getTime());
 		
-		//valorDate=dateChooser.getTime();
+		String dia = Integer.toString(dateChooser.getCalendar().get(Calendar.DAY_OF_MONTH));
+		String mes = Integer.toString(dateChooser.getCalendar().get(Calendar.MONTH)+1);
+		String year= Integer.toString(dateChooser.getCalendar().get(Calendar.YEAR));
+		String fecha = (dia + "/" + mes + "/" + year);
 		
-		try {
+
+		
 			
 			objConex.conectar();    //LLAMA AL METODO CONECTAR
-			objConex.ingresarDatosBD(valorComboBox2, valorComboBox1, valorTextField1, dateChooser);
-			/*
-			sql= "INSERT INTO LM_GASTOS (COD_GASTO, COD_TITULAR, MONTO, FECHA) values (?,?,?,?)";
-					
-					//('" + id + "','" + cod_gasto + "', '" + cod_titular + "', '" + monto + "', '" + fecha + "')";
+			objConex.ingresarDatosBD(valorComboBox2, valorComboBox1, valorTextField1, fecha);
+
+			}}
 			
-			 pstmt =miConexion.prepareStatement(sql);
-			
-			 pstmt.setString(1, valorComboBox2);
-			 pstmt.setString(2, valorComboBox1);
-			 pstmt.setString(3, valorTextField1);
-			 pstmt.setDate(4, (java.sql.Date) valorDate);
-				*/
-				
-				
-				
-				int rowsAffected=pstmt.executeUpdate();
-				if (rowsAffected > 0) {
-					System.out.println("Registro guardado con éxito");
-				
-				}else {
-					System.out.println("Error al guardar el registro");
-						}
-			
-		}catch (SQLException ex) { 
-			ex.printStackTrace();
-			}finally {
-				try {
-					if (pstmt != null) {
-						pstmt.close();
-					}
-				}catch (SQLException ex) {
-					ex.printStackTrace();
-				}
-			}
-		}
-					
-				
-			});
+		
+			);
 		
 		
 		btn_grabar.setBounds(534, 160, 117, 25);
@@ -190,6 +163,7 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(cbo_titular);
 		
 		dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("dd/MM/yyyy");
 		dateChooser.setBounds(209, 287, 273, 19);
 		contentPane.add(dateChooser);
 		

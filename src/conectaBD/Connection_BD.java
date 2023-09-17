@@ -8,7 +8,9 @@ import java.util.Locale;
 import javax.swing.*;
 import javax.xml.crypto.Data;
 
+import modelo.Funciones;
 import vistas.*;
+import modelo.Funciones.*;
 
 public class Connection_BD {
 //PASO NUMERO 1
@@ -69,7 +71,7 @@ public class Connection_BD {
 			
 		}
 		
-		public void ingresarDatosBD(String valorComboBox2, String valorComboBox1, String valorTextField1, Date dateChooser) {
+		public void ingresarDatosBD(String valorComboBox2, String valorComboBox1, String valorTextField1, String fecha) {
 			
 			
 			String sql;
@@ -93,17 +95,18 @@ public class Connection_BD {
 				 pstmt.setString(1, valorComboBox2);
 				 pstmt.setString(2, valorComboBox1);
 				 pstmt.setString(3, valorTextField1);
-				 pstmt.setDate(4, (java.sql.Date) dateChooser);
+				 
+				pstmt.setString(4, fecha);
 					
 					
 					
 					
 					int rowsAffected=pstmt.executeUpdate();
 					if (rowsAffected > 0) {
-						System.out.println("Registro guardado con éxito");
+						JOptionPane.showInternalMessageDialog(null, ("Registro guardado con éxito"));
 					
 					}else {
-						System.out.println("Error al guardar el registro");
+						JOptionPane.showInternalMessageDialog(null, ("Error al guardar el registro"));
 							}
 				
 			}catch (SQLException ex) { 
@@ -126,6 +129,7 @@ public class Connection_BD {
 		 String user;
 		 String pass;
 		 String url;
+		 String fecha;
 		 Connection miConexion = null;
 		 PreparedStatement pstmt =null;
 		 Statement stm;		
