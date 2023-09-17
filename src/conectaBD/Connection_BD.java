@@ -2,11 +2,15 @@ package conectaBD;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.swing.*;
 import javax.xml.crypto.Data;
 
+import modelo.Funciones;
 import vistas.*;
+import modelo.Funciones.*;
 
 public class Connection_BD {
 //PASO NUMERO 1
@@ -16,6 +20,7 @@ public class Connection_BD {
 		pass="oracle";
 		url="jdbc:oracle:thin:@localhost:51521:xe";
 		miConexion=null;
+		
 		stm=null;
 		
 	}
@@ -38,11 +43,11 @@ public class Connection_BD {
 		public String leerDatosBD() throws SQLException {
 			
 		stm= miConexion.createStatement();
-		String cadSql = "";
+		String sql = "";
 		try {
 			
-			cadSql="SELECT DISTINCT NOMBRE FROM LM_TITULAR";
-			ResultSet rs= stm.executeQuery(cadSql);
+			sql="SELECT DISTINCT NOMBRE FROM LM_TITULAR";
+			ResultSet rs= stm.executeQuery(sql);
 			String datos= "";
 			while (rs.next()) 
 			{
@@ -60,16 +65,17 @@ public class Connection_BD {
 			JOptionPane.showMessageDialog(null, "La tabla no existe");
 			return null;
 		}
-		return cadSql;
+		return sql;
 		
 		
 			
 		}
 		
-		public void ingresarDatosBD(int codigo, int cod_titular, int id_tipo_gasto, long monto, int fecha) {
+		public void ingresarDatosBD(String valorComboBox2, String valorComboBox1, String valorTextField1, String fecha) {
 			
-			int r;
-			String cadSql;
+			
+			String sql;
+			
 			try {
 				stm=miConexion.createStatement();
 			} catch (SQLException e) {
@@ -80,23 +86,52 @@ public class Connection_BD {
 			
 			try {
 				
-				cadSql= "INSERT INTO LM_GASTOS values ('" + codigo + "', '" + cod_titular + "', '" + id_tipo_gasto + "', '" + monto + "', '" + fecha + "')";
+				sql= "INSERT INTO LM_GASTOS (COD_GASTO, COD_TITULAR, MONTO, FECHA) values (?,?,?,?)";
+						
+						//('" + id + "','" + cod_gasto + "', '" + cod_titular + "', '" + monto + "', '" + fecha + "')";
 				
-				r= stm.executeUpdate(cadSql);
-				JOptionPane.showMessageDialog(null, r + " Registro agregado");
+				 pstmt =miConexion.prepareStatement(sql);
 				
-			}catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Registro no agregado");
+				 pstmt.setString(1, valorComboBox2);
+				 pstmt.setString(2, valorComboBox1);
+				 pstmt.setString(3, valorTextField1);
+				 
+				pstmt.setString(4, fecha);
+					
+					
+					
+					
+					int rowsAffected=pstmt.executeUpdate();
+					if (rowsAffected > 0) {
+						JOptionPane.showInternalMessageDialog(null, ("Registro guardado con éxito"));
+					
+					}else {
+						JOptionPane.showInternalMessageDialog(null, ("Error al guardar el registro"));
+							}
+				
+			}catch (SQLException ex) { 
+				ex.printStackTrace();
+				}finally {
+					try {
+						if (pstmt != null) {
+							pstmt.close();
+						}
+					}catch (SQLException ex) {
+						ex.printStackTrace();
+					}
+				}
 			}
 			
-		}
+		
 		
 //VARIABLES DE CLASE
 		
 		 String user;
 		 String pass;
 		 String url;
-		 Connection miConexion;
+		 String fecha;
+		 Connection miConexion = null;
+		 PreparedStatement pstmt =null;
 		 Statement stm;		
 		
 	}
