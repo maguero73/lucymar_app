@@ -93,7 +93,7 @@ public class FrmPersonas extends JFrame {
 		String valorTextField1 = txt_monto_gasto.getText();
 		//System.out.println(txt_monto_gasto);
 		//TERCERO
-		String valorComboBox2 = cbo_tipo_gasto.getSelectedItem().toString();
+		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();
 		//CUARTO
 		//System.out.println(valorComboBox2);
 		
@@ -233,7 +233,7 @@ public class FrmPersonas extends JFrame {
 					
 					Statement stm1=miConexion.createStatement();
 					
-					String consulta1="SELECT DISTINCT DESCRIPCION FROM LM_TIPO_GASTO";
+					String consulta1="SELECT DESCRIPCION FROM LM_TIPO_GASTO ORDER BY CODIGO";
 					
 					ResultSet rs= stm1.executeQuery(consulta1);
 					

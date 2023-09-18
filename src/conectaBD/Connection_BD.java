@@ -71,7 +71,7 @@ public class Connection_BD {
 			
 		}
 		
-		public void ingresarDatosBD(String valorComboBox2, String valorComboBox1, String valorTextField1, String fecha) {
+		public void ingresarDatosBD(int valorComboBox2, String valorComboBox1, String valorTextField1, String fecha) {
 			
 			
 			String sql;
@@ -92,11 +92,10 @@ public class Connection_BD {
 				
 				 pstmt =miConexion.prepareStatement(sql);
 				
-				 pstmt.setString(1, valorComboBox2);
+				 pstmt.setInt(1, valorComboBox2);
 				 pstmt.setString(2, valorComboBox1);
 				 pstmt.setString(3, valorTextField1);
-				 
-				pstmt.setString(4, fecha);
+				 pstmt.setString(4, fecha);
 					
 					
 					
@@ -111,6 +110,7 @@ public class Connection_BD {
 				
 			}catch (SQLException ex) { 
 				ex.printStackTrace();
+				JOptionPane.showInternalMessageDialog(null, (ex));
 				}finally {
 					try {
 						if (pstmt != null) {
@@ -118,10 +118,13 @@ public class Connection_BD {
 						}
 					}catch (SQLException ex) {
 						ex.printStackTrace();
+						JOptionPane.showInternalMessageDialog(null, (ex));
 					}
 				}
 			}
-			
+	
+		
+		
 		
 		
 //VARIABLES DE CLASE
