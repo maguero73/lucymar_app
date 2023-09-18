@@ -116,6 +116,11 @@ public class FrmPersonas extends JFrame {
 		JButton btn_nuevo_gasto = new JButton("Nuevo");
 		btn_nuevo_gasto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				txt_monto_gasto.setText("");
+				cbo_tipo_gasto.setSelectedIndex(0);
+				cbo_titular.setSelectedIndex(0);
+				dateChooser.setCalendar(null);
+				
 			}
 		});
 		btn_nuevo_gasto.setBounds(534, 281, 117, 25);
@@ -212,6 +217,17 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(btn_grabar_ingreso);
 		
 		JButton btn_nuevo_ingreso = new JButton("Nuevo");
+		btn_nuevo_ingreso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				txt_monto_ingreso.setText("");
+				cbo_tipo_ingreso.setSelectedIndex(0);
+				cbo_titular.setSelectedIndex(0);
+				dateChooser_1.setCalendar(null);
+				
+				
+			}
+		});
 		btn_nuevo_ingreso.setBounds(534, 450, 117, 25);
 		contentPane.add(btn_nuevo_ingreso);
 		
