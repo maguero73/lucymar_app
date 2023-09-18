@@ -98,7 +98,7 @@ public class FrmPersonas extends JFrame {
 		//System.out.println(valorComboBox2);
 		
 		
-		String valorComboBox1 = cbo_titular.getSelectedItem().toString();
+		int valorComboBox1 = cbo_titular.getSelectedIndex();
 		 
 		
 		String dia = Integer.toString(dateChooser.getCalendar().get(Calendar.DAY_OF_MONTH));
@@ -132,6 +132,11 @@ public class FrmPersonas extends JFrame {
 		
 		//BOTON CERRAR
 		JButton btn_cerrar = new JButton("Cerrar");
+		btn_cerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(WIDTH);
+			}
+		});
 		btn_cerrar.setBounds(534, 530, 117, 25);
 		contentPane.add(btn_cerrar);
 		
@@ -206,7 +211,7 @@ public class FrmPersonas extends JFrame {
 			
 			Statement stm=miConexion.createStatement();
 			
-			String consulta="SELECT DISTINCT NOMBRE FROM LM_TITULAR";
+			String consulta="SELECT NOMBRE FROM LM_TITULAR ORDER BY CODIGO";
 			
 			ResultSet rs= stm.executeQuery(consulta);
 			
