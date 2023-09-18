@@ -77,27 +77,18 @@ public class FrmPersonas extends JFrame {
 		
 		
 		//BOTON GRABAR
-		JButton btn_grabar = new JButton("Grabar");
+		JButton btn_grabar_gasto = new JButton("Grabar");
 		
 		
-		btn_grabar.addActionListener(new ActionListener() {
+		btn_grabar_gasto.addActionListener(new ActionListener() {
 			
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				//OBTENER EL VALOR DE LOS COMPONENTES
+				//OBTENER EL VALOR DE LOS COMPONENTES DE GASTOS
 				
-		//PRIMERO
-		
-		//SEGUNDO
 		String valorTextField1 = txt_monto_gasto.getText();
-		//System.out.println(txt_monto_gasto);
-		//TERCERO
-		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();
-		//CUARTO
-		//System.out.println(valorComboBox2);
-		
-		
+		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
 		 
 		
@@ -110,25 +101,25 @@ public class FrmPersonas extends JFrame {
 		
 			
 			objConex.conectar();    //LLAMA AL METODO CONECTAR
-			objConex.ingresarDatosBD(valorComboBox2, valorComboBox1, valorTextField1, fecha);
-
+			objConex.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, fecha);
+		
 			}}
 			
 		
 			);
 		
 		
-		btn_grabar.setBounds(534, 160, 117, 25);
-		contentPane.add(btn_grabar);
+		btn_grabar_gasto.setBounds(534, 205, 117, 25);
+		contentPane.add(btn_grabar_gasto);
 		
 		//BOTON NUEVO
-		JButton btn_nuevo = new JButton("Nuevo");
-		btn_nuevo.addActionListener(new ActionListener() {
+		JButton btn_nuevo_gasto = new JButton("Nuevo");
+		btn_nuevo_gasto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_nuevo.setBounds(534, 345, 117, 25);
-		contentPane.add(btn_nuevo);
+		btn_nuevo_gasto.setBounds(534, 281, 117, 25);
+		contentPane.add(btn_nuevo_gasto);
 		
 		//BOTON CERRAR
 		JButton btn_cerrar = new JButton("Cerrar");
@@ -137,7 +128,7 @@ public class FrmPersonas extends JFrame {
 				System.exit(WIDTH);
 			}
 		});
-		btn_cerrar.setBounds(534, 530, 117, 25);
+		btn_cerrar.setBounds(534, 578, 117, 25);
 		contentPane.add(btn_cerrar);
 		
 		
@@ -163,8 +154,8 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(lbl_titular);
 		
 		cbo_titular = new JComboBox<String>();
-		cbo_titular.addItem("Select Item");
-		cbo_titular.setBounds(209, 116, 273, 24);
+		cbo_titular.addItem("Seleccione el titular del gasto o del ingreso");
+		cbo_titular.setBounds(209, 116, 346, 24);
 		contentPane.add(cbo_titular);
 		
 		dateChooser = new JDateChooser();
@@ -173,7 +164,7 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(dateChooser);
 		
 		cbo_tipo_gasto = new JComboBox<String>();
-		cbo_tipo_gasto.addItem("Select Item");
+		cbo_tipo_gasto.addItem("Seleccione el tipo de gasto");
 		cbo_tipo_gasto.setBounds(209, 243, 273, 24);
 		contentPane.add(cbo_tipo_gasto);
 		
@@ -182,7 +173,7 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(lbl_tipo_ingreso);
 		
 		cbo_tipo_ingreso = new JComboBox<String>();
-		cbo_tipo_ingreso.addItem("Select Item");
+		cbo_tipo_ingreso.addItem("Seleccione el tipo de ingreso");
 		cbo_tipo_ingreso.setBounds(209, 413, 273, 24);
 		contentPane.add(cbo_tipo_ingreso);
 		
@@ -191,8 +182,38 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(lbl_fecha_ingreso);
 		
 		dateChooser_1 = new JDateChooser();
+		dateChooser_1.setDateFormatString("dd/MM/yyyy");
 		dateChooser_1.setBounds(209, 456, 273, 19);
 		contentPane.add(dateChooser_1);
+		
+		JButton btn_grabar_ingreso = new JButton("Grabar");
+		btn_grabar_ingreso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				//OBTENER EL VALOR DE LOS COMPONENTES DE INGRESOS
+				
+				String valorTextField = txt_monto_ingreso.getText();
+				int valorComboBox = cbo_tipo_ingreso.getSelectedIndex();		
+				int valorComboBox1 = cbo_titular.getSelectedIndex();
+				 
+				
+				String dia1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.DAY_OF_MONTH));
+				String mes1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.MONTH)+1);
+				String year1= Integer.toString(dateChooser_1.getCalendar().get(Calendar.YEAR));
+				String fecha1 = (dia1 + "/" + mes1 + "/" + year1);
+					
+				
+				objConex.conectar(); 
+				objConex.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, fecha1);
+				
+			}
+		});
+		btn_grabar_ingreso.setBounds(534, 384, 117, 25);
+		contentPane.add(btn_grabar_ingreso);
+		
+		JButton btn_nuevo_ingreso = new JButton("Nuevo");
+		btn_nuevo_ingreso.setBounds(534, 450, 117, 25);
+		contentPane.add(btn_nuevo_ingreso);
 		
 		//-------------------CONEXION A BASE DE DATOS----------------------------//
 		
@@ -332,5 +353,4 @@ public static java.sql.Date convertFromJAVADateToSQLDate(
     }
     return sqlDate;
 	}
-
 }
