@@ -49,7 +49,7 @@ public class FrmPersonas extends JFrame {
 		
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 710, 747);
+		setBounds(100, 100, 1234, 741);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -133,7 +133,7 @@ public class FrmPersonas extends JFrame {
 				System.exit(WIDTH);
 			}
 		});
-		btn_cerrar.setBounds(534, 578, 117, 25);
+		btn_cerrar.setBounds(1045, 583, 117, 25);
 		contentPane.add(btn_cerrar);
 		
 		
@@ -160,7 +160,7 @@ public class FrmPersonas extends JFrame {
 		
 		cbo_titular = new JComboBox<String>();
 		cbo_titular.addItem("Seleccione el titular del gasto o del ingreso");
-		cbo_titular.setBounds(209, 116, 346, 24);
+		cbo_titular.setBounds(209, 116, 264, 24);
 		contentPane.add(cbo_titular);
 		
 		dateChooser = new JDateChooser();
@@ -230,6 +230,40 @@ public class FrmPersonas extends JFrame {
 		});
 		btn_nuevo_ingreso.setBounds(534, 450, 117, 25);
 		contentPane.add(btn_nuevo_ingreso);
+		
+		JLabel lbl_estado_rdo = new JLabel("Estado de Resultados");
+		lbl_estado_rdo.setForeground(new Color(106, 90, 205));
+		lbl_estado_rdo.setFont(new Font("Noto Sans CJK KR", Font.BOLD, 20));
+		lbl_estado_rdo.setBounds(810, 30, 224, 33);
+		contentPane.add(lbl_estado_rdo);
+		
+		JLabel lbl_titular_1 = new JLabel("Mes");
+		lbl_titular_1.setBounds(768, 115, 85, 26);
+		contentPane.add(lbl_titular_1);
+		
+		JComboBox<String> cbo_mes = new JComboBox<String>();
+		cbo_mes.setBounds(875, 116, 159, 24);
+		contentPane.add(cbo_mes);
+		
+		JLabel lbl_titular_1_1 = new JLabel("Año");
+		lbl_titular_1_1.setBounds(768, 204, 85, 26);
+		contentPane.add(lbl_titular_1_1);
+		
+		JComboBox<String> cbo_anio = new JComboBox<String>();
+		cbo_anio.setBounds(875, 205, 159, 24);
+		contentPane.add(cbo_anio);
+		
+		JButton btn_calcular = new JButton("Calcular");
+		btn_calcular.setBounds(810, 281, 91, 25);
+		contentPane.add(btn_calcular);
+		
+		JEditorPane editorPane = new JEditorPane();
+		editorPane.setBounds(810, 340, 224, 21);
+		contentPane.add(editorPane);
+		
+		JButton btn_imprimir = new JButton("Imprimir");
+		btn_imprimir.setBounds(943, 281, 91, 25);
+		contentPane.add(btn_imprimir);
 		
 		//-------------------CONEXION A BASE DE DATOS----------------------------//
 		
