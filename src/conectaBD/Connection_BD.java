@@ -21,7 +21,7 @@ public class Connection_BD {
 		url="jdbc:oracle:thin:@localhost:51521:xe";
 		miConexion=null;
 		
-		stm=null;
+		st=null;
 		
 	}
 	
@@ -31,7 +31,7 @@ public class Connection_BD {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver").newInstance();
 			miConexion=DriverManager.getConnection(url, user, pass);
-			JOptionPane.showInternalMessageDialog(null, "Conexión realizada");
+			//JOptionPane.showInternalMessageDialog(null, "Conexión realizada");
 			
 		}catch (Exception e) {
 			JOptionPane.showInternalMessageDialog(null, "Conexión no realizada");
@@ -39,37 +39,7 @@ public class Connection_BD {
 		}
 			
 	}
-	//PASO NUMERO 3
-		public String leerDatosBD() throws SQLException {
-			
-		stm= miConexion.createStatement();
-		String sql = "";
-		try {
-			
-			sql="SELECT DISTINCT NOMBRE FROM LM_TITULAR";
-			ResultSet rs= stm.executeQuery(sql);
-			String datos= "";
-			while (rs.next()) 
-			{
-			
-				
-			   datos+= rs.getString("NOMBRE");
 
-			    return datos;
-			}
-				
-			rs.close();
-			
-			
-		}catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "La tabla no existe");
-			return null;
-		}
-		return sql;
-		
-		
-			
-		}
 		
 		////////////////////////////////////////
 		//METODO GUARDAR GASTOS
@@ -81,7 +51,7 @@ public class Connection_BD {
 			String sql;
 			
 			try {
-				stm=miConexion.createStatement();
+				st=miConexion.createStatement();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -135,7 +105,7 @@ public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorT
 			String sql1;
 			
 			try {
-				stm=miConexion.createStatement();
+				st=miConexion.createStatement();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -181,13 +151,13 @@ public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorT
 		
 		
 //VARIABLES DE CLASE
-		
+Connection_BD objConex;
 		 String user;
 		 String pass;
 		 String url;
 		 String fecha;
 		 Connection miConexion = null;
 		 PreparedStatement pstmt =null;
-		 Statement stm;		
+		 Statement st;		
 		
 	}

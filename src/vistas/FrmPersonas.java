@@ -36,12 +36,16 @@ import javax.swing.JComboBox;
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JDateChooser;
 import java.sql.Date.*;
+import com.toedter.calendar.JYearChooser;
+
+import ComboBox.RellenarCombos;
 
 public class FrmPersonas extends JFrame {
 	
 	protected static final JDateChooser JDateChooser = null;
 	Connection_BD objConex;
 	String sql;
+	RellenarCombos re = new RellenarCombos();
 	//METODO CONSTRUCTOR
 	public FrmPersonas() {
 		
@@ -49,7 +53,7 @@ public class FrmPersonas extends JFrame {
 		
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1234, 741);
+		setBounds(100, 100, 1434, 741);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -238,134 +242,70 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(lbl_estado_rdo);
 		
 		JLabel lbl_titular_1 = new JLabel("Mes");
-		lbl_titular_1.setBounds(768, 115, 85, 26);
+		lbl_titular_1.setBounds(768, 128, 85, 26);
 		contentPane.add(lbl_titular_1);
 		
-		JComboBox<String> cbo_mes = new JComboBox<String>();
-		cbo_mes.setBounds(875, 116, 159, 24);
-		contentPane.add(cbo_mes);
-		
 		JLabel lbl_titular_1_1 = new JLabel("Año");
-		lbl_titular_1_1.setBounds(768, 204, 85, 26);
+		lbl_titular_1_1.setBounds(768, 206, 85, 26);
 		contentPane.add(lbl_titular_1_1);
 		
-		JComboBox<String> cbo_anio = new JComboBox<String>();
-		cbo_anio.setBounds(875, 205, 159, 24);
-		contentPane.add(cbo_anio);
-		
 		JButton btn_calcular = new JButton("Calcular");
+		btn_calcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 		btn_calcular.setBounds(810, 281, 91, 25);
 		contentPane.add(btn_calcular);
 		
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setBounds(810, 340, 224, 21);
-		contentPane.add(editorPane);
+		JEditorPane editor_ingreso = new JEditorPane();
+		editor_ingreso.setBounds(917, 352, 117, 21);
+		contentPane.add(editor_ingreso);
 		
 		JButton btn_imprimir = new JButton("Imprimir");
 		btn_imprimir.setBounds(943, 281, 91, 25);
 		contentPane.add(btn_imprimir);
 		
-		//-------------------CONEXION A BASE DE DATOS----------------------------//
+		JLabel lbl_total_ingresos = new JLabel("Total Ingresos");
+		lbl_total_ingresos.setBounds(744, 347, 109, 26);
+		contentPane.add(lbl_total_ingresos);
 		
-		user="SYSTEM";
-		pass="oracle";
-		url="jdbc:oracle:thin:@localhost:51521:xe";
-		miConexion=null;
-		stm=null;
+		JLabel lbl_total_egresos = new JLabel("Total Egresos");
+		lbl_total_egresos.setBounds(744, 385, 109, 26);
+		contentPane.add(lbl_total_egresos);
 		
-		//CARGA JCOMBOBOX TITULAR DEL GASTO
+		JEditorPane editor_egreso = new JEditorPane();
+		editor_egreso.setBounds(917, 390, 117, 21);
+		contentPane.add(editor_egreso);
 		
-		try {
-			Class.forName("oracle.jdbc.OracleDriver").newInstance();
-			miConexion=DriverManager.getConnection(url, user, pass);
-			//JOptionPane.showInternalMessageDialog(null, "Conexión realizada");
+		JLabel lbl_saldo = new JLabel("Saldo");
+		lbl_saldo.setBounds(744, 425, 109, 26);
+		contentPane.add(lbl_saldo);
+		
+		JEditorPane editor_saldo = new JEditorPane();
+		editor_saldo.setBounds(917, 430, 117, 21);
+		contentPane.add(editor_saldo);
+		
+		JYearChooser yearChooser = new JYearChooser();
+		yearChooser.setBounds(873, 211, 53, 19);
+		contentPane.add(yearChooser);
+		
+		JMonthChooser monthChooser = new JMonthChooser();
+		monthChooser.setBounds(862, 135, 122, 19);
+		contentPane.add(monthChooser);
+		
+		//----------------RELLENADO DE COMBOS-------------------//
 			
-			Statement stm=miConexion.createStatement();
-			
-			String consulta="SELECT NOMBRE FROM LM_TITULAR ORDER BY CODIGO";
-			
-			ResultSet rs= stm.executeQuery(consulta);
-			
-			while(rs.next()) {
-				
-				cbo_titular.addItem(rs.getString(1));
-				
-			}
-			
-			rs.close();
-			
-						
-		}catch (Exception e) {
-			JOptionPane.showInternalMessageDialog(null, "Conexión no realizada");
-			
-			}
-			
-		//CARGA JCOMBOBOX TITULAR DEL GASTO
+	re.RellenarComboBox("LM_TITULAR", "nombre", cbo_titular);
+	re.RellenarComboBox("LM_TIPO_GASTO","descripcion", cbo_tipo_gasto);
+	re.RellenarComboBox("LM_TIPO_INGRESO", "descripcion", cbo_tipo_ingreso);
 		
-				try {
-					Class.forName("oracle.jdbc.OracleDriver").newInstance();
-					DriverManager.getConnection(url, user, pass);
-					//JOptionPane.showInternalMessageDialog(null, "Conexión realizada");
-					
-					Statement stm1=miConexion.createStatement();
-					
-					String consulta1="SELECT DESCRIPCION FROM LM_TIPO_GASTO ORDER BY CODIGO";
-					
-					ResultSet rs= stm1.executeQuery(consulta1);
-					
-					while(rs.next()) {
-						
-						cbo_tipo_gasto.addItem(rs.getString(1));
-						
-					}
-					
-					rs.close();
-					
-								
-				}catch (Exception e) {
-					JOptionPane.showInternalMessageDialog(null, "Conexión no realizada");
-					
-					}
-		
-		
-				
-				//CARGA JCOMBOBOX TITULAR DEL INGRESO
-				
-				try {
-					Class.forName("oracle.jdbc.OracleDriver").newInstance();
-					DriverManager.getConnection(url, user, pass);
-					//JOptionPane.showInternalMessageDialog(null, "Conexión realizada");
-					
-					Statement stm2=miConexion.createStatement();
-					
-					String consulta2="SELECT DISTINCT DESCRIPCION FROM LM_TIPO_INGRESO";
-					
-					ResultSet rs= stm2.executeQuery(consulta2);
-					
-					while(rs.next()) {
-						
-						cbo_tipo_ingreso.addItem(rs.getString(1));
-						
-					}
-					
-					rs.close();
-					
-								
-				}catch (Exception e) {
-					JOptionPane.showInternalMessageDialog(null, "Conexión no realizada");
-					
-					}
-		
-		
-		
-		
-		
+	
 	} //CIERRE DEL CONSTRUCTOR	
 		
 		
-	
-	
-	
+
 	
 	//VARIABLES DE CLASE
 
@@ -395,12 +335,4 @@ public class FrmPersonas extends JFrame {
 
 
 
-public static java.sql.Date convertFromJAVADateToSQLDate(
-        java.util.Date javaDate) {
-    java.sql.Date sqlDate = null;
-    if (javaDate != null) {
-        sqlDate = (java.sql.Date) new Date(javaDate.getTime());
-    }
-    return sqlDate;
-	}
 }
