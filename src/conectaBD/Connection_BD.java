@@ -74,7 +74,7 @@ public class Connection_BD {
 					
 					int rowsAffected=pstmt.executeUpdate();
 					if (rowsAffected > 0) {
-						JOptionPane.showInternalMessageDialog(null, ("Registro guardado con éxito"));
+						JOptionPane.showMessageDialog(null, ("Registro guardado con éxito"), "Aviso", JOptionPane.INFORMATION_MESSAGE);
 					
 					}else {
 						JOptionPane.showInternalMessageDialog(null, ("Error al guardar el registro"));

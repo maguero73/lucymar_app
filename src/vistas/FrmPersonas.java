@@ -91,7 +91,7 @@ public class FrmPersonas extends JFrame {
 				
 				//OBTENER EL VALOR DE LOS COMPONENTES DE GASTOS
 				
-		String valorTextField1 = txt_monto_gasto.getText();
+		String valorTextField1 = txt_monto_gasto.getText().trim();
 		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
 		 
@@ -101,15 +101,28 @@ public class FrmPersonas extends JFrame {
 		String year= Integer.toString(dateChooser.getCalendar().get(Calendar.YEAR));
 		String fecha = (dia + "/" + mes + "/" + year);
 		
-
 		
+			objConex.conectar(); //LLAMA AL METODO CONECTAR
 			
-			objConex.conectar();    //LLAMA AL METODO CONECTAR
+			
+	//VALIDACION DE CAMPO VACIO
+	//VALIDACION DE INGRESO DE SOLO NUMEROS	
+			if (txt_monto_gasto.getText().trim().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
+			}else if (!validarNumeros(txt_monto_gasto.getText().trim())){
+			JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);	
+				}else
+				
+			
+				
+				
 			objConex.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, fecha);
-		
-			}}
 			
-		
+			}
+		}
+	
+			
+			
 			);
 		
 		
@@ -201,7 +214,7 @@ public class FrmPersonas extends JFrame {
 			
 				//OBTENER EL VALOR DE LOS COMPONENTES DE INGRESOS
 				
-				String valorTextField = txt_monto_ingreso.getText();
+				String valorTextField = txt_monto_ingreso.getText().trim();
 				int valorComboBox = cbo_tipo_ingreso.getSelectedIndex();		
 				int valorComboBox1 = cbo_titular.getSelectedIndex();
 				 
@@ -304,7 +317,13 @@ public class FrmPersonas extends JFrame {
 	
 	} //CIERRE DEL CONSTRUCTOR	
 		
+	
+	
+	public static boolean validarNumeros(String datos)
+	{
+		return datos.matches("[0-9]");
 		
+	}
 
 	
 	//VARIABLES DE CLASE
