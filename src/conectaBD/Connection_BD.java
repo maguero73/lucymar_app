@@ -151,13 +151,13 @@ public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorT
 		
 		
 //VARIABLES DE CLASE
-Connection_BD objConex;
-		 String user;
-		 String pass;
-		 String url;
-		 String fecha;
-		 Connection miConexion = null;
-		 PreparedStatement pstmt =null;
-		 Statement st;		
+public Connection_BD objConex;
+public String user;
+public String pass;
+public String url;
+public String fecha;
+public Connection miConexion = null;
+public PreparedStatement pstmt =null;
+public Statement st;		
 		
 	}

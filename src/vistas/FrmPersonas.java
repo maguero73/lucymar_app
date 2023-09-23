@@ -109,7 +109,7 @@ public class FrmPersonas extends JFrame {
 	//VALIDACION DE INGRESO DE SOLO NUMEROS	
 			if (txt_monto_gasto.getText().trim().isEmpty()) {
 				JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
-			}else if (!validarNumeros(txt_monto_gasto.getText().trim())){
+			}else if (validarNumeros(txt_monto_gasto.getText().trim())){
 			JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);	
 				}else
 				
@@ -265,40 +265,31 @@ public class FrmPersonas extends JFrame {
 		JButton btn_calcular = new JButton("Calcular");
 		btn_calcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//CALCULO LA SUMATORIA DE TODOS LOS INGRESOS
+				text_total_ingresos.setText(sumatoria_ingresos() + "");
+				text_total_egresos.setText(sumatoria_gastos() + "");
+				text_saldo.setText(sumatoria_ingresos()-sumatoria_gastos() + "");
 				
 			}
 		});
 		btn_calcular.setBounds(810, 281, 91, 25);
 		contentPane.add(btn_calcular);
 		
-		JEditorPane editor_ingreso = new JEditorPane();
-		editor_ingreso.setBounds(917, 352, 117, 21);
-		contentPane.add(editor_ingreso);
-		
 		JButton btn_imprimir = new JButton("Imprimir");
 		btn_imprimir.setBounds(943, 281, 91, 25);
 		contentPane.add(btn_imprimir);
 		
 		JLabel lbl_total_ingresos = new JLabel("Total Ingresos");
-		lbl_total_ingresos.setBounds(744, 347, 109, 26);
+		lbl_total_ingresos.setBounds(744, 352, 109, 26);
 		contentPane.add(lbl_total_ingresos);
 		
 		JLabel lbl_total_egresos = new JLabel("Total Egresos");
 		lbl_total_egresos.setBounds(744, 385, 109, 26);
 		contentPane.add(lbl_total_egresos);
 		
-		JEditorPane editor_egreso = new JEditorPane();
-		editor_egreso.setBounds(917, 390, 117, 21);
-		contentPane.add(editor_egreso);
-		
 		JLabel lbl_saldo = new JLabel("Saldo");
 		lbl_saldo.setBounds(744, 425, 109, 26);
 		contentPane.add(lbl_saldo);
-		
-		JEditorPane editor_saldo = new JEditorPane();
-		editor_saldo.setBounds(917, 430, 117, 21);
-		contentPane.add(editor_saldo);
 		
 		JYearChooser yearChooser = new JYearChooser();
 		yearChooser.setBounds(873, 211, 53, 19);
@@ -313,6 +304,22 @@ public class FrmPersonas extends JFrame {
 	re.RellenarComboBox("LM_TITULAR", "nombre", cbo_titular);
 	re.RellenarComboBox("LM_TIPO_GASTO","descripcion", cbo_tipo_gasto);
 	re.RellenarComboBox("LM_TIPO_INGRESO", "descripcion", cbo_tipo_ingreso);
+	
+	text_total_ingresos = new JTextField();
+	text_total_ingresos.setBounds(917, 356, 114, 19);
+	contentPane.add(text_total_ingresos);
+	text_total_ingresos.setColumns(10);
+	
+	text_total_egresos = new JTextField();
+	text_total_egresos.setColumns(10);
+	text_total_egresos.setBounds(917, 392, 114, 19);
+	contentPane.add(text_total_egresos);
+	
+	text_saldo = new JTextField();
+	text_saldo.setColumns(10);
+	text_saldo.setBounds(917, 429, 114, 19);
+	text_saldo.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+	contentPane.add(text_saldo);
 		
 	
 	} //CIERRE DEL CONSTRUCTOR	
@@ -324,7 +331,101 @@ public class FrmPersonas extends JFrame {
 		return datos.matches("[0-9]");
 		
 	}
+	
+	
+	public double sumatoria_ingresos() {
+		user="SYSTEM";
+		pass="oracle";
+	    url="jdbc:oracle:thin:@localhost:51521:xe";
+		miConexion=null;
+		
+		
+        double monto  =0;
+        
+        try {
+        	try {
+				Class.forName("oracle.jdbc.OracleDriver").newInstance();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			miConexion=DriverManager.getConnection(url, user, pass);
+			//JOptionPane.showInternalMessageDialog(null, "Conexión realizada");
+			
+            Statement pstmt = miConexion.createStatement();
+            ResultSet rs;
+            rs = pstmt.executeQuery("SELECT sum(monto)as total FROM LM_INGRESOS");
+            
+            rs.next();{
+            	monto=rs.getInt("total");
+            	
+            }
+            
+            pstmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return monto;
+     }
 
+
+	
+	
+	public double sumatoria_gastos() {
+		user="SYSTEM";
+		pass="oracle";
+		url="jdbc:oracle:thin:@localhost:51521:xe";
+		miConexion=null;
+		
+		
+        double monto2  =0;
+        
+        try {
+        	try {
+				Class.forName("oracle.jdbc.OracleDriver").newInstance();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			miConexion=DriverManager.getConnection(url, user, pass);
+			//JOptionPane.showInternalMessageDialog(null, "Conexión realizada");
+			
+            Statement pstmt = miConexion.createStatement();
+            ResultSet rs;
+            rs = pstmt.executeQuery("SELECT sum(monto)as total FROM LM_GASTOS");
+            
+            rs.next();{
+            	monto2=rs.getInt("total");
+            	
+            }
+            
+            pstmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return monto2;
+     }
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//VARIABLES DE CLASE
 
@@ -335,6 +436,7 @@ public class FrmPersonas extends JFrame {
 	public Statement stm;
 	public Statement stm1;
 	public Statement stm2;
+	public Double monto;
 	
 	public JComboBox<String> cbo_titular;
 	public JComboBox<String> cbo_tipo_gasto; 
@@ -351,7 +453,7 @@ public class FrmPersonas extends JFrame {
 	public JLabel lbl_titular;
 
 	 PreparedStatement pstmt =null;
-
-
-
+	 private JTextField text_total_ingresos;
+	 private JTextField text_total_egresos;
+	 private JTextField text_saldo;
 }
