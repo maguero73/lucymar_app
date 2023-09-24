@@ -13,20 +13,21 @@ import vistas.*;
 import modelo.Funciones.*;
 
 public class Connection_BD {
-//PASO NUMERO 1
+
+	Connection miConexion = null;
+	//METODO CONSTRUCTOR
 	public Connection_BD() {
 		
 		user="SYSTEM";
 		pass="oracle";
 		url="jdbc:oracle:thin:@localhost:51521:xe";
 		miConexion=null;
-		
 		st=null;
 		
 	}
 	
-//PASO NUMERO 2
-		public void conectar() {
+
+		public Connection conectar() {
 			
 		try {
 			Class.forName("oracle.jdbc.OracleDriver").newInstance();
@@ -37,6 +38,7 @@ public class Connection_BD {
 			JOptionPane.showInternalMessageDialog(null, "Conexión no realizada");
 			
 		}
+		return miConexion;
 			
 	}
 
@@ -156,7 +158,7 @@ public String user;
 public String pass;
 public String url;
 public String fecha;
-public Connection miConexion = null;
+
 public PreparedStatement pstmt =null;
 public Statement st;		
 		

@@ -41,15 +41,15 @@ import com.toedter.calendar.JYearChooser;
 import ComboBox.RellenarCombos;
 
 public class FrmPersonas extends JFrame {
-	
+	Connection_BD miConexion;
 	protected static final JDateChooser JDateChooser = null;
-	Connection_BD objConex;
+	
 	String sql;
 	RellenarCombos re = new RellenarCombos();
 	//METODO CONSTRUCTOR
 	public FrmPersonas() {
 		
-		objConex=new Connection_BD();
+		miConexion=new Connection_BD();
 		
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,7 +102,7 @@ public class FrmPersonas extends JFrame {
 		String fecha = (dia + "/" + mes + "/" + year);
 		
 		
-			objConex.conectar(); //LLAMA AL METODO CONECTAR
+			miConexion.conectar(); //LLAMA AL METODO CONECTAR
 			
 			
 	//VALIDACION DE CAMPO VACIO
@@ -116,7 +116,7 @@ public class FrmPersonas extends JFrame {
 			
 				
 				
-			objConex.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, fecha);
+			miConexion.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, fecha);
 			
 			}
 		}
@@ -225,8 +225,8 @@ public class FrmPersonas extends JFrame {
 				String fecha1 = (dia1 + "/" + mes1 + "/" + year1);
 					
 				
-				objConex.conectar(); 
-				objConex.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, fecha1);
+				miConexion.conectar(); 
+				miConexion.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, fecha1);
 				
 			}
 		});
@@ -334,31 +334,12 @@ public class FrmPersonas extends JFrame {
 	
 	
 	public double sumatoria_ingresos() {
-		user="SYSTEM";
-		pass="oracle";
-	    url="jdbc:oracle:thin:@localhost:51521:xe";
-		miConexion=null;
-		
-		
+	
         double monto  =0;
         
         try {
-        	try {
-				Class.forName("oracle.jdbc.OracleDriver").newInstance();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			miConexion=DriverManager.getConnection(url, user, pass);
-			//JOptionPane.showInternalMessageDialog(null, "Conexión realizada");
-			
-            Statement pstmt = miConexion.createStatement();
+
+	       Statement pstmt = miConexion.conectar().createStatement();
             ResultSet rs;
             rs = pstmt.executeQuery("SELECT sum(monto)as total FROM LM_INGRESOS");
             
@@ -378,31 +359,14 @@ public class FrmPersonas extends JFrame {
 	
 	
 	public double sumatoria_gastos() {
-		user="SYSTEM";
-		pass="oracle";
-		url="jdbc:oracle:thin:@localhost:51521:xe";
-		miConexion=null;
-		
+	
 		
         double monto2  =0;
         
         try {
-        	try {
-				Class.forName("oracle.jdbc.OracleDriver").newInstance();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			miConexion=DriverManager.getConnection(url, user, pass);
-			//JOptionPane.showInternalMessageDialog(null, "Conexión realizada");
+
 			
-            Statement pstmt = miConexion.createStatement();
+            Statement pstmt = miConexion.conectar().createStatement();
             ResultSet rs;
             rs = pstmt.executeQuery("SELECT sum(monto)as total FROM LM_GASTOS");
             
@@ -429,15 +393,9 @@ public class FrmPersonas extends JFrame {
 	
 	//VARIABLES DE CLASE
 
-	public String user;
-	public String pass;
-	public String url;
-	public Connection miConexion=null;
-	public Statement stm;
-	public Statement stm1;
-	public Statement stm2;
+
+	public Statement stm, stm1, stm2;
 	public Double monto;
-	
 	public JComboBox<String> cbo_titular;
 	public JComboBox<String> cbo_tipo_gasto; 
 	public JDateChooser dateChooser;
@@ -453,7 +411,6 @@ public class FrmPersonas extends JFrame {
 	public JLabel lbl_titular;
 
 	 PreparedStatement pstmt =null;
-	 private JTextField text_total_ingresos;
-	 private JTextField text_total_egresos;
-	 private JTextField text_saldo;
+	 private JTextField text_total_ingresos, text_total_egresos, text_saldo;
+
 }
