@@ -7,7 +7,9 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import conectaBD.Connection_BD;
+import modelo.Connection_BD;
+
+
 
 public class calculos {
 	

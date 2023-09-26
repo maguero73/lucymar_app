@@ -1,4 +1,4 @@
-package ComboBox;
+package controlador;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,8 @@ import java.sql.Statement;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-import conectaBD.*;
+import modelo.*;
+import modelo.Connection_BD;
 
 public class RellenarCombos {
 	

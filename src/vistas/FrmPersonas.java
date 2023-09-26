@@ -1,16 +1,14 @@
 package vistas;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import conectaBD.Connection_BD;
+import controlador.RellenarCombos;
 import controlador.calculos;
-import modelo.Funciones;
-
+import controlador.guardarDatos;
+import modelo.Connection_BD;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -39,8 +37,6 @@ import com.toedter.calendar.JDateChooser;
 import java.sql.Date.*;
 import com.toedter.calendar.JYearChooser;
 
-import ComboBox.RellenarCombos;
-
 public class FrmPersonas extends JFrame {
 	Connection_BD miConexion;
 	protected static final JDateChooser JDateChooser = null;
@@ -52,6 +48,7 @@ public class FrmPersonas extends JFrame {
 		
 		miConexion=new Connection_BD();
 		calculos calc=new calculos();
+		guardarDatos guardar=new guardarDatos();
 		
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +88,7 @@ public class FrmPersonas extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				//OBTENER EL VALOR DE LOS COMPONENTES DE GASTOS
+	//OBTENER EL VALOR DE LOS COMPONENTES DE GASTOS
 				
 		String valorTextField1 = txt_monto_gasto.getText().trim();
 		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();		
@@ -114,19 +111,12 @@ public class FrmPersonas extends JFrame {
 			}else if (validarNumeros(txt_monto_gasto.getText().trim())){
 			JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);	
 				}else
-				
 			
-				
-				
-			miConexion.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, fecha);
+		//GUARDAR EN LA BASE DE DATOS TODOS LOS GASTOS (TABLA LM_GASTOS)			
+			guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, fecha);
 			
 			}
-		}
-	
-			
-			
-			);
-		
+		});
 		
 		btn_grabar_gasto.setBounds(534, 205, 117, 25);
 		contentPane.add(btn_grabar_gasto);
@@ -214,21 +204,21 @@ public class FrmPersonas extends JFrame {
 		btn_grabar_ingreso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-				//OBTENER EL VALOR DE LOS COMPONENTES DE INGRESOS
+	//OBTENER EL VALOR DE LOS COMPONENTES DE INGRESOS
 				
-				String valorTextField = txt_monto_ingreso.getText().trim();
-				int valorComboBox = cbo_tipo_ingreso.getSelectedIndex();		
-				int valorComboBox1 = cbo_titular.getSelectedIndex();
+		String valorTextField = txt_monto_ingreso.getText().trim();
+		int valorComboBox = cbo_tipo_ingreso.getSelectedIndex();		
+		int valorComboBox1 = cbo_titular.getSelectedIndex();
 				 
-				
-				String dia1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.DAY_OF_MONTH));
-				String mes1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.MONTH)+1);
-				String year1= Integer.toString(dateChooser_1.getCalendar().get(Calendar.YEAR));
-				String fecha1 = (dia1 + "/" + mes1 + "/" + year1);
+	//SETEA LOS VALORES DE DIA MES Y AÑO			
+		String dia1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.DAY_OF_MONTH));
+		String mes1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.MONTH)+1);
+		String year1= Integer.toString(dateChooser_1.getCalendar().get(Calendar.YEAR));
+		String fecha1 = (dia1 + "/" + mes1 + "/" + year1);
 					
 				
-				miConexion.conectar(); 
-				miConexion.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, fecha1);
+	//GUARDA EN LA BASE DE DATOS TODOS LOS INGRESOS (TABLA LM_INGRESOS)
+		guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, fecha1);
 				
 			}
 		});
@@ -265,13 +255,15 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(lbl_titular_1_1);
 		
 		JButton btn_calcular = new JButton("Calcular");
+		
 		btn_calcular.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
+								
 	   //CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS
 		calc.sumatorias("LM_INGRESOS", "total", text_total_ingresos);
 		calc.sumatorias("LM_GASTOS", "total", text_total_egresos);
-	
-				
+					
 			}
 		});
 		btn_calcular.setBounds(810, 281, 91, 25);
