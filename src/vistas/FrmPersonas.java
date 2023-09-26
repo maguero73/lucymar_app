@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import conectaBD.Connection_BD;
+import controlador.calculos;
 import modelo.Funciones;
 
 import javax.swing.JLabel;
@@ -50,6 +51,7 @@ public class FrmPersonas extends JFrame {
 	public FrmPersonas() {
 		
 		miConexion=new Connection_BD();
+		calculos calc=new calculos();
 		
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -265,10 +267,10 @@ public class FrmPersonas extends JFrame {
 		JButton btn_calcular = new JButton("Calcular");
 		btn_calcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//CALCULO LA SUMATORIA DE TODOS LOS INGRESOS
-				text_total_ingresos.setText(sumatoria_ingresos() + "");
-				text_total_egresos.setText(sumatoria_gastos() + "");
-				text_saldo.setText(sumatoria_ingresos()-sumatoria_gastos() + "");
+	   //CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS
+		calc.sumatorias("LM_INGRESOS", "total", text_total_ingresos);
+		calc.sumatorias("LM_GASTOS", "total", text_total_egresos);
+	
 				
 			}
 		});
@@ -333,6 +335,8 @@ public class FrmPersonas extends JFrame {
 	}
 	
 	
+/*	
+	//SUMATORIA TOTAL DE LOS INGRESOS
 	public double sumatoria_ingresos() {
 	
         double monto  =0;
@@ -355,9 +359,9 @@ public class FrmPersonas extends JFrame {
         return monto;
      }
 
-
+*/
 	
-	
+	//SUMATORIA TOTAL DE LOS EGRESOS
 	public double sumatoria_gastos() {
 	
 		
@@ -372,6 +376,7 @@ public class FrmPersonas extends JFrame {
             
             rs.next();{
             	monto2=rs.getInt("total");
+            	System.out.println(monto2);
             	
             }
             
