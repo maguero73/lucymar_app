@@ -335,67 +335,6 @@ public class FrmPersonas extends JFrame {
 	}
 	
 	
-/*	
-	//SUMATORIA TOTAL DE LOS INGRESOS
-	public double sumatoria_ingresos() {
-	
-        double monto  =0;
-        
-        try {
-
-	       Statement pstmt = miConexion.conectar().createStatement();
-            ResultSet rs;
-            rs = pstmt.executeQuery("SELECT sum(monto)as total FROM LM_INGRESOS");
-            
-            rs.next();{
-            	monto=rs.getInt("total");
-            	
-            }
-            
-            pstmt.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        return monto;
-     }
-
-*/
-	
-	//SUMATORIA TOTAL DE LOS EGRESOS
-	public double sumatoria_gastos() {
-	
-		
-        double monto2  =0;
-        
-        try {
-
-			
-            Statement pstmt = miConexion.conectar().createStatement();
-            ResultSet rs;
-            rs = pstmt.executeQuery("SELECT sum(monto)as total FROM LM_GASTOS");
-            
-            rs.next();{
-            	monto2=rs.getInt("total");
-            	System.out.println(monto2);
-            	
-            }
-            
-            pstmt.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        return monto2;
-     }
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//VARIABLES DE CLASE
 
 

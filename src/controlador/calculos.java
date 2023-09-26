@@ -48,15 +48,7 @@ public class calculos {
         
     }    
 	
-
-	
-
-	
 	Connection_BD miConexion;
 
-
-
-
-	
 
 }
