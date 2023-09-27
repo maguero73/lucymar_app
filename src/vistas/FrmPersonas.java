@@ -255,15 +255,15 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(lbl_titular_1_1);
 		
 		JButton btn_calcular = new JButton("Calcular");
-		
 		btn_calcular.addActionListener(new ActionListener() {
-			
 			public void actionPerformed(ActionEvent e) {
-								
+				
+				
 	   //CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS
 		calc.sumatorias("LM_INGRESOS", "total", text_total_ingresos);
 		calc.sumatorias("LM_GASTOS", "total", text_total_egresos);
-					
+		calc.resta("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo);
+			
 			}
 		});
 		btn_calcular.setBounds(810, 281, 91, 25);
@@ -327,6 +327,7 @@ public class FrmPersonas extends JFrame {
 	}
 	
 	
+
 	//VARIABLES DE CLASE
 
 

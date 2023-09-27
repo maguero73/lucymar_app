@@ -19,7 +19,7 @@ public class calculos {
 	}
 	
 	
-	
+	//REALIZA LA SUMATORIA DE LOS INGRESOS / GASTOS
 	public void sumatorias(String tabla, String valor, JTextField text1) {
 		
 		//double valor = 0;
@@ -39,6 +39,38 @@ public class calculos {
             while (rs.next()) {
             	
             	text1.setText(rs.getString(valor));
+            	
+            	
+            }
+            
+            pstmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+    }    
+	
+	
+//REALIZA OPERACION DE RESTA ENTRE AMBAS SUMATORIAS	
+	
+public void resta(String tabla1, String tabla2,String valor, JTextField text) {
+		
+		Statement st = null;
+		String sql = "select(select sum(monto)from " + tabla1 + ")- (select sum(monto)from "+ tabla2 + ") as resultado from dual";
+	
+        try {
+
+			
+            Statement pstmt = miConexion.conectar().createStatement();
+            ResultSet rs;
+            st=miConexion.conectar().createStatement();
+			rs=st.executeQuery(sql);
+          
+         
+            
+            while (rs.next()) {
+            	
+            	text.setText(rs.getString(valor));
             	
             	
             }

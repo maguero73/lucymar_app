@@ -69,6 +69,8 @@ public class guardarDatos {
 			}
 	}
 		
+	
+	
 		////////////////////////////////////////
 		//METODO GUARDAR INGRESOS
 	////////////////////////////////////////
@@ -122,6 +124,8 @@ public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorT
 					}
 				}
 		}
+
+
 //VARIABLES DE CLASE
 	
 	Connection_BD miConexion;
