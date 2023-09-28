@@ -25,6 +25,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.Calendar;
 //import java.util.Date;
 import java.util.Locale;
@@ -254,15 +256,39 @@ public class FrmPersonas extends JFrame {
 		lbl_titular_1_1.setBounds(768, 206, 85, 26);
 		contentPane.add(lbl_titular_1_1);
 		
+		JMonthChooser monthChooser = new JMonthChooser();
+		monthChooser.setBounds(862, 135, 122, 19);
+		contentPane.add(monthChooser);
+		
+		
+		
+		
 		JButton btn_calcular = new JButton("Calcular");
 		btn_calcular.addActionListener(new ActionListener() {
+			
+		//JMonthChooser month = new JMonthChooser();
 			public void actionPerformed(ActionEvent e) {
 				
+				// OBTIENE MES ACTUAL
+				Month mes = LocalDate.now().getMonth();
+
+				// OBTIENE NOMBRE DEL MES
+				String nombre = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+					
+						
+			if (monthChooser.getMonth()== mes.getValue()-1){
+				System.out.println(mes.getValue());
+				   //CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS
+				calc.sumatorias("LM_INGRESOS", "total", text_total_ingresos);
+				calc.sumatorias("LM_GASTOS", "total", text_total_egresos);
+				calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo);		
 				
-	   //CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS
-		calc.sumatorias("LM_INGRESOS", "total", text_total_ingresos);
-		calc.sumatorias("LM_GASTOS", "total", text_total_egresos);
-		calc.resta("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo);
+			}
+				
+				
+			
+			
+
 			
 			}
 		});
@@ -289,9 +315,8 @@ public class FrmPersonas extends JFrame {
 		yearChooser.setBounds(873, 211, 53, 19);
 		contentPane.add(yearChooser);
 		
-		JMonthChooser monthChooser = new JMonthChooser();
-		monthChooser.setBounds(862, 135, 122, 19);
-		contentPane.add(monthChooser);
+
+		
 		
 		//----------------RELLENADO DE COMBOS-------------------//
 			
@@ -349,5 +374,4 @@ public class FrmPersonas extends JFrame {
 
 	 PreparedStatement pstmt =null;
 	 private JTextField text_total_ingresos, text_total_egresos, text_saldo;
-
 }
