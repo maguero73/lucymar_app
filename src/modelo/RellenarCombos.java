@@ -1,4 +1,4 @@
-package controlador;
+package modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,7 @@ import java.sql.Statement;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-import modelo.*;
-import modelo.Connection_BD;
+import controlador.Connection_BD;
 
 public class RellenarCombos {
 	

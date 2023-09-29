@@ -1,4 +1,4 @@
-package modelo;
+package controlador;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -6,7 +6,8 @@ import java.util.Date;
 import java.util.Locale;
 import javax.swing.*;
 import javax.xml.crypto.Data;
-import vistas.*;
+
+import vista.*;
 
 public class Connection_BD {
 

@@ -1,4 +1,4 @@
-package controlador;
+package modelo;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-import modelo.Connection_BD;
+import controlador.Connection_BD;
 
 public class guardarDatos {
 	
@@ -21,7 +21,6 @@ public class guardarDatos {
 	
 	public void guardarGastos(int valorComboBox2, int valorComboBox1, String valorTextField1, String fecha) {
 		
-		Statement st = null;
 		String sql;
 		
 		try {
@@ -61,6 +60,7 @@ public class guardarDatos {
 				try {
 					if (pstmt != null) {
 						pstmt.close();
+						st.close();
 					}
 				}catch (SQLException ex) {
 					ex.printStackTrace();

@@ -1,14 +1,15 @@
-package vistas;
+package vista;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import controlador.RellenarCombos;
-import controlador.calculos;
-import controlador.guardarDatos;
-import modelo.Connection_BD;
+
+import modelo.RellenarCombos;
+import modelo.calculos;
+import modelo.guardarDatos;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -26,8 +27,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.Year;
 import java.time.format.TextStyle;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 //import java.util.Date;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
@@ -38,6 +41,8 @@ import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JDateChooser;
 import java.sql.Date.*;
 import com.toedter.calendar.JYearChooser;
+
+import controlador.Connection_BD;
 
 public class FrmPersonas extends JFrame {
 	Connection_BD miConexion;
@@ -103,7 +108,7 @@ public class FrmPersonas extends JFrame {
 		String fecha = (dia + "/" + mes + "/" + year);
 		
 		
-			miConexion.conectar(); //LLAMA AL METODO CONECTAR
+			//miConexion.conectar(); //LLAMA AL METODO CONECTAR
 			
 			
 	//VALIDACION DE CAMPO VACIO
@@ -260,7 +265,9 @@ public class FrmPersonas extends JFrame {
 		monthChooser.setBounds(862, 135, 122, 19);
 		contentPane.add(monthChooser);
 		
-		
+		JYearChooser yearChooser = new JYearChooser();
+		yearChooser.setBounds(873, 211, 53, 19);
+		contentPane.add(yearChooser);
 		
 		
 		JButton btn_calcular = new JButton("Calcular");
@@ -271,31 +278,42 @@ public class FrmPersonas extends JFrame {
 				
 				// OBTIENE MES ACTUAL
 				Month mes = LocalDate.now().getMonth();
-
-				// OBTIENE NOMBRE DEL MES
-				String nombre = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+				Calendar fecha = new GregorianCalendar();
+				fecha.get(Calendar.YEAR);
+				String vacio = 0 + "";
 					
 						
-			if (monthChooser.getMonth()== mes.getValue()-1){
-				System.out.println(mes.getValue());
-				   //CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS
+if (monthChooser.getMonth()== mes.getValue()-1 && yearChooser.getYear()== fecha.get(Calendar.YEAR)){
+	
+				
+			//CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS MENSUALES
 				calc.sumatorias("LM_INGRESOS", "total", text_total_ingresos);
 				calc.sumatorias("LM_GASTOS", "total", text_total_egresos);
+			//CALCULO EL SALDO AL FINAL DE CADA MES	
 				calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo);		
 				
+			} else {
+				text_total_ingresos.setText(vacio);
+				text_total_egresos.setText(vacio);
+				text_saldo.setText(vacio);
 			}
+		}
 				
 				
-			
-			
-
-			
-			}
+		
 		});
 		btn_calcular.setBounds(810, 281, 91, 25);
 		contentPane.add(btn_calcular);
 		
-		JButton btn_imprimir = new JButton("Imprimir");
+		JButton btn_imprimir = new JButton("Limpiar");
+		btn_imprimir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				text_total_ingresos.setText(null);
+				text_total_egresos.setText(null);
+				text_saldo.setText(null);
+				
+			}
+		});
 		btn_imprimir.setBounds(943, 281, 91, 25);
 		contentPane.add(btn_imprimir);
 		
@@ -311,9 +329,7 @@ public class FrmPersonas extends JFrame {
 		lbl_saldo.setBounds(744, 425, 109, 26);
 		contentPane.add(lbl_saldo);
 		
-		JYearChooser yearChooser = new JYearChooser();
-		yearChooser.setBounds(873, 211, 53, 19);
-		contentPane.add(yearChooser);
+
 		
 
 		

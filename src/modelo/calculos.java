@@ -1,4 +1,4 @@
-package controlador;
+package modelo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import modelo.Connection_BD;
+import controlador.Connection_BD;
 
 
 public class calculos {
@@ -38,8 +38,18 @@ public class calculos {
                    }
             
             pstmt.close();
+            rs.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
+            
+        }finally {
+        	try {
+				st.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         
     }    
@@ -67,8 +77,17 @@ public void saldo(String tabla1, String tabla2,String valor, JTextField text) {
             }
             
             pstmt.close();
+            rs.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
+        }finally {
+        	
+        	try {
+				st.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         
     }    

@@ -1,8 +1,8 @@
-package principal;
+package controlador;
 
 import java.awt.EventQueue;
 
-import vistas.FrmPersonas;
+import vista.FrmPersonas;
 
 public class Ejecuta_MVC {
 	
