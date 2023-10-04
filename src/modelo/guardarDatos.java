@@ -1,8 +1,11 @@
 package modelo;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
 
@@ -19,7 +22,7 @@ public class guardarDatos {
 	//METODO GUARDAR GASTOS
 ////////////////////////////////////////
 	
-	public void guardarGastos(int valorComboBox2, int valorComboBox1, String valorTextField1, String fecha) {
+	public void guardarGastos(int valorComboBox2, int valorComboBox1, String valorTextField1, Date dato2) {
 		
 		String sql;
 		
@@ -40,7 +43,8 @@ public class guardarDatos {
 			 pstmt.setInt(1, valorComboBox2);
 			 pstmt.setInt(2, valorComboBox1);
 			 pstmt.setString(3, valorTextField1);
-			 pstmt.setString(4, fecha);
+			 pstmt.setDate(4, dato2);
+			 
 				
 				
 				
@@ -75,7 +79,7 @@ public class guardarDatos {
 		//METODO GUARDAR INGRESOS
 	////////////////////////////////////////
 		
-public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorTextField, String fecha1) {
+public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorTextField, Date dato) {
 			
 			
 			String sql1;
@@ -97,7 +101,7 @@ public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorT
 				 pstmt.setInt(1, valorComboBox);
 				 pstmt.setInt(2, valorComboBox1);
 				 pstmt.setString(3, valorTextField);
-				 pstmt.setString(4, fecha1);
+				 pstmt.setDate(4, dato);
 					
 					
 					

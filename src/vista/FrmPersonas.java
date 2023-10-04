@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import modelo.RellenarCombos;
 import modelo.calculos;
 import modelo.guardarDatos;
+import oracle.sql.DATE;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.Date;
+//import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +32,7 @@ import java.time.Year;
 import java.time.format.TextStyle;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-//import java.util.Date;
+import java.util.*;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -47,6 +48,11 @@ import controlador.Connection_BD;
 public class FrmPersonas extends JFrame {
 	Connection_BD miConexion;
 	protected static final JDateChooser JDateChooser = null;
+	private static Date utilDate = new Date();
+	private static SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+	public static Calendar calendar = new GregorianCalendar();
+	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	
 	
 	String sql;
 	RellenarCombos re = new RellenarCombos();
@@ -101,12 +107,18 @@ public class FrmPersonas extends JFrame {
 		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
 		 
+
+		
 		
 		String dia = Integer.toString(dateChooser.getCalendar().get(Calendar.DAY_OF_MONTH));
 		String mes = Integer.toString(dateChooser.getCalendar().get(Calendar.MONTH)+1);
 		String year= Integer.toString(dateChooser.getCalendar().get(Calendar.YEAR));
 		String fecha = (dia + "/" + mes + "/" + year);
 		
+		//GENERAMOS UNA VARIABLE DE TIPO JAVA.SQL.DATE
+		java.sql.Date dato2=null;
+		//IMPORTANTE CONVERTIMOS LA VARIABLE FECHA DE STRING A DATE (DE LA CLASE JAVA.SQL.DATE)
+		dato2=java.sql.Date.valueOf(fecha);
 		
 			//miConexion.conectar(); //LLAMA AL METODO CONECTAR
 			
@@ -120,7 +132,7 @@ public class FrmPersonas extends JFrame {
 				}else
 			
 		//GUARDAR EN LA BASE DE DATOS TODOS LOS GASTOS (TABLA LM_GASTOS)			
-			guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, fecha);
+			guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2);
 			
 			}
 		});
@@ -203,7 +215,7 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(lbl_fecha_ingreso);
 		
 		dateChooser_1 = new JDateChooser();
-		dateChooser_1.setDateFormatString("dd/MM/yyyy");
+		dateChooser_1.setDateFormatString("yyyy-MM-dd");
 		dateChooser_1.setBounds(209, 456, 273, 19);
 		contentPane.add(dateChooser_1);
 		
@@ -217,15 +229,24 @@ public class FrmPersonas extends JFrame {
 		int valorComboBox = cbo_tipo_ingreso.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
 				 
-	//SETEA LOS VALORES DE DIA MES Y AÑO			
+	//SETEAMOS LOS VALORES DE DIA MES Y AÑO EN EL JDATECHOOSER	
 		String dia1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.DAY_OF_MONTH));
 		String mes1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.MONTH)+1);
 		String year1= Integer.toString(dateChooser_1.getCalendar().get(Calendar.YEAR));
-		String fecha1 = (dia1 + "/" + mes1 + "/" + year1);
-					
+		String fecha1 = (year1 + "-" + mes1 + "-" + dia1);
+		java.sql.Date dato =null;
+		
+		//CONVERTIMOS LA VARIABLE DE STRING A DATE (PERO USANDO LA CLASE JAVA.SQL.DATE)
+		//IMPORTANTE
+			dato=java.sql.Date.valueOf(fecha1);
+		
+		
+		//Date sqlDate1= dateChooser_1.getCalendar().getTime();
+		
+		//Date fecha2 = new Date();			
 				
 	//GUARDA EN LA BASE DE DATOS TODOS LOS INGRESOS (TABLA LM_INGRESOS)
-		guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, fecha1);
+		guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, dato);
 				
 			}
 		});
@@ -287,7 +308,9 @@ if (monthChooser.getMonth()== mes.getValue()-1 && yearChooser.getYear()== fecha.
 	
 				
 			//CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS MENSUALES
-				calc.sumatorias("LM_INGRESOS", "total", text_total_ingresos);
+				calc.sumatorias("LM_INGRESOS","total", text_total_ingresos);
+				//da como resutado null
+				//text_total_ingresos.setText("sale por if");
 				calc.sumatorias("LM_GASTOS", "total", text_total_egresos);
 			//CALCULO EL SALDO AL FINAL DE CADA MES	
 				calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo);		
@@ -298,8 +321,7 @@ if (monthChooser.getMonth()== mes.getValue()-1 && yearChooser.getYear()== fecha.
 				text_saldo.setText(vacio);
 			}
 		}
-				
-				
+							
 		
 		});
 		btn_calcular.setBounds(810, 281, 91, 25);

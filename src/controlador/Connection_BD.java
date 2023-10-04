@@ -48,6 +48,8 @@ public String url;
 public String fecha;
 
 public PreparedStatement pstmt =null;
-public Statement st;		
+public Statement st;
+
+
 		
 	}
