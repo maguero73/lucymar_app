@@ -304,24 +304,36 @@ public class FrmPersonas extends JFrame {
 				String vacio = 0 + "";
 					
 						
-if (monthChooser.getMonth()== mes.getValue()-1 && yearChooser.getYear()== fecha.get(Calendar.YEAR)){
-	
-				
-			//CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS MENSUALES
-				calc.sumatorias("LM_INGRESOS","total", text_total_ingresos);
-				//da como resutado null
-				//text_total_ingresos.setText("sale por if");
-				calc.sumatorias("LM_GASTOS", "total", text_total_egresos);
-			//CALCULO EL SALDO AL FINAL DE CADA MES	
-				calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo);		
-				
-			} else {
-				text_total_ingresos.setText(vacio);
-				text_total_egresos.setText(vacio);
-				text_saldo.setText(vacio);
+if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
+	//MES 8+1 = SEPTIEMBRE
+	//CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS MES SEPTIEMBRE
+		calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/09/2023","30/09/2023");
+		calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/09/2023","30/09/2023");
+	//CALCULO EL SALDO AL FINAL DE CADA MES	
+		calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/09/2023","30/09/2023");		
+		} 
+
+		else if(monthChooser.getMonth()== 9 && yearChooser.getYear()== 2023) {
+			//MES 9+1 = OCTUBRE	
+			calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/10/2023","31/10/2023");
+			calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/10/2023","31/10/2023");
+			calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/10/2023","31/10/2023");
 			}
+		else if(monthChooser.getMonth()== 10 && yearChooser.getYear()== 2023) {
+			//MES 10+1 = NOVIEMBRE
+			calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/11/2023","30/11/2023");
+			calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/11/2023","30/11/2023");
+			calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/11/2023","30/11/2023");
 		}
-							
+		else {
+		
+			
+			text_total_ingresos.setText(vacio);
+			text_total_egresos.setText(vacio);
+			text_saldo.setText(vacio);
+			
+		}
+			}					
 		
 		});
 		btn_calcular.setBounds(810, 281, 91, 25);

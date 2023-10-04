@@ -20,7 +20,7 @@ public class calculos {
 	
 	
 	//REALIZA LA SUMATORIA DE LOS INGRESOS / GASTOS
-	public void sumatorias(String tabla, String valor, JTextField text1) {
+	public void sumatorias(String tabla, String valor, JTextField text1, String fecha_desde, String fecha_hasta) {
 		
 		String sql;
 
@@ -30,11 +30,11 @@ public class calculos {
  		
     pstmt=miConexion.conectar().prepareStatement(sql);
    
-   String sept1="01/09/2023";
-   String sept2="30/09/2023";
+   //String fecha_desde="01/09/2023";
+  // String fecha_hasta="30/09/2023";
    
-          	pstmt.setString(1, sept1);
-          	pstmt.setString(2, sept2);
+          	pstmt.setString(1, fecha_desde);
+          	pstmt.setString(2, fecha_hasta);
   			ResultSet rs=pstmt.executeQuery();
             
            while (rs.next()){
@@ -57,24 +57,31 @@ public class calculos {
 	
 //REALIZA OPERACION DE RESTA ENTRE AMBAS SUMATORIAS	(INGRESOS - GASTOS)
 	
-public void saldo(String tabla1, String tabla2,String valor, JTextField text) {
+public void saldo(String tabla1, String tabla2,String valor, JTextField text, String fecha_desde, String fecha_hasta) {
 		
 		
-		String sql = "select(select sum(monto)from " + tabla1 + ")- (select sum(monto)from "+ tabla2 + ") as resultado from dual";
+//String sql = "select(select sum(monto)from " + tabla1 + ")- (select sum(monto)from "+ tabla2 + ") as resultado from dual";
+	String sql;
 	
         try {
 
-			
-            Statement pstmt = miConexion.conectar().createStatement();
-            ResultSet rs;
-            st=miConexion.conectar().createStatement();
-			rs=st.executeQuery(sql);
+        	sql= "select(select sum(monto)from " + tabla1 + " WHERE FECHA BETWEEN TO_DATE(?,'DD/MM/YYYY') AND TO_DATE(?,'DD/MM/YYYY'))- (select sum(monto)from "+ tabla2 + " WHERE FECHA BETWEEN TO_DATE(?,'DD/MM/YYYY') AND TO_DATE(?,'DD/MM/YYYY')) as resultado from dual";		
+            pstmt=miConexion.conectar().prepareStatement(sql);
+            
+            //String fecha_desde="01/09/2023";
+           // String fecha_hasta="30/09/2023";
+            
+                   	pstmt.setString(1, fecha_desde);
+                   	pstmt.setString(2, fecha_hasta);
+                   	pstmt.setString(3, fecha_desde);
+                	pstmt.setString(4, fecha_hasta);
+           			ResultSet rs=pstmt.executeQuery();
           
          
             
             while (rs.next()) {            	
             	text.setText(rs.getString(valor));
-            	System.out.println(rs.getString(valor));
+            	
             }
             
             pstmt.close();
