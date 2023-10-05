@@ -24,6 +24,7 @@ public class guardarDatos {
 	
 	public void guardarGastos(int valorComboBox2, int valorComboBox1, String valorTextField1, Date dato2) {
 		
+		
 		String sql;
 		
 		try {
@@ -32,8 +33,6 @@ public class guardarDatos {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		try {
 			
 			sql= "INSERT INTO LM_GASTOS (COD_GASTO, COD_TITULAR, MONTO, FECHA) values (?,?,?,?)";
@@ -44,10 +43,7 @@ public class guardarDatos {
 			 pstmt.setInt(2, valorComboBox1);
 			 pstmt.setString(3, valorTextField1);
 			 pstmt.setDate(4, dato2);
-			 
-				
-				
-				
+			 				
 				
 				int rowsAffected=pstmt.executeUpdate();
 				if (rowsAffected > 0) {
@@ -64,7 +60,6 @@ public class guardarDatos {
 				try {
 					if (pstmt != null) {
 						pstmt.close();
-						st.close();
 					}
 				}catch (SQLException ex) {
 					ex.printStackTrace();
@@ -134,5 +129,5 @@ public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorT
 	
 	Connection_BD miConexion;
 	public PreparedStatement pstmt =null;
-	public Statement st;
+	public Statement st = null;
 }
