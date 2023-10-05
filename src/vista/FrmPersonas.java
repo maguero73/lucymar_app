@@ -113,7 +113,7 @@ public class FrmPersonas extends JFrame {
 		String dia = Integer.toString(dateChooser.getCalendar().get(Calendar.DAY_OF_MONTH));
 		String mes = Integer.toString(dateChooser.getCalendar().get(Calendar.MONTH)+1);
 		String year= Integer.toString(dateChooser.getCalendar().get(Calendar.YEAR));
-		String fecha = (dia + "/" + mes + "/" + year);
+		String fecha = (year + "-" + mes + "-" + dia);
 		
 		//GENERAMOS UNA VARIABLE DE TIPO JAVA.SQL.DATE
 		java.sql.Date dato2=null;
