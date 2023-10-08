@@ -89,13 +89,6 @@ public void saldo(String tabla1, String tabla2,String valor, JTextField text, St
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }finally {
-        	
-        	try {
-				st.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
         }
         
     }    

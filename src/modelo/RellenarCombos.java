@@ -22,7 +22,7 @@ public class RellenarCombos {
 	public void RellenarComboBox(String tabla, String valor, JComboBox combo) {
 		
 
-		String sql = "select * from " + tabla;
+		String sql = "select * from " + tabla + " order by CODIGO";
 		Statement st = null;
 		
 		try {
