@@ -62,6 +62,7 @@ import java.sql.Date.*;
 import com.toedter.calendar.JYearChooser;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
 
 public class Login extends JFrame {
 	protected static final JPasswordField Password = new JPasswordField();
@@ -106,27 +107,34 @@ public class Login extends JFrame {
 		lbl_tipo_gasto_1.setBounds(63, 158, 85, 26);
 		contentPane.add(lbl_tipo_gasto_1);
 		
-		JButton btnNewButton = new JButton("Ingresar");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		JButton btn_aceptar = new JButton("Aceptar");
+		btn_aceptar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String Usuario = "admin";
 				String password = "admin";
+				String Usuario1 = "admin1";
+				String password1 = "admin1";
 				
-				//String Pass=new String (Password.getPassword());
 		if (txtusuario.getText().equals(Usuario)&& txtcontraseña.getText().equals(password)){
 				FrmPersonas persona = new FrmPersonas();
 				persona.setVisible(true);
 				dispose();
-				}else {
-					JOptionPane.showInternalMessageDialog(null,"usuario / contraseña incorrecta");
 				}
-				
+			 else if (txtusuario.getText().equals(Usuario1)&& txtcontraseña.getText().equals(password1)) {
+					FrmPersonas persona = new FrmPersonas();
+					persona.setVisible(true);
+					dispose();
+				}else {
+					FrmPersonas persona = new FrmPersonas();
+					persona.setVisible(true);
+					dispose();
+				}
 				
 			}
 		});
-		btnNewButton.setBounds(356, 223, 94, 25);
-		contentPane.add(btnNewButton);
+		btn_aceptar.setBounds(374, 221, 101, 25);
+		contentPane.add(btn_aceptar);
 		
 		txtusuario = new JTextField();
 		txtusuario.setBounds(227, 111, 223, 22);
@@ -134,6 +142,24 @@ public class Login extends JFrame {
 		txtusuario.setColumns(10);
 		
 		txtcontraseña = new JPasswordField();
+		txtcontraseña.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {			
+					String Usuario = "admin";
+					String password = "admin";
+					
+					//String Pass=new String (Password.getPassword());
+			if (txtusuario.getText().equals(Usuario)&& txtcontraseña.getText().equals(password)){
+					FrmPersonas persona = new FrmPersonas();
+					persona.setVisible(true);
+					dispose();
+					}else {
+						JOptionPane.showInternalMessageDialog(null,"usuario / contraseña incorrecta");
+					}
+				}
+			}
+		});
 		txtcontraseña.setBounds(225, 162, 225, 19);
 		contentPane.add(txtcontraseña);
 		
@@ -141,6 +167,15 @@ public class Login extends JFrame {
 		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 		lblNewLabel.setBounds(72, 32, 287, 45);
 		contentPane.add(lblNewLabel);
+		
+		JButton btn_cancelar = new JButton("Cancelar");
+		btn_cancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btn_cancelar.setBounds(250, 221, 101, 25);
+		contentPane.add(btn_cancelar);
 		
 	}
 }
