@@ -48,10 +48,10 @@ import controlador.Connection_BD;
 public class FrmPersonas extends JFrame {
 	Connection_BD miConexion;
 	protected static final JDateChooser JDateChooser = null;
-	private static Date utilDate = new Date();
-	private static SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
-	public static Calendar calendar = new GregorianCalendar();
-	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	//private static Date utilDate = new Date();
+	//private static SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+	//public static Calendar calendar = new GregorianCalendar();
+	//java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 	
 	
 	String sql;
@@ -106,33 +106,60 @@ public class FrmPersonas extends JFrame {
 		String valorTextField1 = txt_monto_gasto.getText().trim();
 		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
-		 
+		 		
+		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		    String fecha = formato.format(new java.util.Date());
+		    try {
+		        java.util.Date parsedDate = formato.parse(fecha);
+		        java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+		    } catch (ParseException e2) {
+		        e2.printStackTrace();
+		}
 
-		
-		
-		String dia = Integer.toString(dateChooser.getCalendar().get(Calendar.DAY_OF_MONTH));
-		String mes = Integer.toString(dateChooser.getCalendar().get(Calendar.MONTH)+1);
-		String year= Integer.toString(dateChooser.getCalendar().get(Calendar.YEAR));
-		String fecha = (year + "-" + mes + "-" + dia);
-		
-		//GENERAMOS UNA VARIABLE DE TIPO JAVA.SQL.DATE
 		java.sql.Date dato2=null;
+		
 		//IMPORTANTE CONVERTIMOS LA VARIABLE FECHA DE STRING A DATE (DE LA CLASE JAVA.SQL.DATE)
 		dato2=java.sql.Date.valueOf(fecha);
 		
-			//miConexion.conectar(); //LLAMA AL METODO CONECTAR
+
+//-------------------------------------------------
+//-----------------------------------------------
+//-------------------------------------------------		 
+//VALIDACIONES//
 			
-			
-	//VALIDACION DE CAMPO VACIO
-	//VALIDACION DE INGRESO DE SOLO NUMEROS	
-			if (txt_monto_gasto.getText().trim().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
+	//01.VALIDACIONES DEL CAMPO TXT_MONTO_GASTO
+		
+	/*	
+		if (txt_monto_gasto.getText().trim().isEmpty()) {
+		  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
 			}else if (validarNumeros(txt_monto_gasto.getText().trim())){
-			JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);	
-				}else
+			JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);
 			
-		//GUARDAR EN LA BASE DE DATOS TODOS LOS GASTOS (TABLA LM_GASTOS)			
-			guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2);
+			}else if (fecha ==null){
+				JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del gasto", "Error", JOptionPane.WARNING_MESSAGE);
+			}else
+		*/
+		
+		
+		Date selectedDate = dateChooser.getDate();
+		
+		if (selectedDate != null) {
+		   
+		    if (selectedDate.before(new Date())) {
+		        // La fecha seleccionada es anterior a la fecha actual, es correcta
+		    	//GUARDA EN LA BASE DE DATOS EL GASTO (TABLA LM_GASTOS)			
+				guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2);
+		    } else {
+		        // La fecha seleccionada no es válida (posterior a la fecha actual)
+
+				JOptionPane.showMessageDialog(null, "La fecha seleccionada debe ser anterior o iguala a la fecha actual)", "Error", JOptionPane.WARNING_MESSAGE);
+		    }
+		} else {
+
+			JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del gasto", "Error", JOptionPane.WARNING_MESSAGE);
+		}
+		
+		
 			
 			}
 		});
@@ -234,6 +261,7 @@ public class FrmPersonas extends JFrame {
 		String mes1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.MONTH)+1);
 		String year1= Integer.toString(dateChooser_1.getCalendar().get(Calendar.YEAR));
 		String fecha1 = (year1 + "-" + mes1 + "-" + dia1);
+		System.out.println(fecha1);
 		java.sql.Date dato =null;
 		
 		//CONVERTIMOS LA VARIABLE DE STRING A DATE (PERO USANDO LA CLASE JAVA.SQL.DATE)
@@ -303,9 +331,9 @@ public class FrmPersonas extends JFrame {
 				fecha.get(Calendar.YEAR);
 				String vacio = 0 + "";
 					
-						
+//MES 8+1 = SEPTIEMBRE -->SI ES MES SEPTIEMBRE Y ES AÑO 2023 ENTONCES					
 if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
-	//MES 8+1 = SEPTIEMBRE
+	//
 	//CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS MES SEPTIEMBRE
 		calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/09/2023","30/09/2023");
 		calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/09/2023","30/09/2023");
@@ -402,6 +430,15 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	}
 	
 	
+	// Metodo para obtener fecha de JDateChooser
+	 public String getFecha(JDateChooser jd) {
+	   SimpleDateFormat Formato = new SimpleDateFormat("yyyy-MM-dd");
+	   if (jd.getDate() != null) {
+	     return Formato.format(jd.getDate());
+	   } else {
+	     return null;
+	   }
+	 }
 
 	//VARIABLES DE CLASE
 

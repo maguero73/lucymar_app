@@ -33,6 +33,12 @@ public class guardarDatos {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		if(dato2 ==null) {
+			
+			JOptionPane.showMessageDialog(null, "debe ingresar una fecha");
+			return;
+		}
 		try {
 			
 			sql= "INSERT INTO LM_GASTOS (COD_GASTO, COD_TITULAR, MONTO, FECHA) values (?,?,?,?)";

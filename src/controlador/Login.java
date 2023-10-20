@@ -109,6 +109,7 @@ public class Login extends JFrame {
 		
 		JButton btn_aceptar = new JButton("Aceptar");
 		btn_aceptar.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String Usuario = "admin";
@@ -133,7 +134,7 @@ public class Login extends JFrame {
 				
 			}
 		});
-		btn_aceptar.setBounds(374, 221, 101, 25);
+		btn_aceptar.setBounds(248, 221, 101, 25);
 		contentPane.add(btn_aceptar);
 		
 		txtusuario = new JTextField();
@@ -143,6 +144,7 @@ public class Login extends JFrame {
 		
 		txtcontraseña = new JPasswordField();
 		txtcontraseña.addKeyListener(new KeyAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode()==KeyEvent.VK_ENTER) {			
@@ -174,7 +176,7 @@ public class Login extends JFrame {
 				dispose();
 			}
 		});
-		btn_cancelar.setBounds(250, 221, 101, 25);
+		btn_cancelar.setBounds(361, 221, 101, 25);
 		contentPane.add(btn_cancelar);
 		
 	}
