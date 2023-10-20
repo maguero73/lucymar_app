@@ -114,22 +114,14 @@ public class Login extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				String Usuario = "admin";
 				String password = "admin";
-				String Usuario1 = "admin1";
-				String password1 = "admin1";
+
 				
 		if (txtusuario.getText().equals(Usuario)&& txtcontraseña.getText().equals(password)){
 				FrmPersonas persona = new FrmPersonas();
 				persona.setVisible(true);
 				dispose();
-				}
-			 else if (txtusuario.getText().equals(Usuario1)&& txtcontraseña.getText().equals(password1)) {
-					FrmPersonas persona = new FrmPersonas();
-					persona.setVisible(true);
-					dispose();
 				}else {
-					FrmPersonas persona = new FrmPersonas();
-					persona.setVisible(true);
-					dispose();
+					JOptionPane.showInternalMessageDialog(null,"usuario / contraseña incorrecta");
 				}
 				
 			}
@@ -138,6 +130,25 @@ public class Login extends JFrame {
 		contentPane.add(btn_aceptar);
 		
 		txtusuario = new JTextField();
+		txtusuario.addKeyListener(new KeyAdapter() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER) {			
+					String Usuario = "admin";
+					String password = "admin";
+					
+					//String Pass=new String (Password.getPassword());
+					if (txtusuario.getText().equals(Usuario)&& txtcontraseña.getText().equals(password)){
+						FrmPersonas persona = new FrmPersonas();
+						persona.setVisible(true);
+						dispose();
+						}else {
+							JOptionPane.showInternalMessageDialog(null,"usuario / contraseña incorrecta");
+						}
+				}
+			}
+		});
 		txtusuario.setBounds(227, 111, 223, 22);
 		contentPane.add(txtusuario);
 		txtusuario.setColumns(10);
@@ -152,13 +163,13 @@ public class Login extends JFrame {
 					String password = "admin";
 					
 					//String Pass=new String (Password.getPassword());
-			if (txtusuario.getText().equals(Usuario)&& txtcontraseña.getText().equals(password)){
-					FrmPersonas persona = new FrmPersonas();
-					persona.setVisible(true);
-					dispose();
-					}else {
-						JOptionPane.showInternalMessageDialog(null,"usuario / contraseña incorrecta");
-					}
+					if (txtusuario.getText().equals(Usuario)&& txtcontraseña.getText().equals(password)){
+						FrmPersonas persona = new FrmPersonas();
+						persona.setVisible(true);
+						dispose();
+						}else {
+							JOptionPane.showInternalMessageDialog(null,"usuario / contraseña incorrecta");
+						}
 				}
 			}
 		});

@@ -36,7 +36,7 @@ public class guardarDatos {
 		
 		if(dato2 ==null) {
 			
-			JOptionPane.showMessageDialog(null, "debe ingresar una fecha");
+			JOptionPane.showMessageDialog(null, "Debe ingresar una fecha");
 			return;
 		}
 		try {

@@ -143,21 +143,35 @@ public class FrmPersonas extends JFrame {
 		
 		Date selectedDate = dateChooser.getDate();
 		
-		if (selectedDate != null) {
-		   
-		    if (selectedDate.before(new Date())) {
-		        // La fecha seleccionada es anterior a la fecha actual, es correcta
+		if (cbo_titular.getSelectedIndex()==0) {
+			JOptionPane.showMessageDialog(null, "Debe ingresar el titular del gasto", "Error", JOptionPane.WARNING_MESSAGE);
+		}
+		
+		else if(txt_monto_gasto.getText().trim().isEmpty()) {
+			  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
+		}else if (validarNumeros(txt_monto_gasto.getText().trim())){
+			JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);
+		}else if (cbo_tipo_gasto.getSelectedIndex()==0) {
+			
+			JOptionPane.showMessageDialog(null, "Debe ingresar el tipo de gasto", "Error", JOptionPane.WARNING_MESSAGE);
+		}else if (selectedDate == null) {
+			JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del gasto", "Error", JOptionPane.WARNING_MESSAGE);
+		}else if (selectedDate.after(new Date())) {
+				 // SI LA FECHA SELECCIONADA ES POSTERIOR A LA FECHA ACTUAL ENTONCES ERROR 
+				JOptionPane.showMessageDialog(null, "La fecha seleccionada debe ser anterior o igual a la fecha actual", "Error", JOptionPane.WARNING_MESSAGE);
+
+		    	
+		    } else {
+		       
+		    	// La fecha seleccionada es anterior a la fecha actual, es correcta
 		    	//GUARDA EN LA BASE DE DATOS EL GASTO (TABLA LM_GASTOS)			
 				guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2);
-		    } else {
-		        // La fecha seleccionada no es válida (posterior a la fecha actual)
-
-				JOptionPane.showMessageDialog(null, "La fecha seleccionada debe ser anterior o iguala a la fecha actual)", "Error", JOptionPane.WARNING_MESSAGE);
+				
 		    }
-		} else {
+		
 
-			JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del gasto", "Error", JOptionPane.WARNING_MESSAGE);
-		}
+			
+		
 		
 		
 			
@@ -342,18 +356,23 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 		} 
 
 		else if(monthChooser.getMonth()== 9 && yearChooser.getYear()== 2023) {
-			//MES 9+1 = OCTUBRE	
+			//MES 9+1 = 10 (OCTUBRE)	
 			calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/10/2023","31/10/2023");
 			calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/10/2023","31/10/2023");
 			calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/10/2023","31/10/2023");
 			}
 		else if(monthChooser.getMonth()== 10 && yearChooser.getYear()== 2023) {
-			//MES 10+1 = NOVIEMBRE
+			//MES 10+1 = 12 (NOVIEMBRE)
 			calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/11/2023","30/11/2023");
 			calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/11/2023","30/11/2023");
 			calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/11/2023","30/11/2023");
 		}
-		else {
+		else if(monthChooser.getMonth()== 11 && yearChooser.getYear()== 2023) {
+			//MES 11+1 = 12 (DICIEMBRE)
+			calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/12/2023","31/12/2023");
+			calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/12/2023","31/12/2023");
+			calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/12/2023","31/12/2023");
+		}else {
 		
 			
 			text_total_ingresos.setText(vacio);
