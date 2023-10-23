@@ -121,7 +121,7 @@ public class Login extends JFrame {
 				persona.setVisible(true);
 				dispose();
 				}else {
-					JOptionPane.showInternalMessageDialog(null,"usuario / contraseña incorrecta");
+					JOptionPane.showInternalMessageDialog(null,"El nombre de usuario o contraseña son incorrectos");
 				}
 				
 			}
@@ -144,7 +144,7 @@ public class Login extends JFrame {
 						persona.setVisible(true);
 						dispose();
 						}else {
-							JOptionPane.showInternalMessageDialog(null,"usuario / contraseña incorrecta");
+							JOptionPane.showInternalMessageDialog(null,"El nombre de usuario o contraseña son incorrectos");
 						}
 				}
 			}
@@ -168,7 +168,7 @@ public class Login extends JFrame {
 						persona.setVisible(true);
 						dispose();
 						}else {
-							JOptionPane.showInternalMessageDialog(null,"usuario / contraseña incorrecta");
+							JOptionPane.showInternalMessageDialog(null,"El nombre de usuario o contraseña son incorrectos");
 						}
 				}
 			}

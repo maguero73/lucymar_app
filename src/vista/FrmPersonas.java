@@ -120,26 +120,10 @@ public class FrmPersonas extends JFrame {
 		
 		//IMPORTANTE CONVERTIMOS LA VARIABLE FECHA DE STRING A DATE (DE LA CLASE JAVA.SQL.DATE)
 		dato2=java.sql.Date.valueOf(fecha);
-		
-
-//-------------------------------------------------
-//-----------------------------------------------
-//-------------------------------------------------		 
+		 
 //VALIDACIONES//
 			
-	//01.VALIDACIONES DEL CAMPO TXT_MONTO_GASTO
-		
-	/*	
-		if (txt_monto_gasto.getText().trim().isEmpty()) {
-		  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
-			}else if (validarNumeros(txt_monto_gasto.getText().trim())){
-			JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);
-			
-			}else if (fecha ==null){
-				JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del gasto", "Error", JOptionPane.WARNING_MESSAGE);
-			}else
-		*/
-		
+	//01.VALIDACIONES DEL CAMPO TXT_MONTO_GASTO	
 		
 		Date selectedDate = dateChooser.getDate();
 		
@@ -162,21 +146,13 @@ public class FrmPersonas extends JFrame {
 
 		    	
 		    } else {
-		       
-		    	// La fecha seleccionada es anterior a la fecha actual, es correcta
+		    	//LA FECHA SELECCIONADA ES ANTERIOR A LA FECHA ACTUAL, ES CORRECTA
 		    	//GUARDA EN LA BASE DE DATOS EL GASTO (TABLA LM_GASTOS)			
 				guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2);
 				
-		    }
-		
-
-			
-		
-		
-		
-			
-			}
-		});
+		    		}		
+				}
+			});
 		
 		btn_grabar_gasto.setBounds(534, 205, 117, 25);
 		contentPane.add(btn_grabar_gasto);
@@ -228,7 +204,7 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(lbl_titular);
 		
 		cbo_titular = new JComboBox<String>();
-		cbo_titular.addItem("Seleccione el titular del gasto o del ingreso");
+		cbo_titular.addItem("Seleccione el titular");
 		cbo_titular.setBounds(209, 116, 264, 24);
 		contentPane.add(cbo_titular);
 		
@@ -269,28 +245,65 @@ public class FrmPersonas extends JFrame {
 		String valorTextField = txt_monto_ingreso.getText().trim();
 		int valorComboBox = cbo_tipo_ingreso.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
-				 
+		
+		//OBTENER EL VALOR DE LOS COMPONENTES DE GASTOS
+		 		
+		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		    String fecha1 = formato.format(new java.util.Date());
+		    try {
+		        java.util.Date parsedDate = formato.parse(fecha1);
+		        java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+		    } catch (ParseException e2) {
+		        e2.printStackTrace();
+		}
 	//SETEAMOS LOS VALORES DE DIA MES Y AÑO EN EL JDATECHOOSER	
+	  /*	    
 		String dia1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.DAY_OF_MONTH));
 		String mes1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.MONTH)+1);
 		String year1= Integer.toString(dateChooser_1.getCalendar().get(Calendar.YEAR));
 		String fecha1 = (year1 + "-" + mes1 + "-" + dia1);
 		System.out.println(fecha1);
+	*/	
 		java.sql.Date dato =null;
 		
 		//CONVERTIMOS LA VARIABLE DE STRING A DATE (PERO USANDO LA CLASE JAVA.SQL.DATE)
 		//IMPORTANTE
 			dato=java.sql.Date.valueOf(fecha1);
 		
-		
+			Date selectedDate = dateChooser_1.getDate();
+			
+			if (cbo_titular.getSelectedIndex()==0) {
+				JOptionPane.showMessageDialog(null, "Debe ingresar el titular del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
+			}
+			
+			else if(txt_monto_ingreso.getText().trim().isEmpty()) {
+				  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
+			}else if (validarNumeros(txt_monto_ingreso.getText().trim())){
+				JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);
+			}else if (cbo_tipo_ingreso.getSelectedIndex()==0) {
+				
+				JOptionPane.showMessageDialog(null, "Debe ingresar el tipo de ingreso", "Error", JOptionPane.WARNING_MESSAGE);
+			}else if (selectedDate == null) {
+				JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
+			}else if (selectedDate.after(new Date())) {
+					 // SI LA FECHA SELECCIONADA ES POSTERIOR A LA FECHA ACTUAL ENTONCES ERROR 
+					JOptionPane.showMessageDialog(null, "La fecha seleccionada debe ser anterior o igual a la fecha actual", "Error", JOptionPane.WARNING_MESSAGE);
+
+			    	
+			    } else {
+			    	//LA FECHA SELECCIONADA ES ANTERIOR A LA FECHA ACTUAL, ES CORRECTA
+			    	//GUARDA EN LA BASE DE DATOS EL GASTO (TABLA LM_GASTOS)		
 		//Date sqlDate1= dateChooser_1.getCalendar().getTime();
 		
 		//Date fecha2 = new Date();			
 				
-	//GUARDA EN LA BASE DE DATOS TODOS LOS INGRESOS (TABLA LM_INGRESOS)
+		//GUARDA EN LA BASE DE DATOS TODOS LOS INGRESOS (TABLA LM_INGRESOS)
 		guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, dato);
 				
+			   }
+			
 			}
+			
 		});
 		btn_grabar_ingreso.setBounds(534, 384, 117, 25);
 		contentPane.add(btn_grabar_ingreso);
