@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 //import java.sql.Date;
 import java.sql.DriverManager;
@@ -133,7 +135,7 @@ public class FrmPersonas extends JFrame {
 		
 		else if(txt_monto_gasto.getText().trim().isEmpty()) {
 			  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
-		}else if (validarNumeros(txt_monto_gasto.getText().trim())){
+		}else if (!validarNumeros(txt_monto_gasto.getText().trim())){
 			JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);
 		}else if (cbo_tipo_gasto.getSelectedIndex()==0) {
 			
@@ -187,7 +189,8 @@ public class FrmPersonas extends JFrame {
 		lbl_monto_ingreso.setBounds(47, 373, 117, 26);
 		contentPane.add(lbl_monto_ingreso);
 		
-		txt_monto_ingreso = new JTextField();
+		//JTEXTFIELD
+		txt_monto_ingreso = new JTextField();					
 		txt_monto_ingreso.setColumns(10);
 		txt_monto_ingreso.setBounds(209, 373, 136, 28);
 		contentPane.add(txt_monto_ingreso);
@@ -278,8 +281,9 @@ public class FrmPersonas extends JFrame {
 			
 			else if(txt_monto_ingreso.getText().trim().isEmpty()) {
 				  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
-			}else if (validarNumeros(txt_monto_ingreso.getText().trim())){
+			}else if (!validarNumeros(txt_monto_ingreso.getText().trim())){
 				JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);
+
 			}else if (cbo_tipo_ingreso.getSelectedIndex()==0) {
 				
 				JOptionPane.showMessageDialog(null, "Debe ingresar el tipo de ingreso", "Error", JOptionPane.WARNING_MESSAGE);
@@ -457,7 +461,7 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	
 	public static boolean validarNumeros(String datos)
 	{
-		return datos.matches("[0-9]");
+		return datos.matches("[0-9]*");
 		
 	}
 	
