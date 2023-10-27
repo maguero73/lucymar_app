@@ -68,13 +68,7 @@ public class FrmPersonas extends JFrame {
 		
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1434, 741);
-		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenuItem mntmFile = new JMenuItem("Archivo");
-		menuBar.add(mntmFile);
+		setBounds(100, 100, 1534, 741);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -83,21 +77,21 @@ public class FrmPersonas extends JFrame {
 		
 		//JLABEL
 		JLabel lbl_tipo_gasto = new JLabel("Tipo de Gasto");
-		lbl_tipo_gasto.setBounds(47, 242, 144, 26);
+		lbl_tipo_gasto.setBounds(47, 316, 144, 26);
 		contentPane.add(lbl_tipo_gasto);
 		
 		lbl_fecha_gasto = new JLabel("Fecha");
-		lbl_fecha_gasto.setBounds(47, 280, 85, 26);
+		lbl_fecha_gasto.setBounds(47, 354, 85, 26);
 		contentPane.add(lbl_fecha_gasto);
 		
 		lbl_monto_gasto = new JLabel("Monto Gasto");
-		lbl_monto_gasto.setBounds(47, 204, 117, 26);
+		lbl_monto_gasto.setBounds(47, 278, 117, 26);
 		contentPane.add(lbl_monto_gasto);
 		
 
 		txt_monto_gasto = new JTextField();
 		txt_monto_gasto.setColumns(10);
-		txt_monto_gasto.setBounds(209, 204, 136, 28);
+		txt_monto_gasto.setBounds(209, 278, 136, 28);
 		contentPane.add(txt_monto_gasto);
 		
 		
@@ -173,7 +167,7 @@ public class FrmPersonas extends JFrame {
 
 			});
 		
-		btn_grabar_gasto.setBounds(534, 205, 117, 25);
+		btn_grabar_gasto.setBounds(534, 279, 117, 25);
 		contentPane.add(btn_grabar_gasto);
 		
 		//BOTON NUEVO
@@ -187,7 +181,7 @@ public class FrmPersonas extends JFrame {
 				
 			}
 		});
-		btn_nuevo_gasto.setBounds(534, 281, 117, 25);
+		btn_nuevo_gasto.setBounds(534, 355, 117, 25);
 		contentPane.add(btn_nuevo_gasto);
 		
 		//BOTON CERRAR
@@ -197,63 +191,63 @@ public class FrmPersonas extends JFrame {
 				System.exit(WIDTH);
 			}
 		});
-		btn_cerrar.setBounds(1045, 583, 117, 25);
+		btn_cerrar.setBounds(1066, 620, 117, 25);
 		contentPane.add(btn_cerrar);
 		
 		
 		//JLABEL
 		lbl_monto_ingreso = new JLabel("Monto Ingreso");
-		lbl_monto_ingreso.setBounds(47, 373, 117, 26);
+		lbl_monto_ingreso.setBounds(47, 455, 117, 26);
 		contentPane.add(lbl_monto_ingreso);
 		
 		//JTEXTFIELD
 		txt_monto_ingreso = new JTextField();					
 		txt_monto_ingreso.setColumns(10);
-		txt_monto_ingreso.setBounds(209, 373, 136, 28);
+		txt_monto_ingreso.setBounds(209, 455, 136, 28);
 		contentPane.add(txt_monto_ingreso);
 		
 		//TITULO DEL FORMULARIO
 		lbl_control_gastos = new JLabel("Control de Gastos");
 		lbl_control_gastos.setFont(new Font("Noto Sans CJK KR", Font.BOLD, 20));
 		lbl_control_gastos.setForeground(new Color(106, 90, 205));
-		lbl_control_gastos.setBounds(47, 30, 191, 33);
+		lbl_control_gastos.setBounds(47, 69, 191, 33);
 		contentPane.add(lbl_control_gastos);
 		
 		lbl_titular = new JLabel("Titular del ingreso");
-		lbl_titular.setBounds(47, 98, 155, 26);
+		lbl_titular.setBounds(47, 147, 155, 26);
 		contentPane.add(lbl_titular);
 		
 		cbo_titular = new JComboBox<String>();
 		cbo_titular.addItem("Seleccione el titular");
-		cbo_titular.setBounds(209, 116, 284, 24);
+		cbo_titular.setBounds(209, 165, 284, 24);
 		contentPane.add(cbo_titular);
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd/MM/yyyy");
-		dateChooser.setBounds(209, 287, 273, 19);
+		dateChooser.setBounds(209, 361, 273, 19);
 		contentPane.add(dateChooser);
 		
 		cbo_tipo_gasto = new JComboBox<String>();
 		cbo_tipo_gasto.addItem("Seleccione el tipo de gasto");
-		cbo_tipo_gasto.setBounds(209, 243, 273, 24);
+		cbo_tipo_gasto.setBounds(209, 317, 273, 24);
 		contentPane.add(cbo_tipo_gasto);
 		
 		JLabel lbl_tipo_ingreso = new JLabel("Tipo de Ingreso");
-		lbl_tipo_ingreso.setBounds(47, 411, 144, 26);
+		lbl_tipo_ingreso.setBounds(47, 493, 144, 26);
 		contentPane.add(lbl_tipo_ingreso);
 		
 		cbo_tipo_ingreso = new JComboBox<String>();
 		cbo_tipo_ingreso.addItem("Seleccione el tipo de ingreso");
-		cbo_tipo_ingreso.setBounds(209, 413, 273, 24);
+		cbo_tipo_ingreso.setBounds(209, 495, 273, 24);
 		contentPane.add(cbo_tipo_ingreso);
 		
 		JLabel lbl_fecha_ingreso = new JLabel("Fecha");
-		lbl_fecha_ingreso.setBounds(47, 449, 85, 26);
+		lbl_fecha_ingreso.setBounds(47, 531, 85, 26);
 		contentPane.add(lbl_fecha_ingreso);
 		
 		dateChooser_1 = new JDateChooser();
 		dateChooser_1.setDateFormatString("yyyy-MM-dd");
-		dateChooser_1.setBounds(209, 456, 273, 19);
+		dateChooser_1.setBounds(209, 538, 273, 19);
 		contentPane.add(dateChooser_1);
 		
 		JButton btn_grabar_ingreso = new JButton("Grabar");
@@ -328,7 +322,7 @@ public class FrmPersonas extends JFrame {
 			}
 			
 		});
-		btn_grabar_ingreso.setBounds(534, 384, 117, 25);
+		btn_grabar_ingreso.setBounds(534, 466, 117, 25);
 		contentPane.add(btn_grabar_ingreso);
 		
 		JButton btn_nuevo_ingreso = new JButton("Nuevo");
@@ -343,29 +337,29 @@ public class FrmPersonas extends JFrame {
 				
 			}
 		});
-		btn_nuevo_ingreso.setBounds(534, 450, 117, 25);
+		btn_nuevo_ingreso.setBounds(534, 532, 117, 25);
 		contentPane.add(btn_nuevo_ingreso);
 		
 		JLabel lbl_estado_rdo = new JLabel("Estado de Resultados");
 		lbl_estado_rdo.setForeground(new Color(106, 90, 205));
 		lbl_estado_rdo.setFont(new Font("Noto Sans CJK KR", Font.BOLD, 20));
-		lbl_estado_rdo.setBounds(810, 30, 224, 33);
+		lbl_estado_rdo.setBounds(787, 69, 224, 33);
 		contentPane.add(lbl_estado_rdo);
 		
 		JLabel lbl_titular_1 = new JLabel("Mes");
-		lbl_titular_1.setBounds(768, 128, 85, 26);
+		lbl_titular_1.setBounds(763, 165, 85, 26);
 		contentPane.add(lbl_titular_1);
 		
 		JLabel lbl_titular_1_1 = new JLabel("Año");
-		lbl_titular_1_1.setBounds(768, 206, 85, 26);
+		lbl_titular_1_1.setBounds(763, 253, 85, 26);
 		contentPane.add(lbl_titular_1_1);
 		
 		JMonthChooser monthChooser = new JMonthChooser();
-		monthChooser.setBounds(862, 135, 122, 19);
+		monthChooser.setBounds(862, 170, 122, 19);
 		contentPane.add(monthChooser);
 		
 		JYearChooser yearChooser = new JYearChooser();
-		yearChooser.setBounds(873, 211, 53, 19);
+		yearChooser.setBounds(873, 260, 53, 19);
 		contentPane.add(yearChooser);
 		
 		
@@ -419,7 +413,7 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 			}					
 		
 		});
-		btn_calcular.setBounds(810, 281, 91, 25);
+		btn_calcular.setBounds(810, 355, 91, 25);
 		contentPane.add(btn_calcular);
 		
 		JButton btn_imprimir = new JButton("Limpiar");
@@ -431,19 +425,19 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 				
 			}
 		});
-		btn_imprimir.setBounds(943, 281, 91, 25);
+		btn_imprimir.setBounds(943, 355, 91, 25);
 		contentPane.add(btn_imprimir);
 		
 		JLabel lbl_total_ingresos = new JLabel("Total Ingresos");
-		lbl_total_ingresos.setBounds(744, 352, 109, 26);
+		lbl_total_ingresos.setBounds(747, 458, 109, 26);
 		contentPane.add(lbl_total_ingresos);
 		
 		JLabel lbl_total_egresos = new JLabel("Total Egresos");
-		lbl_total_egresos.setBounds(744, 385, 109, 26);
+		lbl_total_egresos.setBounds(747, 491, 109, 26);
 		contentPane.add(lbl_total_egresos);
 		
 		JLabel lbl_saldo = new JLabel("Saldo");
-		lbl_saldo.setBounds(744, 425, 109, 26);
+		lbl_saldo.setBounds(747, 531, 109, 26);
 		contentPane.add(lbl_saldo);
 		
 
@@ -458,25 +452,47 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	re.RellenarComboBox("LM_TIPO_INGRESO", "descripcion", cbo_tipo_ingreso);
 	
 	text_total_ingresos = new JTextField();
-	text_total_ingresos.setBounds(917, 356, 114, 19);
+	text_total_ingresos.setBounds(920, 462, 114, 19);
 	contentPane.add(text_total_ingresos);
 	text_total_ingresos.setColumns(10);
 	
 	text_total_egresos = new JTextField();
 	text_total_egresos.setColumns(10);
-	text_total_egresos.setBounds(917, 392, 114, 19);
+	text_total_egresos.setBounds(920, 498, 114, 19);
 	contentPane.add(text_total_egresos);
 	
 	text_saldo = new JTextField();
 	text_saldo.setColumns(10);
-	text_saldo.setBounds(917, 429, 114, 19);
+	text_saldo.setBounds(920, 535, 114, 19);
 	text_saldo.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 	contentPane.add(text_saldo);
 	
 	JLabel lbl_titular_2 = new JLabel("o del gasto");
-	lbl_titular_2.setBounds(47, 115, 155, 26);
+	lbl_titular_2.setBounds(47, 164, 155, 26);
 	contentPane.add(lbl_titular_2);
-		
+	
+	JMenuBar menuBar = new JMenuBar();
+	menuBar.setBounds(3, -3, 300, 29);
+	contentPane.add(menuBar);
+	
+	JMenu archivo=new JMenu("Archivo");
+	JMenu edicion=new JMenu("Edicion");
+	JMenu herramientas=new JMenu("Herramientas");
+	JMenu ayuda=new JMenu("Ayuda");
+	
+	JMenuItem guardar2=new JMenuItem("Guardar");
+	JMenuItem guardar_como=new JMenuItem("Guardar Como");
+	
+	menuBar.add(archivo);
+	menuBar.add(edicion);
+	menuBar.add(herramientas);
+	menuBar.add(ayuda);
+	
+	getContentPane().add(menuBar);
+	
+	
+	
+	
 	
 	} //CIERRE DEL CONSTRUCTOR	
 		
