@@ -63,6 +63,7 @@ import com.toedter.calendar.JYearChooser;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
+import beans.visorDeImagenes;
 
 public class Login extends JFrame {
 	protected static final JPasswordField Password = new JPasswordField();
@@ -78,7 +79,7 @@ public class Login extends JFrame {
 			public void run() {
 				try {
 					Login frame = new Login();
-					frame.setVisible(true);
+					frame.setVisible(false); //HABILITAR LOGUEO
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -90,8 +91,10 @@ public class Login extends JFrame {
 	 */
 	//METODO CONSTRUCTOR
 	public Login() {
+		setTitle("Iniciá Sesión");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(50, 50, 559, 360);
+		setBounds(120, 120, 1000, 730);
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -100,11 +103,11 @@ public class Login extends JFrame {
 		
 		//JLABEL
 		JLabel lbl_tipo_gasto = new JLabel("Usuario");
-		lbl_tipo_gasto.setBounds(63, 108, 73, 26);
+		lbl_tipo_gasto.setBounds(205, 395, 73, 26);
 		contentPane.add(lbl_tipo_gasto);
 		
 		JLabel lbl_tipo_gasto_1 = new JLabel("Contraseña");
-		lbl_tipo_gasto_1.setBounds(63, 158, 85, 26);
+		lbl_tipo_gasto_1.setBounds(205, 445, 85, 26);
 		contentPane.add(lbl_tipo_gasto_1);
 		
 		JButton btn_aceptar = new JButton("Aceptar");
@@ -121,12 +124,12 @@ public class Login extends JFrame {
 				persona.setVisible(true);
 				dispose();
 				}else {
-					JOptionPane.showInternalMessageDialog(null,"El nombre de usuario o contraseña son incorrectos");
+					JOptionPane.showInternalMessageDialog(null,"El nombre de usuario o contraseña es incorrecto");
 				}
 				
 			}
 		});
-		btn_aceptar.setBounds(248, 221, 101, 25);
+		btn_aceptar.setBounds(688, 396, 101, 25);
 		contentPane.add(btn_aceptar);
 		
 		txtusuario = new JTextField();
@@ -144,12 +147,12 @@ public class Login extends JFrame {
 						persona.setVisible(true);
 						dispose();
 						}else {
-							JOptionPane.showInternalMessageDialog(null,"El nombre de usuario o contraseña son incorrectos");
+							JOptionPane.showInternalMessageDialog(null,"El nombre de usuario o contraseña es incorrecto");
 						}
 				}
 			}
 		});
-		txtusuario.setBounds(227, 111, 223, 22);
+		txtusuario.setBounds(369, 398, 223, 22);
 		contentPane.add(txtusuario);
 		txtusuario.setColumns(10);
 		
@@ -159,8 +162,8 @@ public class Login extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode()==KeyEvent.VK_ENTER) {			
-					String Usuario = "admin";
-					String password = "admin";
+					String Usuario = "mariano";
+					String password = "mariano";
 					
 					//String Pass=new String (Password.getPassword());
 					if (txtusuario.getText().equals(Usuario)&& txtcontraseña.getText().equals(password)){
@@ -168,18 +171,13 @@ public class Login extends JFrame {
 						persona.setVisible(true);
 						dispose();
 						}else {
-							JOptionPane.showInternalMessageDialog(null,"El nombre de usuario o contraseña son incorrectos");
+							JOptionPane.showInternalMessageDialog(null,"El nombre de usuario o contraseña es incorrecto");
 						}
 				}
 			}
 		});
-		txtcontraseña.setBounds(225, 162, 225, 19);
+		txtcontraseña.setBounds(367, 449, 225, 19);
 		contentPane.add(txtcontraseña);
-		
-		JLabel lblNewLabel = new JLabel("Bienvenido Usuario");
-		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-		lblNewLabel.setBounds(72, 32, 287, 45);
-		contentPane.add(lblNewLabel);
 		
 		JButton btn_cancelar = new JButton("Cancelar");
 		btn_cancelar.addActionListener(new ActionListener() {
@@ -187,8 +185,14 @@ public class Login extends JFrame {
 				dispose();
 			}
 		});
-		btn_cancelar.setBounds(361, 221, 101, 25);
+		btn_cancelar.setBounds(688, 446, 101, 25);
 		contentPane.add(btn_cancelar);
+		
+		visorDeImagenes visorDeImagenes_ = new visorDeImagenes();
+		visorDeImagenes_.setVerticalAlignment(SwingConstants.TOP);
+		visorDeImagenes_.setEscogeImagen("/home/mariano/eclipse-workspace/lucymar_app/logo2.jpg");
+		visorDeImagenes_.setBounds(294, 74, 450, 240);
+		contentPane.add(visorDeImagenes_);
 		
 	}
 }

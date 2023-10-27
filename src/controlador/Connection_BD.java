@@ -8,7 +8,11 @@ import javax.swing.*;
 import javax.xml.crypto.Data;
 
 import vista.*;
-
+/*
+ * 
+ * 
+ * 
+ */
 public class Connection_BD {
 
 	Connection miConexion = null;
@@ -23,7 +27,15 @@ public class Connection_BD {
 		
 	}
 	
-
+/*
+ * 
+ * 
+ * Se genera conexión con la base de datos Oracle
+ * Nota: Dicho servidor de BBDD funciona con Docker (localhost:51521)
+ * Para iniciar el contenedor de oracle en docker ejecutar:
+ * sudo docker start 8ada381ba8f7
+ * 
+ */
 		public Connection conectar() {
 			
 		try {

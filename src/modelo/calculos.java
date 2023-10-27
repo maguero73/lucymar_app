@@ -10,7 +10,11 @@ import javax.swing.JTextField;
 
 import controlador.Connection_BD;
 
-
+/*
+ * 
+ * 
+ * CLASE QUE REALIZA TODOS LOS CALCULOS
+ */
 public class calculos {
 	
 	public calculos() {
@@ -19,7 +23,11 @@ public class calculos {
 	}
 	
 	
-	//REALIZA LA SUMATORIA DE LOS INGRESOS / GASTOS
+	/*
+	 * 
+	 * 
+	 * REALIZA LA SUMATORIA DE LOS INGRESOS / GASTOS
+	 */
 	public void sumatorias(String tabla, String valor, JTextField text1, String fecha_desde, String fecha_hasta) {
 		
 		String sql;
@@ -55,8 +63,13 @@ public class calculos {
     }    
 	
 	
-//REALIZA OPERACION DE RESTA ENTRE AMBAS SUMATORIAS	(INGRESOS - GASTOS)
-	
+
+/*
+ * 
+ * 
+ * 
+ * 	REALIZA OPERACION DE RESTA ENTRE AMBAS SUMATORIAS	(INGRESOS - GASTOS)
+ */
 public void saldo(String tabla1, String tabla2,String valor, JTextField text, String fecha_desde, String fecha_hasta) {
 		
 		

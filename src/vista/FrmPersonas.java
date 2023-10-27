@@ -60,6 +60,7 @@ public class FrmPersonas extends JFrame {
 	RellenarCombos re = new RellenarCombos();
 	//METODO CONSTRUCTOR
 	public FrmPersonas() {
+		setTitle("lucymar_app");
 		
 		miConexion=new Connection_BD();
 		calculos calc=new calculos();
@@ -68,6 +69,12 @@ public class FrmPersonas extends JFrame {
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1434, 741);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenuItem mntmFile = new JMenuItem("Archivo");
+		menuBar.add(mntmFile);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -108,6 +115,7 @@ public class FrmPersonas extends JFrame {
 		String valorTextField1 = txt_monto_gasto.getText().trim();
 		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
+		//int valor = Integer.parseInt(txt_monto_gasto.getText().trim()); 
 		 		
 		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		    String fecha = formato.format(new java.util.Date());
@@ -116,6 +124,7 @@ public class FrmPersonas extends JFrame {
 		        java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
 		    } catch (ParseException e2) {
 		        e2.printStackTrace();
+		           
 		}
 
 		java.sql.Date dato2=null;
@@ -129,17 +138,22 @@ public class FrmPersonas extends JFrame {
 		
 		Date selectedDate = dateChooser.getDate();
 		
+		
 		if (cbo_titular.getSelectedIndex()==0) {
 			JOptionPane.showMessageDialog(null, "Debe ingresar el titular del gasto", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 		
 		else if(txt_monto_gasto.getText().trim().isEmpty()) {
 			  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
+				  			  
+		//}else if (valorTextField1=="0"){
+			//JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);	
+		
 		}else if (!validarNumeros(txt_monto_gasto.getText().trim())){
-			JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);
 		}else if (cbo_tipo_gasto.getSelectedIndex()==0) {
 			
-			JOptionPane.showMessageDialog(null, "Debe ingresar el tipo de gasto", "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de gasto", "Error", JOptionPane.WARNING_MESSAGE);
 		}else if (selectedDate == null) {
 			JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del gasto", "Error", JOptionPane.WARNING_MESSAGE);
 		}else if (selectedDate.after(new Date())) {
@@ -153,7 +167,10 @@ public class FrmPersonas extends JFrame {
 				guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2);
 				
 		    		}		
+
 				}
+			
+
 			});
 		
 		btn_grabar_gasto.setBounds(534, 205, 117, 25);
@@ -202,13 +219,13 @@ public class FrmPersonas extends JFrame {
 		lbl_control_gastos.setBounds(47, 30, 191, 33);
 		contentPane.add(lbl_control_gastos);
 		
-		lbl_titular = new JLabel("Titular");
-		lbl_titular.setBounds(47, 115, 85, 26);
+		lbl_titular = new JLabel("Titular del ingreso");
+		lbl_titular.setBounds(47, 98, 155, 26);
 		contentPane.add(lbl_titular);
 		
 		cbo_titular = new JComboBox<String>();
 		cbo_titular.addItem("Seleccione el titular");
-		cbo_titular.setBounds(209, 116, 264, 24);
+		cbo_titular.setBounds(209, 116, 284, 24);
 		contentPane.add(cbo_titular);
 		
 		dateChooser = new JDateChooser();
@@ -259,15 +276,9 @@ public class FrmPersonas extends JFrame {
 		    } catch (ParseException e2) {
 		        e2.printStackTrace();
 		}
-	//SETEAMOS LOS VALORES DE DIA MES Y AÑO EN EL JDATECHOOSER	
-	  /*	    
-		String dia1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.DAY_OF_MONTH));
-		String mes1 = Integer.toString(dateChooser_1.getCalendar().get(Calendar.MONTH)+1);
-		String year1= Integer.toString(dateChooser_1.getCalendar().get(Calendar.YEAR));
-		String fecha1 = (year1 + "-" + mes1 + "-" + dia1);
-		System.out.println(fecha1);
-	*/	
+		
 		java.sql.Date dato =null;
+		//int valor2 = Integer.parseInt(txt_monto_ingreso.getText());
 		
 		//CONVERTIMOS LA VARIABLE DE STRING A DATE (PERO USANDO LA CLASE JAVA.SQL.DATE)
 		//IMPORTANTE
@@ -281,12 +292,15 @@ public class FrmPersonas extends JFrame {
 			
 			else if(txt_monto_ingreso.getText().trim().isEmpty()) {
 				  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
+			//}else if (valor2==0){
+			//	JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);	
+			
 			}else if (!validarNumeros(txt_monto_ingreso.getText().trim())){
-				JOptionPane.showMessageDialog(null, "Debe ingresar un valor numerico", "Error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Ingreso", JOptionPane.WARNING_MESSAGE);
 
 			}else if (cbo_tipo_ingreso.getSelectedIndex()==0) {
 				
-				JOptionPane.showMessageDialog(null, "Debe ingresar el tipo de ingreso", "Error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de ingreso", "Error", JOptionPane.WARNING_MESSAGE);
 			}else if (selectedDate == null) {
 				JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
 			}else if (selectedDate.after(new Date())) {
@@ -301,7 +315,12 @@ public class FrmPersonas extends JFrame {
 		
 		//Date fecha2 = new Date();			
 				
-		//GUARDA EN LA BASE DE DATOS TODOS LOS INGRESOS (TABLA LM_INGRESOS)
+
+	/*
+	 * 
+	 * GUARDA EN LA BASE DE DATOS TODOS LOS INGRESOS (TABLA LM_INGRESOS)
+	 * 		    	
+	 */
 		guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, dato);
 				
 			   }
@@ -453,20 +472,48 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	text_saldo.setBounds(917, 429, 114, 19);
 	text_saldo.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 	contentPane.add(text_saldo);
+	
+	JLabel lbl_titular_2 = new JLabel("o del gasto");
+	lbl_titular_2.setBounds(47, 115, 155, 26);
+	contentPane.add(lbl_titular_2);
 		
 	
 	} //CIERRE DEL CONSTRUCTOR	
 		
 	
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param datos Este parámetro me permite reutilizar la validación en todos los campos de tipo Number
+	 * @return Esta función retorna un valor verdadero si se trata de numeros del 1 al 9 la cantidad que quieras
+	 */
 	
+	/*
 	public static boolean validarNumeros(String datos)
 	{
 		return datos.matches("[0-9]*");
 		
+	}*/
+	
+	public static boolean validarNumeros(String datos) {
+	    // Utiliza una expresión regular para validar el formato
+	    String regex = "^([0-9]){3,9}+(\\.[0-9]{2})?$";
+
+	    // Reemplaza la coma por un punto
+	    //datos = datos.replace(",",".").trim();
+
+	    // Comprueba si la cadena coincide con la expresión regular
+	    return datos.matches(regex);
 	}
 	
+	// 
 	
-	// Metodo para obtener fecha de JDateChooser
+	/*
+	 * 
+	 * Metodo para obtener fecha de JDateChooser
+	 * 
+	 */
 	 public String getFecha(JDateChooser jd) {
 	   SimpleDateFormat Formato = new SimpleDateFormat("yyyy-MM-dd");
 	   if (jd.getDate() != null) {

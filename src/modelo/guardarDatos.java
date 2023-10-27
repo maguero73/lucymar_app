@@ -11,6 +11,13 @@ import javax.swing.JOptionPane;
 
 import controlador.Connection_BD;
 
+
+/*
+ * 
+ * 
+ * 
+ * 
+ */
 public class guardarDatos {
 	
 	public guardarDatos() {
@@ -21,7 +28,13 @@ public class guardarDatos {
 	////////////////////////////////////////
 	//METODO GUARDAR GASTOS
 ////////////////////////////////////////
-	
+	/*
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * 
+	 */
 	public void guardarGastos(int valorComboBox2, int valorComboBox1, String valorTextField1, Date dato2) {
 		
 		
@@ -79,7 +92,13 @@ public class guardarDatos {
 		////////////////////////////////////////
 		//METODO GUARDAR INGRESOS
 	////////////////////////////////////////
-		
+/*
+ * 
+ * 
+ * 
+ * 
+ * 		
+ */
 public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorTextField, Date dato) {
 			
 			
