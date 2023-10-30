@@ -136,15 +136,21 @@ public class FrmPersonas extends JFrame {
 		if (cbo_titular.getSelectedIndex()==0) {
 			JOptionPane.showMessageDialog(null, "Debe ingresar el titular del gasto", "Error", JOptionPane.WARNING_MESSAGE);
 		}
-		
+		/*
+		 * 
+		 * 
+		 * VALIDACIONES DEL CAMPO MONTO GASTO
+		 * (ATENCION RESPETAR EL ORDEN)
+		 */
+	//01. VALIDA CAMPO VACIO
 		else if(txt_monto_gasto.getText().trim().isEmpty()) {
 			  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
-				  			  
-		//}else if (valorTextField1=="0"){
-			//JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);	
-		
+	//02. VALIDA CON FUNCION EXPRESION REGULAR (MAX 9 ENTEROS 2 DECIMALES)	
 		}else if (!validarNumeros(txt_monto_gasto.getText().trim())){
 			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);
+	//03. VALIDA CAMPO EN 0(CERO)		
+		}else if ((Double.parseDouble(txt_monto_gasto.getText().trim()))==0){
+			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);		
 		}else if (cbo_tipo_gasto.getSelectedIndex()==0) {
 			
 			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de gasto", "Error", JOptionPane.WARNING_MESSAGE);
@@ -272,7 +278,6 @@ public class FrmPersonas extends JFrame {
 		}
 		
 		java.sql.Date dato =null;
-		//int valor2 = Integer.parseInt(txt_monto_ingreso.getText());
 		
 		//CONVERTIMOS LA VARIABLE DE STRING A DATE (PERO USANDO LA CLASE JAVA.SQL.DATE)
 		//IMPORTANTE
@@ -283,20 +288,35 @@ public class FrmPersonas extends JFrame {
 			if (cbo_titular.getSelectedIndex()==0) {
 				JOptionPane.showMessageDialog(null, "Debe ingresar el titular del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
 			}
-			
+			/*
+			 * 
+			 * 
+			 * VALIDACIONES DEL CAMPO MONTO INGRESO
+			 */
+	// 01. VALIDA CAMPO VACIO:
 			else if(txt_monto_ingreso.getText().trim().isEmpty()) {
 				  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
-			//}else if (valor2==0){
-			//	JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);	
-			
+	// 02. VALIDA CON FUNCION EXPRESION REGULAR (MAX 9 ENTEROS Y 2 DECIMALES)			  
 			}else if (!validarNumeros(txt_monto_ingreso.getText().trim())){
-				JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Ingreso", JOptionPane.WARNING_MESSAGE);
-
+				JOptionPane.showMessageDialog(null, "El monto del ingreso debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Ingreso", JOptionPane.WARNING_MESSAGE);
+	// 03. VALIDA CAMPO EN 0(CERO) 			
+			}else if (Double.parseDouble(txt_monto_ingreso.getText().trim())==0){
+				JOptionPane.showMessageDialog(null, "El monto del ingreso debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);
+			/*
+			 * 
+			 * 
+			 * VALIDACION DEL CAMPO TIPO INGRESO
+			 */
 			}else if (cbo_tipo_ingreso.getSelectedIndex()==0) {
 				
 				JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de ingreso", "Error", JOptionPane.WARNING_MESSAGE);
 			}else if (selectedDate == null) {
 				JOptionPane.showMessageDialog(null, "Debe ingresar la fecha del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
+			/*
+			 * 
+			 * 
+			 * VALIDACION DEL CAMPO FECHA	
+			 */
 			}else if (selectedDate.after(new Date())) {
 					 // SI LA FECHA SELECCIONADA ES POSTERIOR A LA FECHA ACTUAL ENTONCES ERROR 
 					JOptionPane.showMessageDialog(null, "La fecha seleccionada debe ser anterior o igual a la fecha actual", "Error", JOptionPane.WARNING_MESSAGE);
@@ -471,19 +491,92 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	lbl_titular_2.setBounds(47, 164, 155, 26);
 	contentPane.add(lbl_titular_2);
 	
+	/*
+	 * 
+	 * 
+	 * BARRA DE MENU:
+	 */
 	JMenuBar menuBar = new JMenuBar();
-	menuBar.setBounds(3, -3, 300, 29);
+	menuBar.setBounds(3, -3, 1534, 29);
 	contentPane.add(menuBar);
 	
+	/*
+	 * 
+	 * 
+	 * MENUS:
+	 */
 	JMenu archivo=new JMenu("Archivo");
 	JMenu edicion=new JMenu("Edicion");
+	JMenu ver=new JMenu("Ver");
 	JMenu herramientas=new JMenu("Herramientas");
 	JMenu ayuda=new JMenu("Ayuda");
 	
+	/*
+	 * 
+	 * ITEMS:
+	 */
 	JMenuItem guardar2=new JMenuItem("Guardar");
 	JMenuItem guardar_como=new JMenuItem("Guardar Como");
+	JMenuItem salir=new JMenuItem("Salir");
+	JMenuItem reportes=new JMenuItem("Reportes");
+	JMenuItem doc=new JMenuItem("Documentación");
+	JMenuItem cortar=new JMenuItem("Cortar");
+	JMenuItem copiar=new JMenuItem("Copiar");
+	JMenuItem pegar=new JMenuItem("Pegar");
+	JMenuItem seleccionar_todo=new JMenuItem("Seleccionar Todo");
+	JMenuItem acerca_de=new JMenuItem("Acerca de lucymar_app");
+	JMenuItem actualizar=new JMenuItem("Actualizar");
 	
+	/*
+	 * 
+	 * 
+	 * AGREGAMOS LOS ITEMS AL MENU ARCHIVO:
+	 */
+	archivo.add(guardar2);
+	archivo.add(guardar_como);
+	archivo.add(salir);
+	
+	/*
+	 * 
+	 * 
+	 * AGREGAMOS LOS ITEMS AL MENU HERRAMIENTAS:
+	 */
+	herramientas.add(reportes);
+	
+	
+	/*
+	 * 
+	 * 
+	 * AGREGAMOS LOS ITEMS AL MENU VER:
+	 */
+	ver.add(doc);
+	
+	/*
+	 * 
+	 * 
+	 * AGREGAMOS LOS ITEMS AL MENU EDICION:
+	 */
+	edicion.add(cortar);
+	edicion.add(copiar);
+	edicion.add(pegar);
+	edicion.add(seleccionar_todo);
+	
+	/*
+	 * 
+	 * 
+	 * AGREGAMOS LOS ITEMS AL MENU AYUDA:
+	 */
+	ayuda.add(actualizar);
+	ayuda.add(acerca_de);
+	
+	
+	/*
+	 * 
+	 * 
+	 * AGREGAMOS LOS MENUS A LA BARRA:
+	 */
 	menuBar.add(archivo);
+	menuBar.add(ver);
 	menuBar.add(edicion);
 	menuBar.add(herramientas);
 	menuBar.add(ayuda);
@@ -514,7 +607,7 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	
 	public static boolean validarNumeros(String datos) {
 	    // Utiliza una expresión regular para validar el formato
-	    String regex = "^([0-9]){3,9}+(\\.[0-9]{2})?$";
+	    String regex = "^([0-9]){1,9}+(\\.[0-9]{2})?$";
 
 	    // Reemplaza la coma por un punto
 	    //datos = datos.replace(",",".").trim();
