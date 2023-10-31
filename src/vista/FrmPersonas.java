@@ -109,7 +109,7 @@ public class FrmPersonas extends JFrame {
 		String valorTextField1 = txt_monto_gasto.getText().trim();
 		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
-		//int valor = Integer.parseInt(txt_monto_gasto.getText().trim()); 
+		
 		 		
 		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		    String fecha = formato.format(new java.util.Date());
