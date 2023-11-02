@@ -388,7 +388,7 @@ public class FrmPersonas extends JFrame {
 		JButton btn_calcular = new JButton("Calcular");
 		btn_calcular.addActionListener(new ActionListener() {
 			
-		//JMonthChooser month = new JMonthChooser();
+	
 			public void actionPerformed(ActionEvent e) {
 				
 	
@@ -401,19 +401,17 @@ public class FrmPersonas extends JFrame {
 
 		        // Crear un objeto Calendar y establecerlo con la fecha seleccionada
 		        Calendar calendar = Calendar.getInstance();
-		     //   calendar.setTime(MesSeleccionado);
+		   
 
-		        // Obtener el mes actual desde el objeto Calendar
-		       // MesSeleccionado = calendar.get(Calendar.MONTH); // Enero es 0, Febrero es 1, ...
+	// Obtener el mes actual desde el objeto Calendar
+   // MesSeleccionado = calendar.get(Calendar.MONTH); // Enero es 0, Febrero es 1, ...
 		        int year = yearChooser.getYear();
 		        int month = monthChooser.getMonth();
 		        
 		        LocalDate fechaActual= LocalDate.now();
 		        int mesActual=fechaActual.getMonthValue();
-		        //System.out.println(mesActual);
 		        int anioActual=fechaActual.getYear();
-		        //System.out.println(anioActual);
-		        int mesFuturo = 0;
+
 		        
 		        Pair<String, String> fechas = obtenerFechasInicioFin(year, month);
 		        String fechaDesde = fechas.getFirst();
@@ -451,56 +449,7 @@ public class FrmPersonas extends JFrame {
 		          }
 		        }
 
-		     
-				// OBTIENE MES ACTUAL
-				/*
-				Month mes = LocalDate.now().getMonth();
-				Calendar fecha = new GregorianCalendar();
-				fecha.get(Calendar.YEAR);
-				String vacio = 0 + "";
-				*/
-				
-				
-					
-//MES 8+1 = SEPTIEMBRE -->SI ES MES SEPTIEMBRE Y ES AÑO 2023 ENTONCES
-				
-/*				
-if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
-	//
-	//CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS MES SEPTIEMBRE
-		calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/09/2023","30/09/2023");
-		calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/09/2023","30/09/2023");
-	//CALCULO EL SALDO AL FINAL DE CADA MES	
-		calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/09/2023","30/09/2023");		
-		} 
-
-		else if(monthChooser.getMonth()== 9 && yearChooser.getYear()== 2023) {
-			//MES 9+1 = 10 (OCTUBRE)	
-			calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/10/2023","31/10/2023");
-			calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/10/2023","31/10/2023");
-			calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/10/2023","31/10/2023");
 			}
-		else if(monthChooser.getMonth()== 10 && yearChooser.getYear()== 2023) {
-			//MES 10+1 = 12 (NOVIEMBRE)
-			calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/11/2023","30/11/2023");
-			calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/11/2023","30/11/2023");
-			calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/11/2023","30/11/2023");
-		}
-		else if(monthChooser.getMonth()== 11 && yearChooser.getYear()== 2023) {
-			//MES 11+1 = 12 (DICIEMBRE)
-			calc.sumatorias("LM_INGRESOS","total", text_total_ingresos,"01/12/2023","31/12/2023");
-			calc.sumatorias("LM_GASTOS", "total", text_total_egresos, "01/12/2023","31/12/2023");
-			calc.saldo("LM_INGRESOS", "LM_GASTOS", "resultado", text_saldo, "01/12/2023","31/12/2023");
-		}else {
-		
-			
-
-			
-	*/	}
-		//	}	
-			
-			
-		
 		});
 		btn_calcular.setBounds(810, 355, 91, 25);
 		contentPane.add(btn_calcular);
@@ -662,18 +611,9 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	/**
 	 * 
 	 * 
-	 * 
 	 * @param datos Este parámetro me permite reutilizar la validación en todos los campos de tipo Number
 	 * @return Esta función retorna un valor verdadero si se trata de numeros del 1 al 9 la cantidad que quieras
-	 */
-	
-	/*
-	public static boolean validarNumeros(String datos)
-	{
-		return datos.matches("[0-9]*");
-		
-	}*/
-	
+	 */	
 	public static boolean validarNumeros(String datos) {
 	    // Utiliza una expresión regular para validar el formato
 	    String regex = "^([0-9]){1,9}+(\\.[0-9]{2})?$";
@@ -701,7 +641,15 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	   }
 	 }
 	 
-	 //VER TEMA NUEVO FUNCION QUE RETORNA UN PAR DE VALORES
+	 
+	 /*
+	  * VER TEMA NUEVO FUNCION QUE RETORNA UN PAR DE VALORES
+	  * 
+	  * ESTE METODO ESTATICO "PAIR" SE NUTRE DE LA CLASE FECHAINICIOFINDELMES.JAVA
+	  * EL OBJETO "PAIR" NO ES UNA CLASE INCORPORADA EN JAVA ESTANDAR, POR LO QUE NECESITA SER DEFINIDA POR EL USUARIO
+	  * 
+	  * 
+	  */
 	 public static Pair<String, String> obtenerFechasInicioFin(int year, int month) {
 	        Calendar calendar = Calendar.getInstance();
 	        calendar.set(Calendar.YEAR, year);

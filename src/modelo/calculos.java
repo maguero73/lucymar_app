@@ -66,18 +66,21 @@ public class calculos {
 /*
  * 
  * 
- * 
  * 	REALIZA OPERACION DE RESTA ENTRE AMBAS SUMATORIAS	(INGRESOS - GASTOS)
+ * 
+ * 	DICCIONARIO PARAMETROS: Variable i: Iterador del Array de meses;
+ * 							Variable tabla1 y tabla2: LM_INGRESOS - LM_GASTOS
+ * 				 			Variable valor: resultado (alias de la query)
+ * 							Variable text: text_saldo (JTextField con etiqueta saldo)
+ * 							Variables fecha_desde y fecha_hasta: 
  */
 public double saldo(int i, String tabla1, String tabla2,String valor, JTextField text, String fecha_desde, String fecha_hasta) {
 		
-		
-//String sql = "select(select sum(monto)from " + tabla1 + ")- (select sum(monto)from "+ tabla2 + ") as resultado from dual";
 	String sql;
 	
         try {
 
-        	sql= "select(select sum(monto)from " + tabla1 + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd'))- (select sum(monto)from "+ tabla2 + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd')) as resultado from dual";		
+        	sql= "select(select coalesce(sum(monto),0)from " + tabla1 + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd'))- (select coalesce(sum(monto),0)from "+ tabla2 + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd')) as resultado from dual";		
             pstmt=miConexion.conectar().prepareStatement(sql);
             
             //String fecha_desde="01/09/2023";
