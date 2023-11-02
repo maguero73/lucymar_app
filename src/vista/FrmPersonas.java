@@ -394,10 +394,9 @@ public class FrmPersonas extends JFrame {
 	
 			  // Obtener la fecha seleccionada por el usuario desde el JDateChooser
 		       // JDateChooser dateChooser = new JDateChooser();
-		        int mesSeleccionado = monthChooser.getMonth()+1;
-		        System.out.println(mesSeleccionado);
+		        int mesSeleccionado = monthChooser.getMonth()+1;		       
 		        int anioSeleccionado = yearChooser.getYear();
-		        System.out.println(anioSeleccionado);
+		       
 
 		        // Crear un objeto Calendar y establecerlo con la fecha seleccionada
 		        Calendar calendar = Calendar.getInstance();
@@ -416,11 +415,10 @@ public class FrmPersonas extends JFrame {
 		        Pair<String, String> fechas = obtenerFechasInicioFin(year, month);
 		        String fechaDesde = fechas.getFirst();
 		        String fechaHasta = fechas.getSecond();
-		        String vacio = 0 + "";
+		        String vacio = 0 + ""; //PARA RESETEAR LOS MESES FUTUROS
 		        
-		 // Crear un array para almacenar las sumatorias de cada mes (12 meses)
-		        
-		        double[] sumatoriaPorMes = new double[12];
+	// Crear un array para almacenar las sumatorias de cada mes (12 meses)
+	         double[] sumatoriaPorMes = new double[12];
 		        	        	  
 		          
 		     for (int i = 0; i < sumatoriaPorMes.length; i++) {
@@ -434,22 +432,17 @@ public class FrmPersonas extends JFrame {
 
 		            }else {	            	
 		            	sumatoriaPorMes[i] = 0;
-			            }	
-		         
-		            }else {
-		            	text_total_ingresos.setText(vacio);
-						text_total_egresos.setText(vacio);
-						text_saldo.setText(vacio); 
-		            	}
-			        }else {
-		        	text_total_ingresos.setText(vacio);
+			            }
+		            
+		          } //CIERRA 2DO IF
+		        }else { //ELSE DEL 1ER Y ULTIMO IF
+					text_total_ingresos.setText(vacio);
 					text_total_egresos.setText(vacio);
 					text_saldo.setText(vacio); 
-		        	  
-		          }
+					
 		        }
-
-			}
+		      } //CIERRE DEL FOR   
+			}  	
 		});
 		btn_calcular.setBounds(810, 355, 91, 25);
 		contentPane.add(btn_calcular);

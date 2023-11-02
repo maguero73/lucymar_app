@@ -34,7 +34,7 @@ public class calculos {
 
         try {	
     //UTILIZO CONSULTAS PREPARADAS PARA EVITAR INYECCION SQL   	
-    sql= "SELECT SUM(monto)as total FROM " + tabla + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd')"; 	
+    sql= "SELECT COALESCE(SUM(monto),0) as total FROM " + tabla + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd')"; 	
  		
     pstmt=miConexion.conectar().prepareStatement(sql);
    
