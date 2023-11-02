@@ -10,6 +10,7 @@ import modelo.RellenarCombos;
 import modelo.calculos;
 import modelo.guardarDatos;
 import oracle.sql.DATE;
+import vista.FechaInicioFinDelMes.Pair;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -342,6 +343,7 @@ public class FrmPersonas extends JFrame {
 			}
 			
 		});
+		
 		btn_grabar_ingreso.setBounds(534, 466, 117, 25);
 		contentPane.add(btn_grabar_ingreso);
 		
@@ -389,13 +391,77 @@ public class FrmPersonas extends JFrame {
 		//JMonthChooser month = new JMonthChooser();
 			public void actionPerformed(ActionEvent e) {
 				
+	
+			  // Obtener la fecha seleccionada por el usuario desde el JDateChooser
+		       // JDateChooser dateChooser = new JDateChooser();
+		        int mesSeleccionado = monthChooser.getMonth()+1;
+		       // System.out.println(mesSeleccionado);
+		        int anioSeleccionado = yearChooser.getYear();
+		        System.out.println(anioSeleccionado);
+
+		        // Crear un objeto Calendar y establecerlo con la fecha seleccionada
+		        Calendar calendar = Calendar.getInstance();
+		     //   calendar.setTime(MesSeleccionado);
+
+		        // Obtener el mes actual desde el objeto Calendar
+		       // MesSeleccionado = calendar.get(Calendar.MONTH); // Enero es 0, Febrero es 1, ...
+		        int year = yearChooser.getYear();
+		        int month = monthChooser.getMonth();
+		        
+		        LocalDate fechaActual= LocalDate.now();
+		        int mesActual=fechaActual.getMonthValue();
+		       // System.out.println(mesActual);
+		        int anioActual=fechaActual.getYear();
+		        System.out.println(anioActual);
+		        int mesFuturo;
+		        
+		        Pair<String, String> fechas = obtenerFechasInicioFin(year, month);
+		        String fechaDesde = fechas.getFirst();
+		        String fechaHasta = fechas.getSecond();
+		        String vacio = 0 + "";
+		        
+		     // Crear un array para almacenar las sumatorias de cada mes (12 meses)
+		        
+		        double[] sumatoriaPorMes = new double[12];
+		        
+		        
+	      if (mesSeleccionado > mesActual) {
+				text_total_ingresos.setText(vacio);
+				text_total_egresos.setText(vacio);
+				text_saldo.setText(vacio); 
+	      }
+		   
+	      
+		        	  
+		          
+		        for (int i = 0; i < sumatoriaPorMes.length; i++) {
+
+		          
+		            if (i == mesSeleccionado) {
+		                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_INGRESOS","total", text_total_ingresos,fechaDesde,fechaHasta);
+		                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_GASTOS","total", text_total_egresos,fechaDesde,fechaHasta);
+		                sumatoriaPorMes[i] = calc.saldo(i,"LM_INGRESOS","LM_GASTOS","resultado",text_saldo,fechaDesde,fechaHasta);
+		            } else {
+		                sumatoriaPorMes[i] = 0; 
+		                
+		               // Para los otros meses, la sumatoria es 0
+		            }
+		        }
+
+		     
 				// OBTIENE MES ACTUAL
+				/*
 				Month mes = LocalDate.now().getMonth();
 				Calendar fecha = new GregorianCalendar();
 				fecha.get(Calendar.YEAR);
 				String vacio = 0 + "";
+				*/
+				
+				
 					
-//MES 8+1 = SEPTIEMBRE -->SI ES MES SEPTIEMBRE Y ES AÑO 2023 ENTONCES					
+//MES 8+1 = SEPTIEMBRE -->SI ES MES SEPTIEMBRE Y ES AÑO 2023 ENTONCES
+				
+/*				
 if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	//
 	//CALCULO LA SUMATORIA DE TODOS LOS INGRESOS Y EGRESOS MES SEPTIEMBRE
@@ -425,12 +491,12 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 		}else {
 		
 			
-			text_total_ingresos.setText(vacio);
-			text_total_egresos.setText(vacio);
-			text_saldo.setText(vacio);
+
 			
-		}
-			}					
+	*/	}
+		//	}	
+			
+			
 		
 		});
 		btn_calcular.setBounds(810, 355, 91, 25);
@@ -631,6 +697,26 @@ if (monthChooser.getMonth()== 8 && yearChooser.getYear()== 2023){
 	     return null;
 	   }
 	 }
+	 
+	 //VER TEMA NUEVO FUNCION QUE RETORNA UN PAR DE VALORES
+	 public static Pair<String, String> obtenerFechasInicioFin(int year, int month) {
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.set(Calendar.YEAR, year);
+	        calendar.set(Calendar.MONTH, month);
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+	        calendar.set(Calendar.DAY_OF_MONTH, 1);
+	        Date fechaDesde = calendar.getTime();
+	        String fechaDesdeStr = dateFormat.format(fechaDesde);
+
+	        calendar.add(Calendar.MONTH, 1);
+	        calendar.add(Calendar.DAY_OF_MONTH, -1);
+	        Date fechaHasta = calendar.getTime();
+	        String fechaHastaStr = dateFormat.format(fechaHasta);
+
+	        return new Pair<>(fechaDesdeStr, fechaHastaStr);
+	    }
+
 
 	//VARIABLES DE CLASE
 

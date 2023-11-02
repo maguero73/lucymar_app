@@ -28,13 +28,13 @@ public class calculos {
 	 * 
 	 * REALIZA LA SUMATORIA DE LOS INGRESOS / GASTOS
 	 */
-	public void sumatorias(String tabla, String valor, JTextField text1, String fecha_desde, String fecha_hasta) {
+	public double sumatorias(int i,String tabla, String valor, JTextField text1, String fecha_desde, String fecha_hasta) {
 		
 		String sql;
 
         try {	
         	
-    sql= "SELECT SUM(monto)as total FROM " + tabla + " WHERE FECHA BETWEEN TO_DATE(?,'DD/MM/YYYY') AND TO_DATE(?,'DD/MM/YYYY')"; 	
+    sql= "SELECT SUM(monto)as total FROM " + tabla + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd')"; 	
  		
     pstmt=miConexion.conectar().prepareStatement(sql);
    
@@ -59,6 +59,7 @@ public class calculos {
             
         
         }
+		return i;
         
     }    
 	
@@ -70,7 +71,7 @@ public class calculos {
  * 
  * 	REALIZA OPERACION DE RESTA ENTRE AMBAS SUMATORIAS	(INGRESOS - GASTOS)
  */
-public void saldo(String tabla1, String tabla2,String valor, JTextField text, String fecha_desde, String fecha_hasta) {
+public double saldo(int i, String tabla1, String tabla2,String valor, JTextField text, String fecha_desde, String fecha_hasta) {
 		
 		
 //String sql = "select(select sum(monto)from " + tabla1 + ")- (select sum(monto)from "+ tabla2 + ") as resultado from dual";
@@ -78,7 +79,7 @@ public void saldo(String tabla1, String tabla2,String valor, JTextField text, St
 	
         try {
 
-        	sql= "select(select sum(monto)from " + tabla1 + " WHERE FECHA BETWEEN TO_DATE(?,'DD/MM/YYYY') AND TO_DATE(?,'DD/MM/YYYY'))- (select sum(monto)from "+ tabla2 + " WHERE FECHA BETWEEN TO_DATE(?,'DD/MM/YYYY') AND TO_DATE(?,'DD/MM/YYYY')) as resultado from dual";		
+        	sql= "select(select sum(monto)from " + tabla1 + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd'))- (select sum(monto)from "+ tabla2 + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd')) as resultado from dual";		
             pstmt=miConexion.conectar().prepareStatement(sql);
             
             //String fecha_desde="01/09/2023";
@@ -103,6 +104,7 @@ public void saldo(String tabla1, String tabla2,String valor, JTextField text, St
             JOptionPane.showMessageDialog(null, e);
         }finally {
         }
+		return i;
         
     }    
 	
