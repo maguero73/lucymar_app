@@ -428,7 +428,7 @@ public class FrmPersonas extends JFrame {
 		     for (int i = 0; i < sumatoriaPorMes.length; i++) {
 
 		        if (anioSeleccionado == anioActual) {
-		          if(mesSeleccionado < mesActual) {	
+		          if(mesSeleccionado <= mesActual) {	
 		            if (i == mesSeleccionado) {
 		                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_INGRESOS","total", text_total_ingresos,fechaDesde,fechaHasta);
 		                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_GASTOS","total", text_total_egresos,fechaDesde,fechaHasta);
