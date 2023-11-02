@@ -33,13 +33,11 @@ public class calculos {
 		String sql;
 
         try {	
-        	
+    //UTILIZO CONSULTAS PREPARADAS PARA EVITAR INYECCION SQL   	
     sql= "SELECT SUM(monto)as total FROM " + tabla + " WHERE FECHA BETWEEN TO_DATE(?,'yyyy-MM-dd') AND TO_DATE(?,'yyyy-MM-dd')"; 	
  		
     pstmt=miConexion.conectar().prepareStatement(sql);
    
-   //String fecha_desde="01/09/2023";
-  // String fecha_hasta="30/09/2023";
    
           	pstmt.setString(1, fecha_desde);
           	pstmt.setString(2, fecha_hasta);

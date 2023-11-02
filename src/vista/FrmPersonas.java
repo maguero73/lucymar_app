@@ -395,7 +395,7 @@ public class FrmPersonas extends JFrame {
 			  // Obtener la fecha seleccionada por el usuario desde el JDateChooser
 		       // JDateChooser dateChooser = new JDateChooser();
 		        int mesSeleccionado = monthChooser.getMonth()+1;
-		       // System.out.println(mesSeleccionado);
+		        System.out.println(mesSeleccionado);
 		        int anioSeleccionado = yearChooser.getYear();
 		        System.out.println(anioSeleccionado);
 
@@ -410,42 +410,45 @@ public class FrmPersonas extends JFrame {
 		        
 		        LocalDate fechaActual= LocalDate.now();
 		        int mesActual=fechaActual.getMonthValue();
-		       // System.out.println(mesActual);
+		        //System.out.println(mesActual);
 		        int anioActual=fechaActual.getYear();
-		        System.out.println(anioActual);
-		        int mesFuturo;
+		        //System.out.println(anioActual);
+		        int mesFuturo = 0;
 		        
 		        Pair<String, String> fechas = obtenerFechasInicioFin(year, month);
 		        String fechaDesde = fechas.getFirst();
 		        String fechaHasta = fechas.getSecond();
 		        String vacio = 0 + "";
 		        
-		     // Crear un array para almacenar las sumatorias de cada mes (12 meses)
+		 // Crear un array para almacenar las sumatorias de cada mes (12 meses)
 		        
 		        double[] sumatoriaPorMes = new double[12];
-		        
-		        
-	      if (mesSeleccionado > mesActual) {
-				text_total_ingresos.setText(vacio);
-				text_total_egresos.setText(vacio);
-				text_saldo.setText(vacio); 
-	      }
-		   
-	      
-		        	  
+		        	        	  
 		          
-		        for (int i = 0; i < sumatoriaPorMes.length; i++) {
+		     for (int i = 0; i < sumatoriaPorMes.length; i++) {
 
-		          
+		        if (anioSeleccionado == anioActual) {
+		          if(mesSeleccionado < mesActual) {	
 		            if (i == mesSeleccionado) {
 		                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_INGRESOS","total", text_total_ingresos,fechaDesde,fechaHasta);
 		                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_GASTOS","total", text_total_egresos,fechaDesde,fechaHasta);
 		                sumatoriaPorMes[i] = calc.saldo(i,"LM_INGRESOS","LM_GASTOS","resultado",text_saldo,fechaDesde,fechaHasta);
-		            } else {
-		                sumatoriaPorMes[i] = 0; 
-		                
-		               // Para los otros meses, la sumatoria es 0
-		            }
+
+		            }else {	            	
+		            	sumatoriaPorMes[i] = 0;
+			            }	
+		         
+		            }else {
+		            	text_total_ingresos.setText(vacio);
+						text_total_egresos.setText(vacio);
+						text_saldo.setText(vacio); 
+		            	}
+			        }else {
+		        	text_total_ingresos.setText(vacio);
+					text_total_egresos.setText(vacio);
+					text_saldo.setText(vacio); 
+		        	  
+		          }
 		        }
 
 		     
