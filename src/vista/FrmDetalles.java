@@ -34,7 +34,7 @@ public class FrmDetalles extends JFrame {
 	public FrmDetalles() {
 		
 		setTitle("Detalle Ingresos");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400,300);
 
         // Obtén el tamaño de la pantalla
