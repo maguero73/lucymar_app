@@ -1,4 +1,4 @@
-package controlador;
+package vista;
 
 import java.awt.EventQueue;
 
@@ -27,7 +27,6 @@ import modelo.RellenarCombos;
 import modelo.calculos;
 import modelo.guardarDatos;
 import oracle.sql.DATE;
-import vista.FrmPersonas;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

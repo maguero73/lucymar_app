@@ -9,8 +9,8 @@ import javax.swing.border.EmptyBorder;
 import modelo.RellenarCombos;
 import modelo.calculos;
 import modelo.guardarDatos;
+import modelo.FechaInicioFinDelMes.Pair;
 import oracle.sql.DATE;
-import vista.FechaInicioFinDelMes.Pair;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -89,12 +89,14 @@ public class FrmPersonas extends JFrame {
 		lbl_monto_gasto.setBounds(47, 278, 117, 26);
 		contentPane.add(lbl_monto_gasto);
 		
+		
 
 		txt_monto_gasto = new JTextField();
+		txt_monto_gasto.setToolTipText("No se permite la coma como separador decimal");
 		txt_monto_gasto.setColumns(10);
 		txt_monto_gasto.setBounds(209, 278, 136, 28);
 		contentPane.add(txt_monto_gasto);
-		
+		setLocationRelativeTo(null);
 		
 		//BOTON GRABAR
 		JButton btn_grabar_gasto = new JButton("Grabar");
@@ -208,7 +210,8 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(lbl_monto_ingreso);
 		
 		//JTEXTFIELD
-		txt_monto_ingreso = new JTextField();					
+		txt_monto_ingreso = new JTextField();
+		txt_monto_ingreso.setToolTipText("No se permite la coma como separador decimal");
 		txt_monto_ingreso.setColumns(10);
 		txt_monto_ingreso.setBounds(209, 455, 136, 28);
 		contentPane.add(txt_monto_ingreso);
@@ -433,6 +436,10 @@ public class FrmPersonas extends JFrame {
 		            }else {	            	
 		            	sumatoriaPorMes[i] = 0;
 			            }
+		          }else {
+						text_total_ingresos.setText(vacio);
+						text_total_egresos.setText(vacio);
+						text_saldo.setText(vacio); 
 		            
 		          } //CIERRA 2DO IF
 		        }else { //ELSE DEL 1ER Y ULTIMO IF
@@ -483,18 +490,18 @@ public class FrmPersonas extends JFrame {
 	re.RellenarComboBox("LM_TIPO_INGRESO", "descripcion", cbo_tipo_ingreso);
 	
 	text_total_ingresos = new JTextField();
-	text_total_ingresos.setBounds(920, 462, 114, 19);
+	text_total_ingresos.setBounds(873, 465, 114, 19);
 	contentPane.add(text_total_ingresos);
 	text_total_ingresos.setColumns(10);
 	
 	text_total_egresos = new JTextField();
 	text_total_egresos.setColumns(10);
-	text_total_egresos.setBounds(920, 498, 114, 19);
+	text_total_egresos.setBounds(873, 501, 114, 19);
 	contentPane.add(text_total_egresos);
 	
 	text_saldo = new JTextField();
 	text_saldo.setColumns(10);
-	text_saldo.setBounds(920, 535, 114, 19);
+	text_saldo.setBounds(873, 538, 114, 19);
 	text_saldo.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 	contentPane.add(text_saldo);
 	
@@ -537,6 +544,10 @@ public class FrmPersonas extends JFrame {
 	JMenuItem seleccionar_todo=new JMenuItem("Seleccionar Todo");
 	JMenuItem acerca_de=new JMenuItem("Acerca de lucymar_app");
 	JMenuItem actualizar=new JMenuItem("Actualizar");
+	JMenuItem detalle_ingresos=new JMenuItem("Detalle Ingresos");
+	JMenuItem detalle_egresos=new JMenuItem("Detalle Egresos");
+	
+	
 	
 	/*
 	 * 
@@ -561,6 +572,8 @@ public class FrmPersonas extends JFrame {
 	 * AGREGAMOS LOS ITEMS AL MENU VER:
 	 */
 	ver.add(doc);
+	ver.add(detalle_ingresos);
+	ver.add(detalle_egresos);
 	
 	/*
 	 * 
@@ -594,8 +607,22 @@ public class FrmPersonas extends JFrame {
 	
 	getContentPane().add(menuBar);
 	
+	JButton btnDetalleIngresos = new JButton("Ver Detalle");
+	btnDetalleIngresos.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			
+		FrmDetalles detalle = new FrmDetalles();
+		detalle.setVisible(true);
+		setLocationRelativeTo(null);
+			
+		}
+	});
+	btnDetalleIngresos.setBounds(999, 462, 117, 19);
+	contentPane.add(btnDetalleIngresos);
 	
-	
+	JButton btnDetalleGastos = new JButton("Ver Detalle");
+	btnDetalleGastos.setBounds(999, 500, 117, 19);
+	contentPane.add(btnDetalleGastos);
 	
 	
 	} //CIERRE DEL CONSTRUCTOR	

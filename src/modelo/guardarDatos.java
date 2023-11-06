@@ -54,7 +54,7 @@ public class guardarDatos {
 		}
 		try {
 			
-			sql= "INSERT INTO LM_GASTOS (COD_GASTO, COD_TITULAR, MONTO, FECHA) values (?,?,?,?)";
+			sql= "INSERT INTO LM_GASTOS (ID, COD_GASTO, COD_TITULAR, MONTO, FECHA) values (SEC_LUCY_2.nextval,?,?,?,?)";
 					
 			 pstmt =miConexion.conectar().prepareStatement(sql);
 			
@@ -62,6 +62,7 @@ public class guardarDatos {
 			 pstmt.setInt(2, valorComboBox1);
 			 pstmt.setString(3, valorTextField1);
 			 pstmt.setDate(4, dato2);
+			
 			 				
 				
 				int rowsAffected=pstmt.executeUpdate();
@@ -114,7 +115,7 @@ public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorT
 			
 			try {
 				
-				sql1= "INSERT INTO LM_INGRESOS (COD_INGRESO, COD_TITULAR, MONTO, FECHA) values (?,?,?,?)";
+				sql1= "INSERT INTO LM_INGRESOS (ID, COD_INGRESO, COD_TITULAR, MONTO, FECHA) values (SEC_LUCY.nextval,?,?,?,?)";
 						
 				 pstmt =miConexion.conectar().prepareStatement(sql1);
 				
