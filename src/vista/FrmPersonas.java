@@ -92,6 +92,7 @@ public class FrmPersonas extends JFrame {
 		
 
 		txt_monto_gasto = new JTextField();
+//GLOBO ALERT		
 		txt_monto_gasto.setToolTipText("No se permite la coma como separador decimal");
 		txt_monto_gasto.setColumns(10);
 		txt_monto_gasto.setBounds(209, 278, 136, 28);
@@ -608,6 +609,8 @@ public class FrmPersonas extends JFrame {
 	getContentPane().add(menuBar);
 	
 	JButton btnDetalleIngresos = new JButton("Ver Detalle");
+	//GLOBO ALERT		
+	btnDetalleIngresos.setToolTipText("Detalle de Ingresos");
 	btnDetalleIngresos.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			
@@ -621,6 +624,8 @@ public class FrmPersonas extends JFrame {
 	contentPane.add(btnDetalleIngresos);
 	
 	JButton btnDetalleGastos = new JButton("Ver Detalle");
+	//GLOBO ALERT		
+	btnDetalleGastos.setToolTipText("Detalle de Gastos");
 	btnDetalleGastos.setBounds(999, 500, 117, 19);
 	contentPane.add(btnDetalleGastos);
 	

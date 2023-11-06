@@ -19,7 +19,7 @@ public class RellenarCombos {
 		
 	}
 	
-	public void RellenarComboBox(String tabla, String valor, JComboBox combo) {
+	public void RellenarComboBox(String tabla, String valor, JComboBox<String> combo) {
 		
 
 		String sql = "select * from " + tabla + " order by CODIGO";

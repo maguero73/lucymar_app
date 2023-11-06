@@ -33,9 +33,9 @@ public class FrmDetalles extends JFrame {
 	 */
 	public FrmDetalles() {
 		
-		setTitle("Detalle Ingresos");
+		setTitle("Detalle de Ingresos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400,300);
+		setSize(800,600);
 
         // Obtén el tamaño de la pantalla
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -46,8 +46,8 @@ public class FrmDetalles extends JFrame {
 
         // Establece la ubicación del JFrame en el centro de la pantalla
         setLocation(x, y);
-		setBounds(300, 150, 800, 600);
-		contentPane = 																																																																																								new JPanel();
+		//setBounds(300, 150, 800, 600);
+		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
