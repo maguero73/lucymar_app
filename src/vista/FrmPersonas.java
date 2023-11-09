@@ -9,7 +9,9 @@ import javax.swing.border.EmptyBorder;
 import modelo.RellenarCombos;
 import modelo.calculos;
 import modelo.guardarDatos;
+import modelo.validaciones;
 import modelo.FechaInicioFinDelMes.Pair;
+import modelo.FechaIF;
 import oracle.sql.DATE;
 
 import javax.swing.JLabel;
@@ -92,7 +94,7 @@ public class FrmPersonas extends JFrame {
 		
 
 		txt_monto_gasto = new JTextField();
-//GLOBO ALERT		
+		//GLOBO ALERT		
 		txt_monto_gasto.setToolTipText("No se permite la coma como separador decimal");
 		txt_monto_gasto.setColumns(10);
 		txt_monto_gasto.setBounds(209, 278, 136, 28);
@@ -132,11 +134,11 @@ public class FrmPersonas extends JFrame {
 		 
 //VALIDACIONES//
 			
-	//01.VALIDACIONES DEL CAMPO TXT_MONTO_GASTO	
+	//VALIDACIONES DEL CAMPO TXT_MONTO_GASTO	
 		
 		Date selectedDate = dateChooser.getDate();
 		
-		
+
 		if (cbo_titular.getSelectedIndex()==0) {
 			JOptionPane.showMessageDialog(null, "Debe ingresar el titular del gasto", "Error", JOptionPane.WARNING_MESSAGE);
 		}
@@ -150,7 +152,7 @@ public class FrmPersonas extends JFrame {
 		else if(txt_monto_gasto.getText().trim().isEmpty()) {
 			  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
 	//02. VALIDA CON FUNCION EXPRESION REGULAR (MAX 9 ENTEROS 2 DECIMALES)	
-		}else if (!validarNumeros(txt_monto_gasto.getText().trim())){
+		}else if (!validaciones.validarNumeros(txt_monto_gasto.getText().trim())){
 			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);
 	//03. VALIDA CAMPO EN 0(CERO)		
 		}else if ((Double.parseDouble(txt_monto_gasto.getText().trim()))==0){
@@ -176,6 +178,8 @@ public class FrmPersonas extends JFrame {
 			
 
 			});
+		
+		
 		
 		btn_grabar_gasto.setBounds(534, 279, 117, 25);
 		contentPane.add(btn_grabar_gasto);
@@ -285,34 +289,34 @@ public class FrmPersonas extends JFrame {
 		java.sql.Date dato =null;
 		
 		//CONVERTIMOS LA VARIABLE DE STRING A DATE (PERO USANDO LA CLASE JAVA.SQL.DATE)
-		//IMPORTANTE
+		//IMPORTANTE!!
 			dato=java.sql.Date.valueOf(fecha1);
 		
 			Date selectedDate = dateChooser_1.getDate();
 			
-			if (cbo_titular.getSelectedIndex()==0) {
-				JOptionPane.showMessageDialog(null, "Debe ingresar el titular del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
+		if (cbo_titular.getSelectedIndex()==0) {
+			JOptionPane.showMessageDialog(null, "Debe ingresar el titular del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
 			}
 			/*
 			 * 
 			 * 
-			 * VALIDACIONES DEL CAMPO MONTO INGRESO
+			 * VALIDACIONES DEL CAMPO MONTO INGRESO:
 			 */
-	// 01. VALIDA CAMPO VACIO:
-			else if(txt_monto_ingreso.getText().trim().isEmpty()) {
+	// 01. VALIDA CAMPO NULL:
+		else if(txt_monto_ingreso.getText().trim().isEmpty()) {
 				  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
 	// 02. VALIDA CON FUNCION EXPRESION REGULAR (MAX 9 ENTEROS Y 2 DECIMALES)			  
-			}else if (!validarNumeros(txt_monto_ingreso.getText().trim())){
+		}else if (!validaciones.validarNumeros(txt_monto_ingreso.getText().trim())){
 				JOptionPane.showMessageDialog(null, "El monto del ingreso debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Ingreso", JOptionPane.WARNING_MESSAGE);
 	// 03. VALIDA CAMPO EN 0(CERO) 			
-			}else if (Double.parseDouble(txt_monto_ingreso.getText().trim())==0){
+		}else if (Double.parseDouble(txt_monto_ingreso.getText().trim())==0){
 				JOptionPane.showMessageDialog(null, "El monto del ingreso debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);
 			/*
 			 * 
 			 * 
-			 * VALIDACION DEL CAMPO TIPO INGRESO
+			 * VALIDACION DEL CAMPO TIPO INGRESO:
 			 */
-			}else if (cbo_tipo_ingreso.getSelectedIndex()==0) {
+		}else if (cbo_tipo_ingreso.getSelectedIndex()==0) {
 				
 				JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de ingreso", "Error", JOptionPane.WARNING_MESSAGE);
 			}else if (selectedDate == null) {
@@ -320,21 +324,16 @@ public class FrmPersonas extends JFrame {
 			/*
 			 * 
 			 * 
-			 * VALIDACION DEL CAMPO FECHA	
+			 * VALIDACION DEL CAMPO FECHA:
 			 */
 			}else if (selectedDate.after(new Date())) {
-					 // SI LA FECHA SELECCIONADA ES POSTERIOR A LA FECHA ACTUAL ENTONCES ERROR 
-					JOptionPane.showMessageDialog(null, "La fecha seleccionada debe ser anterior o igual a la fecha actual", "Error", JOptionPane.WARNING_MESSAGE);
-
+	 // SI LA FECHA SELECCIONADA ES POSTERIOR A LA FECHA ACTUAL ENTONCES ERROR 
+	JOptionPane.showMessageDialog(null, "La fecha seleccionada debe ser anterior o igual a la fecha actual", "Error", JOptionPane.WARNING_MESSAGE);
 			    	
 			    } else {
-			    	//LA FECHA SELECCIONADA ES ANTERIOR A LA FECHA ACTUAL, ES CORRECTA
-			    	//GUARDA EN LA BASE DE DATOS EL GASTO (TABLA LM_GASTOS)		
-		//Date sqlDate1= dateChooser_1.getCalendar().getTime();
+		   	//CORRECTO: LA FECHA SELECCIONADA ES ANTERIOR A LA FECHA ACTUAL
+			//GUARDA EN LA BASE DE DATOS EL GASTO (TABLA LM_GASTOS)		
 		
-		//Date fecha2 = new Date();			
-				
-
 	/*
 	 * 
 	 * GUARDA EN LA BASE DE DATOS TODOS LOS INGRESOS (TABLA LM_INGRESOS)
@@ -416,7 +415,7 @@ public class FrmPersonas extends JFrame {
 		        int anioActual=fechaActual.getYear();
 
 		        
-		        Pair<String, String> fechas = obtenerFechasInicioFin(year, month);
+		        Pair<String, String> fechas = FechaIF.obtenerFechasInicioFin(year, month);
 		        String fechaDesde = fechas.getFirst();
 		        String fechaHasta = fechas.getSecond();
 		        String vacio = 0 + ""; //PARA RESETEAR LOS MESES FUTUROS
@@ -547,6 +546,18 @@ public class FrmPersonas extends JFrame {
 	JMenuItem actualizar=new JMenuItem("Actualizar");
 	JMenuItem detalle_ingresos=new JMenuItem("Detalle Ingresos");
 	JMenuItem detalle_egresos=new JMenuItem("Detalle Egresos");
+	JMenuItem estadisticas=new JMenuItem("Estadisticas");
+	estadisticas.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			
+			
+			FrmEstadisticas estadistica = new FrmEstadisticas();
+			estadistica.setVisible(true);
+			setLocationRelativeTo(null);		
+			
+		}
+		
+	});
 	
 	
 	
@@ -565,6 +576,7 @@ public class FrmPersonas extends JFrame {
 	 * AGREGAMOS LOS ITEMS AL MENU HERRAMIENTAS:
 	 */
 	herramientas.add(reportes);
+	herramientas.add(estadisticas);
 	
 	
 	/*
@@ -632,67 +644,6 @@ public class FrmPersonas extends JFrame {
 	
 	} //CIERRE DEL CONSTRUCTOR	
 		
-	
-	/**
-	 * 
-	 * 
-	 * @param datos Este parámetro me permite reutilizar la validación en todos los campos de tipo Number
-	 * @return Esta función retorna un valor verdadero si se trata de numeros del 1 al 9 la cantidad que quieras
-	 */	
-	public static boolean validarNumeros(String datos) {
-	    // Utiliza una expresión regular para validar el formato
-	    String regex = "^([0-9]){1,9}+(\\.[0-9]{2})?$";
-
-	    // Reemplaza la coma por un punto
-	    //datos = datos.replace(",",".").trim();
-
-	    // Comprueba si la cadena coincide con la expresión regular
-	    return datos.matches(regex);
-	}
-	
-	// 
-	
-	/*
-	 * 
-	 * Metodo para obtener fecha de JDateChooser
-	 * 
-	 */
-	 public String getFecha(JDateChooser jd) {
-	   SimpleDateFormat Formato = new SimpleDateFormat("yyyy-MM-dd");
-	   if (jd.getDate() != null) {
-	     return Formato.format(jd.getDate());
-	   } else {
-	     return null;
-	   }
-	 }
-	 
-	 
-	 /*
-	  * VER TEMA NUEVO FUNCION QUE RETORNA UN PAR DE VALORES
-	  * 
-	  * ESTE METODO ESTATICO "PAIR" SE NUTRE DE LA CLASE FECHAINICIOFINDELMES.JAVA
-	  * EL OBJETO "PAIR" NO ES UNA CLASE INCORPORADA EN JAVA ESTANDAR, POR LO QUE NECESITA SER DEFINIDA POR EL USUARIO
-	  * 
-	  * 
-	  */
-	 public static Pair<String, String> obtenerFechasInicioFin(int year, int month) {
-	        Calendar calendar = Calendar.getInstance();
-	        calendar.set(Calendar.YEAR, year);
-	        calendar.set(Calendar.MONTH, month);
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-	        calendar.set(Calendar.DAY_OF_MONTH, 1);
-	        Date fechaDesde = calendar.getTime();
-	        String fechaDesdeStr = dateFormat.format(fechaDesde);
-
-	        calendar.add(Calendar.MONTH, 1);
-	        calendar.add(Calendar.DAY_OF_MONTH, -1);
-	        Date fechaHasta = calendar.getTime();
-	        String fechaHastaStr = dateFormat.format(fechaHasta);
-
-	        return new Pair<>(fechaDesdeStr, fechaHastaStr);
-	    }
-
 
 	//VARIABLES DE CLASE
 
