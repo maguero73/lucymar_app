@@ -33,8 +33,7 @@ public class FrmEstadisticas extends JFrame {
 	 */
 	public FrmEstadisticas() {
 		setTitle("Estadisticas");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);		
 		setSize(800,600);
 
         // Obtén el tamaño de la pantalla
@@ -46,13 +45,8 @@ public class FrmEstadisticas extends JFrame {
 
         // Establece la ubicación del JFrame en el centro de la pantalla
         setLocation(x, y);
-		//setBounds(300, 150, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 	}
 
