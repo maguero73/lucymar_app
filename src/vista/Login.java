@@ -90,7 +90,7 @@ public class Login extends JFrame {
 	 */
 	//METODO CONSTRUCTOR
 	public Login() {
-		setTitle("Iniciá Sesión");
+		setTitle("Iniciar Sesion");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(120, 120, 1000, 730);

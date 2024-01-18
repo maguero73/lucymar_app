@@ -7,10 +7,13 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 public class FrmDetalles extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -51,6 +54,10 @@ public class FrmDetalles extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
+		
+		textField = new JTextField();
+		contentPane.add(textField);
+		textField.setColumns(10);
 	}
 
 }

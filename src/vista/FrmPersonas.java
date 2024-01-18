@@ -83,12 +83,12 @@ public class FrmPersonas extends JFrame {
 		lbl_tipo_gasto.setBounds(47, 316, 144, 26);
 		contentPane.add(lbl_tipo_gasto);
 		
-		lbl_fecha_gasto = new JLabel("Fecha");
-		lbl_fecha_gasto.setBounds(47, 354, 85, 26);
+		lbl_fecha_gasto = new JLabel("Fecha del Gasto");
+		lbl_fecha_gasto.setBounds(47, 354, 117, 26);
 		contentPane.add(lbl_fecha_gasto);
 		
 		lbl_monto_gasto = new JLabel("Monto Gasto");
-		lbl_monto_gasto.setBounds(47, 278, 117, 26);
+		lbl_monto_gasto.setBounds(47, 260, 144, 26);
 		contentPane.add(lbl_monto_gasto);
 		
 		
@@ -97,7 +97,7 @@ public class FrmPersonas extends JFrame {
 		//GLOBO ALERT		
 		txt_monto_gasto.setToolTipText("No se permite la coma como separador decimal");
 		txt_monto_gasto.setColumns(10);
-		txt_monto_gasto.setBounds(209, 278, 136, 28);
+		txt_monto_gasto.setBounds(209, 260, 136, 28);
 		contentPane.add(txt_monto_gasto);
 		setLocationRelativeTo(null);
 		
@@ -148,6 +148,8 @@ public class FrmPersonas extends JFrame {
 		 * VALIDACIONES DEL CAMPO MONTO GASTO
 		 * (ATENCION RESPETAR EL ORDEN)
 		 */
+		
+		JRadioButton radio_gasto_pesos1 = new JRadioButton("Pesos");
 	//01. VALIDA CAMPO VACIO
 		else if(txt_monto_gasto.getText().trim().isEmpty()) {
 			  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
@@ -156,7 +158,8 @@ public class FrmPersonas extends JFrame {
 			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);
 	//03. VALIDA CAMPO EN 0(CERO)		
 		}else if ((Double.parseDouble(txt_monto_gasto.getText().trim()))==0){
-			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);		
+			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);	
+		}else if {	
 		}else if (cbo_tipo_gasto.getSelectedIndex()==0) {
 			
 			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de gasto", "Error", JOptionPane.WARNING_MESSAGE);
@@ -181,7 +184,7 @@ public class FrmPersonas extends JFrame {
 		
 		
 		
-		btn_grabar_gasto.setBounds(534, 279, 117, 25);
+		btn_grabar_gasto.setBounds(534, 302, 117, 25);
 		contentPane.add(btn_grabar_gasto);
 		
 		//BOTON NUEVO
@@ -207,19 +210,6 @@ public class FrmPersonas extends JFrame {
 		});
 		btn_cerrar.setBounds(1066, 620, 117, 25);
 		contentPane.add(btn_cerrar);
-		
-		
-		//JLABEL
-		lbl_monto_ingreso = new JLabel("Monto Ingreso");
-		lbl_monto_ingreso.setBounds(47, 455, 117, 26);
-		contentPane.add(lbl_monto_ingreso);
-		
-		//JTEXTFIELD
-		txt_monto_ingreso = new JTextField();
-		txt_monto_ingreso.setToolTipText("No se permite la coma como separador decimal");
-		txt_monto_ingreso.setColumns(10);
-		txt_monto_ingreso.setBounds(209, 455, 136, 28);
-		contentPane.add(txt_monto_ingreso);
 		
 		//TITULO DEL FORMULARIO
 		lbl_control_gastos = new JLabel("Control de Gastos");
@@ -248,21 +238,21 @@ public class FrmPersonas extends JFrame {
 		contentPane.add(cbo_tipo_gasto);
 		
 		JLabel lbl_tipo_ingreso = new JLabel("Tipo de Ingreso");
-		lbl_tipo_ingreso.setBounds(47, 493, 144, 26);
+		lbl_tipo_ingreso.setBounds(47, 528, 144, 26);
 		contentPane.add(lbl_tipo_ingreso);
 		
 		cbo_tipo_ingreso = new JComboBox<String>();
 		cbo_tipo_ingreso.addItem("Seleccione el tipo de ingreso");
-		cbo_tipo_ingreso.setBounds(209, 495, 273, 24);
+		cbo_tipo_ingreso.setBounds(209, 529, 273, 24);
 		contentPane.add(cbo_tipo_ingreso);
 		
-		JLabel lbl_fecha_ingreso = new JLabel("Fecha");
-		lbl_fecha_ingreso.setBounds(47, 531, 85, 26);
+		JLabel lbl_fecha_ingreso = new JLabel("Fecha del Ingreso");
+		lbl_fecha_ingreso.setBounds(47, 558, 126, 26);
 		contentPane.add(lbl_fecha_ingreso);
 		
 		dateChooser_1 = new JDateChooser();
 		dateChooser_1.setDateFormatString("yyyy-MM-dd");
-		dateChooser_1.setBounds(209, 538, 273, 19);
+		dateChooser_1.setBounds(209, 565, 273, 19);
 		contentPane.add(dateChooser_1);
 		
 		JButton btn_grabar_ingreso = new JButton("Grabar");
@@ -284,7 +274,7 @@ public class FrmPersonas extends JFrame {
 		        java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
 		    } catch (ParseException e2) {
 		        e2.printStackTrace();
-		}
+		    }
 		
 		java.sql.Date dato =null;
 		
@@ -326,7 +316,7 @@ public class FrmPersonas extends JFrame {
 			 * 
 			 * VALIDACION DEL CAMPO FECHA:
 			 */
-			}else if (selectedDate.after(new Date())) {
+		  }else if (selectedDate.after(new Date())) {
 	 // SI LA FECHA SELECCIONADA ES POSTERIOR A LA FECHA ACTUAL ENTONCES ERROR 
 	JOptionPane.showMessageDialog(null, "La fecha seleccionada debe ser anterior o igual a la fecha actual", "Error", JOptionPane.WARNING_MESSAGE);
 			    	
@@ -347,7 +337,7 @@ public class FrmPersonas extends JFrame {
 			
 		});
 		
-		btn_grabar_ingreso.setBounds(534, 466, 117, 25);
+		btn_grabar_ingreso.setBounds(534, 501, 117, 25);
 		contentPane.add(btn_grabar_ingreso);
 		
 		JButton btn_nuevo_ingreso = new JButton("Nuevo");
@@ -362,7 +352,7 @@ public class FrmPersonas extends JFrame {
 				
 			}
 		});
-		btn_nuevo_ingreso.setBounds(534, 532, 117, 25);
+		btn_nuevo_ingreso.setBounds(534, 559, 117, 25);
 		contentPane.add(btn_nuevo_ingreso);
 		
 		JLabel lbl_estado_rdo = new JLabel("Estado de Resultados");
@@ -421,7 +411,7 @@ public class FrmPersonas extends JFrame {
 		        String vacio = 0 + ""; //PARA RESETEAR LOS MESES FUTUROS
 		        
 	// Crear un array para almacenar las sumatorias de cada mes (12 meses)
-	         double[] sumatoriaPorMes = new double[12];
+	         double[] sumatoriaPorMes = new double[12]; //array
 		        	        	  
 		          
 		     for (int i = 0; i < sumatoriaPorMes.length; i++) {
@@ -442,10 +432,10 @@ public class FrmPersonas extends JFrame {
 						text_saldo.setText(vacio); 
 		            
 		          } //CIERRA 2DO IF
-		        }else { //ELSE DEL 1ER Y ULTIMO IF
-					text_total_ingresos.setText(vacio);
-					text_total_egresos.setText(vacio);
-					text_saldo.setText(vacio); 
+		       }else { //ELSE DEL 1ER IF
+	                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_INGRESOS","total", text_total_ingresos,fechaDesde,fechaHasta);
+	                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_GASTOS","total", text_total_egresos,fechaDesde,fechaHasta);
+	                sumatoriaPorMes[i] = calc.saldo(i,"LM_INGRESOS","LM_GASTOS","resultado",text_saldo,fechaDesde,fechaHasta);
 					
 		        }
 		      } //CIERRE DEL FOR   
@@ -488,6 +478,7 @@ public class FrmPersonas extends JFrame {
 	re.RellenarComboBox("LM_TITULAR", "nombre", cbo_titular);
 	re.RellenarComboBox("LM_TIPO_GASTO","descripcion", cbo_tipo_gasto);
 	re.RellenarComboBox("LM_TIPO_INGRESO", "descripcion", cbo_tipo_ingreso);
+	
 	
 	text_total_ingresos = new JTextField();
 	text_total_ingresos.setBounds(873, 465, 114, 19);
@@ -536,6 +527,11 @@ public class FrmPersonas extends JFrame {
 	JMenuItem guardar2=new JMenuItem("Guardar");
 	JMenuItem guardar_como=new JMenuItem("Guardar Como");
 	JMenuItem salir=new JMenuItem("Salir");
+	salir.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			System.exit(WIDTH);
+		}
+	});
 	JMenuItem reportes=new JMenuItem("Reportes");
 	JMenuItem doc=new JMenuItem("Documentación");
 	JMenuItem cortar=new JMenuItem("Cortar");
@@ -545,6 +541,13 @@ public class FrmPersonas extends JFrame {
 	JMenuItem acerca_de=new JMenuItem("Acerca de lucymar_app");
 	JMenuItem actualizar=new JMenuItem("Actualizar");
 	JMenuItem detalle_ingresos=new JMenuItem("Detalle Ingresos");
+	detalle_ingresos.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			FrmDetalles detalle = new FrmDetalles();
+			detalle.setVisible(true);
+			setLocationRelativeTo(null);
+		}
+	});
 	JMenuItem detalle_egresos=new JMenuItem("Detalle Egresos");
 	JMenuItem estadisticas=new JMenuItem("Estadisticas");
 	estadisticas.addActionListener(new ActionListener() {
@@ -641,6 +644,36 @@ public class FrmPersonas extends JFrame {
 	btnDetalleGastos.setBounds(999, 500, 117, 19);
 	contentPane.add(btnDetalleGastos);
 	
+	txt_monto_ingreso = new JTextField();
+	txt_monto_ingreso.setToolTipText("No se permite la coma como separador decimal");
+	txt_monto_ingreso.setColumns(10);
+	txt_monto_ingreso.setBounds(209, 477, 136, 28);
+	contentPane.add(txt_monto_ingreso);
+	
+	JLabel lbl_monto_ingreso = new JLabel("Monto Ingreso");
+	lbl_monto_ingreso.setBounds(47, 477, 144, 26);
+	contentPane.add(lbl_monto_ingreso);
+	
+	//REQUERIMIENTO OBJETIVO MENSUAL:  ENE 2024
+	
+	JRadioButton radio_gasto_pesos = new JRadioButton("Pesos");
+	radio_gasto_pesos.setBounds(353, 262, 75, 23);
+	contentPane.add(radio_gasto_pesos);
+	
+	//radio_gasto_pesos.setSelected(true);
+	
+	JRadioButton radio_gasto_dolares = new JRadioButton("Dolares");
+	radio_gasto_dolares.setBounds(436, 262, 85, 23);
+	contentPane.add(radio_gasto_dolares);
+	
+	JRadioButton radio_ingreso_pesos = new JRadioButton("Pesos");
+	radio_ingreso_pesos.setBounds(353, 477, 75, 23);
+	contentPane.add(radio_ingreso_pesos);
+	
+	JRadioButton radio_ingreso_dolares = new JRadioButton("Dolares");
+	radio_ingreso_dolares.setBounds(436, 477, 85, 23);
+	contentPane.add(radio_ingreso_dolares);
+	
 	
 	} //CIERRE DEL CONSTRUCTOR	
 		
@@ -659,11 +692,10 @@ public class FrmPersonas extends JFrame {
 	public JLabel lbl_fecha_gasto;
 	public JLabel lbl_monto_gasto;
 	public JTextField txt_monto_gasto;
-	public JLabel lbl_monto_ingreso;
-	public JTextField txt_monto_ingreso;
 	public JLabel lbl_control_gastos;
 	public JLabel lbl_titular;
 
 	 PreparedStatement pstmt =null;
 	 private JTextField text_total_ingresos, text_total_egresos, text_saldo;
+	 private JTextField txt_monto_ingreso;
 }
