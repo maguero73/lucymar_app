@@ -40,6 +40,7 @@ import java.util.GregorianCalendar;
 import java.util.*;
 import java.util.Locale;
 import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -139,6 +140,11 @@ public class FrmPersonas extends JFrame {
 		Date selectedDate = dateChooser.getDate();
 		
 
+		
+		
+		JRadioButton radio_pesos = new JRadioButton("Pesos");
+		JRadioButton radio_dolares = new JRadioButton("Dólares");
+		
 		if (cbo_titular.getSelectedIndex()==0) {
 			JOptionPane.showMessageDialog(null, "Debe ingresar el titular del gasto", "Error", JOptionPane.WARNING_MESSAGE);
 		}
@@ -148,8 +154,8 @@ public class FrmPersonas extends JFrame {
 		 * VALIDACIONES DEL CAMPO MONTO GASTO
 		 * (ATENCION RESPETAR EL ORDEN)
 		 */
+	
 		
-		JRadioButton radio_gasto_pesos1 = new JRadioButton("Pesos");
 	//01. VALIDA CAMPO VACIO
 		else if(txt_monto_gasto.getText().trim().isEmpty()) {
 			  JOptionPane.showMessageDialog(null, "Debe ingresar el monto del gasto", "Error", JOptionPane.WARNING_MESSAGE);
@@ -159,7 +165,8 @@ public class FrmPersonas extends JFrame {
 	//03. VALIDA CAMPO EN 0(CERO)		
 		}else if ((Double.parseDouble(txt_monto_gasto.getText().trim()))==0){
 			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);	
-		}else if {	
+		}else if (radio_pesos.isSelected()==false && radio_dolares.isSelected()==false){
+			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de moneda", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);
 		}else if (cbo_tipo_gasto.getSelectedIndex()==0) {
 			
 			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de gasto", "Error", JOptionPane.WARNING_MESSAGE);
@@ -654,29 +661,42 @@ public class FrmPersonas extends JFrame {
 	lbl_monto_ingreso.setBounds(47, 477, 144, 26);
 	contentPane.add(lbl_monto_ingreso);
 	
-	//REQUERIMIENTO OBJETIVO MENSUAL:  ENE 2024
-	
-	JRadioButton radio_gasto_pesos = new JRadioButton("Pesos");
-	radio_gasto_pesos.setBounds(353, 262, 75, 23);
-	contentPane.add(radio_gasto_pesos);
-	
-	//radio_gasto_pesos.setSelected(true);
-	
-	JRadioButton radio_gasto_dolares = new JRadioButton("Dolares");
-	radio_gasto_dolares.setBounds(436, 262, 85, 23);
-	contentPane.add(radio_gasto_dolares);
-	
-	JRadioButton radio_ingreso_pesos = new JRadioButton("Pesos");
-	radio_ingreso_pesos.setBounds(353, 477, 75, 23);
-	contentPane.add(radio_ingreso_pesos);
-	
-	JRadioButton radio_ingreso_dolares = new JRadioButton("Dolares");
-	radio_ingreso_dolares.setBounds(436, 477, 85, 23);
-	contentPane.add(radio_ingreso_dolares);
+
+     JPanel lamina_radio = new JPanel();
+     
+    // Evento_radio mievento=new Evento_radio();
+     
+  
+
+    ButtonGroup migrupo = new ButtonGroup();
+    
+
+    getContentPane().add(lamina_radio, BorderLayout.SOUTH);
+    
+    JRadioButton radio_pesos = new JRadioButton("Pesos");
+    radio_pesos.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		
+    		if(e.getSource()==radio_pesos) {
+    			 System.out.println("has pulsado pesos");
+    		}
+    	}
+    	
+    	
+    });
+    radio_pesos.setBounds(370, 260, 82, 23);
+    contentPane.add(radio_pesos);
+    migrupo.add(radio_pesos);
+    JRadioButton radio_dolares = new JRadioButton("Dólares");
+    radio_dolares.setBounds(450, 260, 86, 23);
+    contentPane.add(radio_dolares);
+    migrupo.add(radio_dolares);
+
 	
 	
 	} //CIERRE DEL CONSTRUCTOR	
 		
+
 
 	//VARIABLES DE CLASE
 
