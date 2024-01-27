@@ -140,10 +140,13 @@ public class FrmPersonas extends JFrame {
 		Date selectedDate = dateChooser.getDate();
 		
 
+	    
+
+
+
 		
-		
-		JRadioButton radio_pesos = new JRadioButton("Pesos");
-		JRadioButton radio_dolares = new JRadioButton("Dólares");
+	//	JRadioButton radio_pesos = new JRadioButton("Pesos");
+	//	JRadioButton radio_dolares = new JRadioButton("Dólares");
 		
 		if (cbo_titular.getSelectedIndex()==0) {
 			JOptionPane.showMessageDialog(null, "Debe ingresar el titular del gasto", "Error", JOptionPane.WARNING_MESSAGE);
@@ -165,7 +168,7 @@ public class FrmPersonas extends JFrame {
 	//03. VALIDA CAMPO EN 0(CERO)		
 		}else if ((Double.parseDouble(txt_monto_gasto.getText().trim()))==0){
 			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);	
-		}else if (radio_pesos.isSelected()==false && radio_dolares.isSelected()==false){
+		}else if ((radio_pesos.isSelected()==false) && radio_dolares.isSelected()==false) {
 			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de moneda", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);
 		}else if (cbo_tipo_gasto.getSelectedIndex()==0) {
 			
@@ -662,35 +665,29 @@ public class FrmPersonas extends JFrame {
 	contentPane.add(lbl_monto_ingreso);
 	
 
-     JPanel lamina_radio = new JPanel();
-     
+    
+
+	
     // Evento_radio mievento=new Evento_radio();
-     
-  
-
-    ButtonGroup migrupo = new ButtonGroup();
-    
-
+	
+	
+	
+	
+	 //RADIO BUTTON TIPO MONEDA
+	 ButtonGroup migrupo = new ButtonGroup();
+    JPanel lamina_radio = new JPanel();
     getContentPane().add(lamina_radio, BorderLayout.SOUTH);
-    
-    JRadioButton radio_pesos = new JRadioButton("Pesos");
-    radio_pesos.addActionListener(new ActionListener() {
-    	public void actionPerformed(ActionEvent e) {
-    		
-    		if(e.getSource()==radio_pesos) {
-    			 System.out.println("has pulsado pesos");
-    		}
-    	}
-    	
-    	
-    });
+    radio_pesos = new JRadioButton("Pesos");
     radio_pesos.setBounds(370, 260, 82, 23);
     contentPane.add(radio_pesos);
-    migrupo.add(radio_pesos);
-    JRadioButton radio_dolares = new JRadioButton("Dólares");
+   
+    radio_dolares = new JRadioButton("Dólares");
     radio_dolares.setBounds(450, 260, 86, 23);
     contentPane.add(radio_dolares);
-    migrupo.add(radio_dolares);
+    migrupo.add(radio_pesos);
+    migrupo.add(radio_dolares); 
+  
+    
 
 	
 	
@@ -714,6 +711,8 @@ public class FrmPersonas extends JFrame {
 	public JTextField txt_monto_gasto;
 	public JLabel lbl_control_gastos;
 	public JLabel lbl_titular;
+	public JRadioButton radio_pesos;
+	public JRadioButton radio_dolares;
 
 	 PreparedStatement pstmt =null;
 	 private JTextField text_total_ingresos, text_total_egresos, text_saldo;
