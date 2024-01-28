@@ -283,6 +283,17 @@ public class FrmPersonas extends JFrame {
 		int valorComboBox = cbo_tipo_ingreso.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
 		
+		String ingresosRadioButton1= radio_pesos_ingresos.getText().trim();
+		String ingresosRadioButton_p = null;
+		if (ingresosRadioButton1 == "Pesos") {
+				ingresosRadioButton_p = "ARS";			
+			}
+		String ingresosRadioButton2 = radio_dolares.getText().trim();
+		String ingresosRadioButton_d=null;
+		if (ingresosRadioButton2 == "Dólares") {
+			ingresosRadioButton_d = "USD";
+		}
+		
 		//OBTENER EL VALOR DE LOS COMPONENTES DE GASTOS
 		 		
 		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -301,6 +312,10 @@ public class FrmPersonas extends JFrame {
 			dato=java.sql.Date.valueOf(fecha1);
 		
 			Date selectedDate = dateChooser_1.getDate();
+			
+			
+			
+			
 			
 		if (cbo_titular.getSelectedIndex()==0) {
 			JOptionPane.showMessageDialog(null, "Debe ingresar el titular del ingreso", "Error", JOptionPane.WARNING_MESSAGE);
@@ -324,7 +339,11 @@ public class FrmPersonas extends JFrame {
 			 * 
 			 * VALIDACION DEL CAMPO TIPO INGRESO:
 			 */
+		}else if ((radio_pesos_ingresos.isSelected()==false) && radio_dolares_ingresos.isSelected()==false) {
+			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de moneda", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);	
+				
 		}else if (cbo_tipo_ingreso.getSelectedIndex()==0) {
+			
 				
 				JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de ingreso", "Error", JOptionPane.WARNING_MESSAGE);
 			}else if (selectedDate == null) {
@@ -341,16 +360,24 @@ public class FrmPersonas extends JFrame {
 			    } else {
 		   	//CORRECTO: LA FECHA SELECCIONADA ES ANTERIOR A LA FECHA ACTUAL
 			//GUARDA EN LA BASE DE DATOS EL GASTO (TABLA LM_GASTOS)		
-		
+			    if (radio_dolares_ingresos.isSelected()==true) {
+			/*
+			 * 
+			 *     
+			 *     GUARDA TODOS LOS INGRESOS EN DOLARES ///	
+			 */
+			    	guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, dato, ingresosRadioButton_d);
+			    }else {
+			    
 	/*
 	 * 
-	 * GUARDA EN LA BASE DE DATOS TODOS LOS INGRESOS (TABLA LM_INGRESOS)
+	 * GUARDA EN LA BASE DE DATOS TODOS LOS INGRESOS EN PESOS (TABLA LM_INGRESOS)
 	 * 		    	
 	 */
-		guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, dato);
+		guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, dato, ingresosRadioButton_p);
 				
-			   }
-			
+			    	}
+			    }
 			}
 			
 		});
@@ -409,7 +436,7 @@ public class FrmPersonas extends JFrame {
 		        int anioSeleccionado = yearChooser.getYear();
 		       
 
-		        // Crear un objeto Calendar y establecerlo con la fecha seleccionada
+      // Crear un objeto Calendar y establecerlo con la fecha seleccionada
 		        Calendar calendar = Calendar.getInstance();
 		   
 
@@ -693,8 +720,20 @@ public class FrmPersonas extends JFrame {
     radio_dolares.setBounds(450, 260, 86, 23);
     contentPane.add(radio_dolares);
     migrupo.add(radio_pesos);
-    migrupo.add(radio_dolares); 
-  
+    migrupo.add(radio_dolares);
+    
+    ButtonGroup migrupo1 = new ButtonGroup();
+    JPanel lamina_radio1 = new JPanel();
+    getContentPane().add(lamina_radio1, BorderLayout.SOUTH);
+    radio_pesos_ingresos = new JRadioButton("Pesos");
+    radio_pesos_ingresos.setBounds(360, 482, 82, 23);
+    contentPane.add(radio_pesos_ingresos);
+    
+    radio_dolares_ingresos = new JRadioButton("Dólares");
+    radio_dolares_ingresos.setBounds(440, 482, 86, 23);
+    contentPane.add(radio_dolares_ingresos);
+    migrupo1.add(radio_pesos_ingresos);
+    migrupo1.add(radio_dolares_ingresos);
     
 
 	
@@ -721,6 +760,8 @@ public class FrmPersonas extends JFrame {
 	public JLabel lbl_titular;
 	public JRadioButton radio_pesos;
 	public JRadioButton radio_dolares;
+	public JRadioButton radio_pesos_ingresos;
+	public JRadioButton radio_dolares_ingresos;
 
 	 PreparedStatement pstmt =null;
 	 private JTextField text_total_ingresos, text_total_egresos, text_saldo;

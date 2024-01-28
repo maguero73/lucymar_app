@@ -101,7 +101,7 @@ public class guardarDatos {
  * 
  * 		
  */
-public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorTextField, Date dato) {
+public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorTextField, Date dato, String ingresosRadioButton) {
 			
 			
 			String sql1;
@@ -116,7 +116,7 @@ public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorT
 			
 			try {
 				
-				sql1= "INSERT INTO LM_INGRESOS (ID, COD_INGRESO, COD_TITULAR, MONTO, FECHA) values (SEC_INGRESOS.nextval,?,?,?,?)";
+				sql1= "INSERT INTO LM_INGRESOS (ID, COD_INGRESO, COD_TITULAR, MONTO, FECHA, CODIGO_MONEDA) values (SEC_INGRESOS.nextval,?,?,?,?,?)";
 						
 				 pstmt =miConexion.conectar().prepareStatement(sql1);
 				
@@ -124,6 +124,7 @@ public void guardarIngresos(int valorComboBox, int valorComboBox1, String valorT
 				 pstmt.setInt(2, valorComboBox1);
 				 pstmt.setString(3, valorTextField);
 				 pstmt.setDate(4, dato);
+				 pstmt.setString(5, ingresosRadioButton);
 					
 					
 					
