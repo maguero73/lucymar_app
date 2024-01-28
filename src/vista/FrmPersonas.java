@@ -117,6 +117,18 @@ public class FrmPersonas extends JFrame {
 		int valorComboBox2 = cbo_tipo_gasto.getSelectedIndex();		
 		int valorComboBox1 = cbo_titular.getSelectedIndex();
 		
+		
+		String valorRadioButton1= radio_pesos.getText().trim();
+		String valorRadioButton_p = null;
+		if (valorRadioButton1 == "Pesos") {
+				valorRadioButton_p = "ARS";			
+			}
+		String valorRadioButton2 = radio_dolares.getText().trim();
+		String valorRadioButton_d=null;
+		if (valorRadioButton2 == "Dólares") {
+			valorRadioButton_d = "USD";
+		}
+		
 		 		
 		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		    String fecha = formato.format(new java.util.Date());
@@ -140,14 +152,7 @@ public class FrmPersonas extends JFrame {
 		Date selectedDate = dateChooser.getDate();
 		
 
-	    
 
-
-
-		
-	//	JRadioButton radio_pesos = new JRadioButton("Pesos");
-	//	JRadioButton radio_dolares = new JRadioButton("Dólares");
-		
 		if (cbo_titular.getSelectedIndex()==0) {
 			JOptionPane.showMessageDialog(null, "Debe ingresar el titular del gasto", "Error", JOptionPane.WARNING_MESSAGE);
 		}
@@ -169,7 +174,7 @@ public class FrmPersonas extends JFrame {
 		}else if ((Double.parseDouble(txt_monto_gasto.getText().trim()))==0){
 			JOptionPane.showMessageDialog(null, "El monto del gasto debe ser numérico, positivo, con un máximo de 9 enteros y 2 decimales", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);	
 		}else if ((radio_pesos.isSelected()==false) && radio_dolares.isSelected()==false) {
-			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de moneda", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de moneda", "Error Monto Gasto", JOptionPane.WARNING_MESSAGE);				
 		}else if (cbo_tipo_gasto.getSelectedIndex()==0) {
 			
 			JOptionPane.showMessageDialog(null, "Debe seleccionar el tipo de gasto", "Error", JOptionPane.WARNING_MESSAGE);
@@ -181,15 +186,18 @@ public class FrmPersonas extends JFrame {
 
 		    	
 		    } else {
+		    	if (radio_dolares.isSelected()==true) {
+		    		guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2, valorRadioButton_d);
+		    	}else {
 		    	//LA FECHA SELECCIONADA ES ANTERIOR A LA FECHA ACTUAL, ES CORRECTA
 		    	//GUARDA EN LA BASE DE DATOS EL GASTO (TABLA LM_GASTOS)			
-				guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2);
+				guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2, valorRadioButton_p);
 				
 		    		}		
 
 				}
 			
-
+			}
 			});
 		
 		
