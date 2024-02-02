@@ -1,6 +1,8 @@
 package controlador;
 
+
 import java.awt.EventQueue;
+import modelo.ActualizarTipoCambioEnBaseDeDatos;
 
 import vista.FrmPersonas;
 
@@ -16,6 +18,7 @@ public class Ejecuta_MVC {
 				try {
 					FrmPersonas frame = new FrmPersonas();
 					frame.setVisible(true);
+					ActualizarTipoCambioEnBaseDeDatos.EjecutarActualizacion();	
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

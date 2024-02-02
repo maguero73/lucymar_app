@@ -16,7 +16,8 @@ import com.google.gson.JsonParser;
 
 public class ActualizarTipoCambioEnBaseDeDatos {
 
-    public static void main(String[] args) throws IOException {
+    public static void EjecutarActualizacion() throws IOException{
+    	
         String apiKey = "de9dac612a7a0ea789b51169"; // Reemplaza con tu clave de API de Open Exchange Rates
         String url = "https://open.er-api.com/v6/latest?app_id=" + apiKey;
 
@@ -28,6 +29,7 @@ public class ActualizarTipoCambioEnBaseDeDatos {
             ((Throwable) e).printStackTrace();
         }
     }
+   
 
     private static String obtenerTipoCambioDesdeAPI(String urlString) throws IOException {
     	  URL url = new URL(urlString);

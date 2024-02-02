@@ -1,5 +1,6 @@
 package modelo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -113,4 +114,61 @@ public double saldo(int i, String tabla1, String tabla2,String valor, JTextField
 	//public PreparedStatement pstmt =null;
 	public Statement st;
 	public PreparedStatement pstmt =null;
+	
+
+
+
+	public static double obtenerTipoCambio(Connection connection) throws SQLException {
+		
+		String sql= "SELECT tipo_cambio FROM LM_INGRESOS WHERE codigo_moneda = 'USD'";
+		
+		try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+	            if (resultSet.next()) {
+	                return resultSet.getDouble("tipo_cambio");
+	            }
+	        }
+	        return -1; // Valor predeterminado en caso de no encontrar el tipo de cambio
+	    }
+	
+	
+	
+   
+	
+	public static Double calcularNuevosIngresos(Connection connection, double tipoCambio) throws SQLException {
+        
+        String sql = "SELECT monto, codigo_moneda FROM LM_INGRESOS";
+        double nuevaSumatoriaIngresos = 0;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                double montoOriginal = resultSet.getDouble("monto");
+                String codigoMoneda = resultSet.getString("codigo_moneda");
+
+                // Convertir el monto a la moneda local
+                double montoLocal = montoOriginal * tipoCambio;
+
+                nuevaSumatoriaIngresos += montoLocal;
+                System.out.println("Nuevo ingreso en moneda local: " + nuevaSumatoriaIngresos);
+            }
+        }
+		return nuevaSumatoriaIngresos;
+	
+		
+    }
 }
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	

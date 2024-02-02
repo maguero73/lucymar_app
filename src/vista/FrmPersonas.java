@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.EventQueue;
+import modelo.ActualizarTipoCambioEnBaseDeDatos;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.*;
@@ -21,6 +22,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 //import java.sql.Date;
 import java.sql.DriverManager;
@@ -34,6 +36,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.Year;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -50,6 +54,7 @@ import java.sql.Date.*;
 import com.toedter.calendar.JYearChooser;
 
 import controlador.Connection_BD;
+import modelo.calculos;
 
 public class FrmPersonas extends JFrame {
 	Connection_BD miConexion;
@@ -58,6 +63,7 @@ public class FrmPersonas extends JFrame {
 	//private static SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
 	//public static Calendar calendar = new GregorianCalendar();
 	//java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	protected static final Double Tcambio  = null;
 	
 	
 	String sql;
@@ -127,6 +133,7 @@ public class FrmPersonas extends JFrame {
 		String valorRadioButton_d=null;
 		if (valorRadioButton2 == "Dólares") {
 			valorRadioButton_d = "USD";
+		
 		}
 		
 		 		
@@ -140,10 +147,20 @@ public class FrmPersonas extends JFrame {
 		           
 		}
 
+	TimeZone.setDefault(TimeZone.getTimeZone("GMT-3"));
 		java.sql.Date dato2=null;
 		
 		//IMPORTANTE CONVERTIMOS LA VARIABLE FECHA DE STRING A DATE (DE LA CLASE JAVA.SQL.DATE)
 		dato2=java.sql.Date.valueOf(fecha);
+		
+		 // Obtener la fecha actual del sistema en la zona horaria de Argentina
+        ZoneId zonaArgentina = ZoneId.of("America/Argentina/Buenos_Aires");
+        LocalDate fechaLocal = LocalDate.now(zonaArgentina);
+
+        // Convertir LocalDate a java.sql.Date
+        java.sql.Date dato3 = java.sql.Date.valueOf(fechaLocal);
+		
+		//java.sql.Date dato3 = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		 
 //VALIDACIONES//
 			
@@ -187,11 +204,11 @@ public class FrmPersonas extends JFrame {
 		    	
 		    } else {
 		    	if (radio_dolares.isSelected()==true) {
-		    		guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2, valorRadioButton_d);
+		    		guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2, valorRadioButton_d, Tcambio, dato3);
 		    	}else {
 		    	//LA FECHA SELECCIONADA ES ANTERIOR A LA FECHA ACTUAL, ES CORRECTA
 		    	//GUARDA EN LA BASE DE DATOS EL GASTO (TABLA LM_GASTOS)			
-				guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2, valorRadioButton_p);
+				guardar.guardarGastos(valorComboBox2, valorComboBox1, valorTextField1, dato2, valorRadioButton_p, Tcambio, dato3);
 				
 		    		}		
 
@@ -366,7 +383,7 @@ public class FrmPersonas extends JFrame {
 			 *     
 			 *     GUARDA TODOS LOS INGRESOS EN DOLARES ///	
 			 */
-			    	guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, dato, ingresosRadioButton_d);
+			  guardar.guardarIngresos(valorComboBox, valorComboBox1, valorTextField, dato, ingresosRadioButton_d);
 			    }else {
 			    
 	/*
@@ -464,7 +481,7 @@ public class FrmPersonas extends JFrame {
 		        if (anioSeleccionado == anioActual) {
 		          if(mesSeleccionado <= mesActual) {	
 		            if (i == mesSeleccionado) {
-		                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_INGRESOS","total", text_total_ingresos,fechaDesde,fechaHasta);
+		                sumatoriaPorMes[i] = (calc.sumatorias(i,"LM_INGRESOS","total", text_total_ingresos,fechaDesde,fechaHasta));
 		                sumatoriaPorMes[i] = calc.sumatorias(i,"LM_GASTOS","total", text_total_egresos,fechaDesde,fechaHasta);
 		                sumatoriaPorMes[i] = calc.saldo(i,"LM_INGRESOS","LM_GASTOS","resultado",text_saldo,fechaDesde,fechaHasta);
 
@@ -484,12 +501,22 @@ public class FrmPersonas extends JFrame {
 					
 		        }
 		      } //CIERRE DEL FOR   
+		     
+		     try {
+				ActualizarTipoCambioEnBaseDeDatos.EjecutarActualizacion();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			}  	
+			
+			
 		});
 		btn_calcular.setBounds(810, 355, 91, 25);
 		contentPane.add(btn_calcular);
 		
 		JButton btn_imprimir = new JButton("Limpiar");
+		//NOTA: EN UN UNICIO SE PENSO COMO BOTON IMPRIMIR
 		btn_imprimir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				text_total_ingresos.setText(null);
@@ -762,6 +789,7 @@ public class FrmPersonas extends JFrame {
 	public JRadioButton radio_dolares;
 	public JRadioButton radio_pesos_ingresos;
 	public JRadioButton radio_dolares_ingresos;
+
 
 	 PreparedStatement pstmt =null;
 	 private JTextField text_total_ingresos, text_total_egresos, text_saldo;
