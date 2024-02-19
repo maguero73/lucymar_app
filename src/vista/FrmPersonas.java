@@ -30,6 +30,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -137,7 +138,7 @@ public class FrmPersonas extends JFrame {
 		}
 		
 		 		
-		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		    String fecha = formato.format(new java.util.Date());
 		    try {
 		        java.util.Date parsedDate = formato.parse(fecha);
@@ -147,19 +148,24 @@ public class FrmPersonas extends JFrame {
 		           
 		}
 
-	TimeZone.setDefault(TimeZone.getTimeZone("GMT-3"));
-		java.sql.Date dato2=null;
-		
-		//IMPORTANTE CONVERTIMOS LA VARIABLE FECHA DE STRING A DATE (DE LA CLASE JAVA.SQL.DATE)
-		dato2=java.sql.Date.valueOf(fecha);
-		
-		 // Obtener la fecha actual del sistema en la zona horaria de Argentina
-        ZoneId zonaArgentina = ZoneId.of("America/Argentina/Buenos_Aires");
-        LocalDate fechaLocal = LocalDate.now(zonaArgentina);
+//GRACIAS SOLUCION AL PROBLEMA DE LA HORA
+		    //CAMPO FECHA_CREACION DEL REGISTRO EN LA BASE DE DATOS
+		Date fechaHoraActual = new Date();
+       
+        Timestamp dato3 = new Timestamp(fechaHoraActual.getTime());
 
-        // Convertir LocalDate a java.sql.Date
-        java.sql.Date dato3 = java.sql.Date.valueOf(fechaLocal);
+		//System.out.println(dato3);
 		
+		
+		
+		//CAMPO FECHA DE INGRESO O GASTO DE LA BASE DE DATOS
+		
+		Date fechaUtil = dateChooser.getDate();
+
+		// Convertir la fecha util a un objeto java.sql.Date
+		java.sql.Date dato2 = new java.sql.Date(fechaUtil.getTime());
+		
+		System.out.println(dato2);
 		//java.sql.Date dato3 = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		 
 //VALIDACIONES//

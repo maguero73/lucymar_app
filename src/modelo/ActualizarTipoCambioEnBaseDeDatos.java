@@ -18,7 +18,8 @@ public class ActualizarTipoCambioEnBaseDeDatos {
 
     public static void EjecutarActualizacion() throws IOException{
     	
-        String apiKey = "de9dac612a7a0ea789b51169"; // Reemplaza con tu clave de API de Open Exchange Rates
+        String apiKey = "de9dac612a7a0ea789b51169"; 
+        // Reemplaza con tu clave de API de Open Exchange Rates
         String url = "https://open.er-api.com/v6/latest?app_id=" + apiKey;
 
         try {
@@ -55,7 +56,7 @@ public class ActualizarTipoCambioEnBaseDeDatos {
 
 
     private static void actualizarTipoCambioEnBaseDeDatos(String tipoCambio) throws SQLException {
-        String urlBaseDatos = "jdbc:oracle:thin:@localhost:51521:xe";
+        String urlBaseDatos = "jdbc:oracle:thin:@localhost:61521:xe";
         String usuario = "SYSTEM";
         String contraseña = "oracle";
 

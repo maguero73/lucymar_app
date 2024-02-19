@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -35,7 +36,7 @@ public class guardarDatos {
 	 * 
 	 * 
 	 */
-	public void guardarGastos(int valorComboBox2, int valorComboBox1, String valorTextField1, Date dato2, String valorRadioButton, Double Tcambio, Date dato3) {
+	public void guardarGastos(int valorComboBox2, int valorComboBox1, String valorTextField1, java.sql.Date dato2, String valorRadioButton, Double Tcambio, Timestamp dato3) {
 		
 		
 		String sql;
@@ -69,7 +70,7 @@ public class guardarDatos {
 				 pstmt.setNull(6, java.sql.Types.DOUBLE);
 			 }
 			 
-			 pstmt.setDate(7, dato3);		
+			 pstmt.setTimestamp(7, dato3);		
 				
 				int rowsAffected=pstmt.executeUpdate();
 				if (rowsAffected > 0) {

@@ -21,7 +21,7 @@ public class Connection_BD {
 		
 		user="SYSTEM";
 		pass="oracle";
-		url="jdbc:oracle:thin:@localhost:51521:xe";
+		url="jdbc:oracle:thin:@localhost:61521:xe";
 		miConexion=null;
 		st=null;
 		
