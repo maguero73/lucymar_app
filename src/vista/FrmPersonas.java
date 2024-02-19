@@ -33,6 +33,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -138,7 +139,7 @@ public class FrmPersonas extends JFrame {
 		}
 		
 		 		
-		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		    String fecha = formato.format(new java.util.Date());
 		    try {
 		        java.util.Date parsedDate = formato.parse(fecha);
@@ -148,24 +149,36 @@ public class FrmPersonas extends JFrame {
 		           
 		}
 
-//GRACIAS SOLUCION AL PROBLEMA DE LA HORA
-		    //CAMPO FECHA_CREACION DEL REGISTRO EN LA BASE DE DATOS
+
+		//CAMPO FECHA_CREACION  (DEBE LLEVAR LA HORA)
 		Date fechaHoraActual = new Date();
        
         Timestamp dato3 = new Timestamp(fechaHoraActual.getTime());
 
 		//System.out.println(dato3);
 		
+		//------------------------------------------------------------
+        //------------------------------------------------------------
 		
+		//CAMPO: FECHA   --SIN LA HORA OK
 		
-		//CAMPO FECHA DE INGRESO O GASTO DE LA BASE DE DATOS
-		
-		Date fechaUtil = dateChooser.getDate();
+     // Obtener la fecha seleccionada del JDateChooser
+        java.util.Date fechaUtil = dateChooser.getDate();
+
+        // Convertir la fecha seleccionada a un objeto LocalDate
+        Instant instant = fechaUtil.toInstant();
+        LocalDate fechaSeleccionada = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Convertir LocalDate a java.sql.Date
+        java.sql.Date dato2 = java.sql.Date.valueOf(fechaSeleccionada);
+
+        // Crear un objeto Date a partir de la fecha seleccionada
+        
 
 		// Convertir la fecha util a un objeto java.sql.Date
-		java.sql.Date dato2 = new java.sql.Date(fechaUtil.getTime());
+	//	java.sql.Date dato2 = new java.sql.Date(fechaUtil.getTime());
 		
-		System.out.println(dato2);
+		//System.out.println(dato2);
 		//java.sql.Date dato3 = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		 
 //VALIDACIONES//
