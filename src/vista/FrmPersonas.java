@@ -331,7 +331,7 @@ public class FrmPersonas extends JFrame {
 		}
 		
 		//OBTENER EL VALOR DE LOS COMPONENTES DE GASTOS
-		 		
+		 /*		
 		    SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		    String fecha1 = formato.format(new java.util.Date());
 		    try {
@@ -340,12 +340,16 @@ public class FrmPersonas extends JFrame {
 		    } catch (ParseException e2) {
 		        e2.printStackTrace();
 		    }
-		
-		java.sql.Date dato =null;
-		
-		//CONVERTIMOS LA VARIABLE DE STRING A DATE (PERO USANDO LA CLASE JAVA.SQL.DATE)
-		//IMPORTANTE!!
-			dato=java.sql.Date.valueOf(fecha1);
+		*/
+		// Obtener la fecha seleccionada del JDateChooser
+		java.util.Date fechaUtil = dateChooser_1.getDate();
+
+		// Convertir la fecha seleccionada a un objeto LocalDate
+		Instant instant = fechaUtil.toInstant();
+		LocalDate fechaSeleccionada = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+
+		// Convertir LocalDate a java.sql.Date
+		java.sql.Date dato = java.sql.Date.valueOf(fechaSeleccionada);
 		
 			Date selectedDate = dateChooser_1.getDate();
 			
