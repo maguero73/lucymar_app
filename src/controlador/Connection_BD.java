@@ -20,7 +20,7 @@ public class Connection_BD {
 	public Connection_BD() {
 		
 		user="SYSTEM";
-		pass="oracle";
+		pass="maguero";
 		url="jdbc:oracle:thin:@localhost:61521:xe";
 		miConexion=null;
 		st=null;

@@ -160,19 +160,20 @@ public class FrmPersonas extends JFrame {
 		//------------------------------------------------------------
         //------------------------------------------------------------
 		
-		//CAMPO: FECHA   --SIN LA HORA OK
+		//CAMPO: FECHA  
 		
      // Obtener la fecha seleccionada del JDateChooser
+        java.sql.Date dato2 = null;
         java.util.Date fechaUtil = dateChooser.getDate();
 
-        // Convertir la fecha seleccionada a un objeto LocalDate
-        Instant instant = fechaUtil.toInstant();
-        LocalDate fechaSeleccionada = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-
-        // Convertir LocalDate a java.sql.Date
-        java.sql.Date dato2 = java.sql.Date.valueOf(fechaSeleccionada);
-
-        // Crear un objeto Date a partir de la fecha seleccionada
+        if (fechaUtil == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccioná una fecha.", "Fecha requerida", JOptionPane.WARNING_MESSAGE);
+            return; // importante: no continuar
+        } else {
+            Instant instant = fechaUtil.toInstant();
+            LocalDate fechaSeleccionada = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            dato2 = java.sql.Date.valueOf(fechaSeleccionada);
+        }
         
 
 		// Convertir la fecha util a un objeto java.sql.Date
